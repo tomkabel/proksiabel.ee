@@ -9,9 +9,9 @@ export default function Expertise() {
           <div className="lg:w-1/2">
             <div className="relative">
               <div className="aspect-w-3 aspect-h-4 rounded-2xl overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&q=80" 
-                  alt="Cybersecurity expert working" 
+                <img
+                  src="https://www.upload.ee/image/17805348/alinabirjuk-8501.jpg"
+                  alt="Cybersecurity expert working"
                   className="object-cover w-full h-full"
                 />
               </div>
@@ -20,7 +20,7 @@ export default function Expertise() {
               </div>
             </div>
           </div>
-          
+
           <div className="mt-12 lg:mt-0 lg:w-1/2">
             <h2 className="text-3xl font-bold text-white sm:text-4xl mb-6">
               Meet Your Security Expert
@@ -35,7 +35,7 @@ export default function Expertise() {
             <p className="text-gray-300 mb-8">
               I specialize in identifying and mitigating the exact techniques that hackers use to compromise web applications and steal sensitive data through man-in-the-middle attacks.
             </p>
-            
+
             <div className="space-y-4">
               <div className="flex items-start">
                 <div className="flex-shrink-0 bg-slate-800 p-3 rounded-lg">
@@ -46,7 +46,7 @@ export default function Expertise() {
                   <p className="text-gray-300">Deep understanding of web protocols, authentication systems, and proxy technologies</p>
                 </div>
               </div>
-              
+
               <div className="flex items-start">
                 <div className="flex-shrink-0 bg-slate-800 p-3 rounded-lg">
                   <Eye className="h-6 w-6 text-cyan-500" />
@@ -56,7 +56,7 @@ export default function Expertise() {
                   <p className="text-gray-300">First-hand knowledge of tools like evilginx2, modlishka, and mureana</p>
                 </div>
               </div>
-              
+
               <div className="flex items-start">
                 <div className="flex-shrink-0 bg-slate-800 p-3 rounded-lg">
                   <Shield className="h-6 w-6 text-cyan-500" />
