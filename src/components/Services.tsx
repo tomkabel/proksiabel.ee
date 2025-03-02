@@ -24,7 +24,7 @@ export default function Services() {
             <ul className="mt-6 space-y-2 text-gray-300">
               <li className="flex items-start">
                 <span className="text-cyan-500 mr-2">•</span>
-                <span>Network traffic analysis</span>
+                <span>Website traffic analysis</span>
               </li>
               <li className="flex items-start">
                 <span className="text-cyan-500 mr-2">•</span>

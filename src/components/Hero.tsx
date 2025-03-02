@@ -23,12 +23,12 @@ export default function Hero() {
             </a>
           </div>
         </div>
-        
+
         <div className="mt-24 grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="flex flex-col items-center p-6 bg-slate-800/50 rounded-lg backdrop-blur-sm">
             <Target className="h-12 w-12 text-cyan-500 mb-4" />
             <h3 className="text-xl font-bold text-white mb-2">Threat Assessment</h3>
-            <p className="text-gray-300 text-center">In-depth analysis of your network vulnerabilities from an attacker's perspective</p>
+            <p className="text-gray-300 text-center">In-depth analysis of your website from an attacker's perspective</p>
           </div>
           <div className="flex flex-col items-center p-6 bg-slate-800/50 rounded-lg backdrop-blur-sm">
             <Shield className="h-12 w-12 text-cyan-500 mb-4" />
