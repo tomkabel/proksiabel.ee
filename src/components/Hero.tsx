@@ -15,12 +15,12 @@ export default function Hero() {
             Get personalized consultation from a security expert with hands-on experience in both offensive and defensive cybersecurity. We provide expertise to protect your business from MITM attacks.
           </p>
           <div className="mt-10 flex justify-center gap-4">
-            <button className="rounded-md px-8 py-3 bg-cyan-500 text-white font-medium hover:bg-cyan-600 transition-colors">
+            <a href="#contact" className="rounded-md px-8 py-3 bg-cyan-500 text-white font-medium hover:bg-cyan-600 transition-colors">
               Book Consultation
-            </button>
-            <button className="rounded-md px-8 py-3 border border-cyan-500 text-cyan-500 font-medium hover:bg-cyan-500/10 transition-colors">
+            </a>
+            <a href="#services" className="rounded-md px-8 py-3 border border-cyan-500 text-cyan-500 font-medium hover:bg-cyan-500/10 transition-colors">
               Learn More
-            </button>
+            </a>
           </div>
         </div>
         

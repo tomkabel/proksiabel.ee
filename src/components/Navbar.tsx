@@ -4,6 +4,14 @@ import { Shield, Menu, X, Lock } from 'lucide-react';
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <nav className="bg-slate-900/95 backdrop-blur-sm fixed w-full z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,13 +31,13 @@ export default function Navbar() {
             </div>
           </div>
           <div className="hidden md:block">
-            <button className="px-4 py-2 rounded bg-cyan-500 text-white hover:bg-cyan-600 transition-colors">
+            <a href="#contact" className="px-4 py-2 rounded bg-cyan-500 text-white hover:bg-cyan-600 transition-colors">
               Book Consultation
-            </button>
+            </a>
           </div>
           <div className="md:hidden">
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={toggleMenu}
               className="text-gray-400 hover:text-white"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -41,14 +49,14 @@ export default function Navbar() {
       {isMenuOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-slate-900/95 backdrop-blur-sm">
-            <a href="#services" className="text-gray-300 hover:text-white block px-3 py-2">Services</a>
-            <a href="#expertise" className="text-gray-300 hover:text-white block px-3 py-2">Expertise</a>
-            <a href="#about" className="text-gray-300 hover:text-white block px-3 py-2">About</a>
-            <a href="#contact" className="text-gray-300 hover:text-white block px-3 py-2">Contact</a>
+            <a href="#services" onClick={closeMenu} className="text-gray-300 hover:text-white block px-3 py-2">Services</a>
+            <a href="#expertise" onClick={closeMenu} className="text-gray-300 hover:text-white block px-3 py-2">Expertise</a>
+            <a href="#about" onClick={closeMenu} className="text-gray-300 hover:text-white block px-3 py-2">About</a>
+            <a href="#contact" onClick={closeMenu} className="text-gray-300 hover:text-white block px-3 py-2">Contact</a>
             <div className="px-3 py-2">
-              <button className="w-full px-4 py-2 rounded bg-cyan-500 text-white hover:bg-cyan-600 transition-colors">
+              <a href="#contact" onClick={closeMenu} className="w-full px-4 py-2 rounded bg-cyan-500 text-white hover:bg-cyan-600 transition-colors block text-center">
                 Book Consultation
-              </button>
+              </a>
             </div>
           </div>
         </div>
