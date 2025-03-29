@@ -16,7 +16,7 @@ export default function Expertise() {
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 bg-cyan-500 rounded-lg p-6 shadow-xl">
-                <p className="text-white font-bold text-xl">3+ Years Experience</p>
+                <p className="text-white font-bold text-xl">5+ Years Experience</p>
               </div>
             </div>
           </div>
