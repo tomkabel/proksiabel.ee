@@ -5,6 +5,7 @@ import Services from './components/Services';
 import Expertise from './components/Expertise';
 import About from './components/About';
 import Contact from './components/Contact';
+import Pgp from './components/Pgp';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Expertise />
       <About />
       <Contact />
+      <Pgp />
     </div>
   );
 }

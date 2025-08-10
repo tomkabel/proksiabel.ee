@@ -27,6 +27,7 @@ export default function Navbar() {
                 <a href="#expertise" className="text-gray-300 hover:text-white transition-colors">Expertise</a>
                 <a href="#about" className="text-gray-300 hover:text-white transition-colors">About</a>
                 <a href="#contact" className="text-gray-300 hover:text-white transition-colors">Contact</a>
+                <a href="#pgp" className="text-gray-300 hover:text-white transition-colors">PGP Key</a>
               </div>
             </div>
           </div>
@@ -53,6 +54,7 @@ export default function Navbar() {
             <a href="#expertise" onClick={closeMenu} className="text-gray-300 hover:text-white block px-3 py-2">Expertise</a>
             <a href="#about" onClick={closeMenu} className="text-gray-300 hover:text-white block px-3 py-2">About</a>
             <a href="#contact" onClick={closeMenu} className="text-gray-300 hover:text-white block px-3 py-2">Contact</a>
+            <a href="#pgp" onClick={closeMenu} className="text-gray-300 hover:text-white block px-3 py-2">PGP Key</a>
             <div className="px-3 py-2">
               <a href="#contact" onClick={closeMenu} className="w-full px-4 py-2 rounded bg-cyan-500 text-white hover:bg-cyan-600 transition-colors block text-center">
                 Book Consultation
