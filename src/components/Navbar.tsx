@@ -19,7 +19,7 @@ export default function Navbar() {
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center gap-2">
               <Lock className="h-8 w-8 text-cyan-500" />
-              <span className="text-white font-bold text-xl">ProxyAbel</span>
+              <span className="text-white font-bold text-xl">ProksiAbel</span>
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-6">

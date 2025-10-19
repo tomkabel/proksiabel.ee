@@ -10,13 +10,13 @@ export default function Expertise() {
             <div className="relative">
               <div className="aspect-w-3 aspect-h-4 rounded-2xl overflow-hidden">
                 <img
-                  src="https://www.upload.ee/image/17805348/alinabirjuk-8501.jpg"
+                  src="/suit001.png"
                   alt="Cybersecurity expert working"
                   className="object-cover w-full h-full"
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 bg-cyan-500 rounded-lg p-6 shadow-xl">
-                <p className="text-white font-bold text-xl">5+ Years Experience</p>
+                <p className="text-white font-bold text-xl">6+ Years Experience</p>
               </div>
             </div>
           </div>
@@ -30,10 +30,10 @@ export default function Expertise() {
               <p className="text-xl text-gray-300">Former Hacker Turned Cybersecurity Specialist</p>
             </div>
             <p className="text-gray-300 mb-6">
-              At 23, I bring a unique perspective to cybersecurity, having transitioned from exploring offensive techniques to building robust defensive solutions. My hands-on experience with MITM attack tools gives me insight that traditional security professionals often lack.
+             My expertise lies in advanced security research, where I leverage innovative analysis techniques and develop custom tools to tackle complex security challenges. My background in offensive security provides a unique advantage in creating resilient defensive strategies.
             </p>
             <p className="text-gray-300 mb-8">
-              I specialize in identifying and mitigating the exact techniques that hackers use to compromise web applications and steal sensitive data through man-in-the-middle attacks.
+              I have a proven track record of identifying critical vulnerabilities in modern web applications and have even authored a proof-of-concept for bypassing a major platform's client-side bot detection system.
             </p>
 
             <div className="space-y-4">
@@ -43,7 +43,7 @@ export default function Expertise() {
                 </div>
                 <div className="ml-4">
                   <h4 className="text-white font-semibold">Technical Expertise</h4>
-                  <p className="text-gray-300">Deep understanding of web protocols, authentication systems, and proxy technologies</p>
+                  <p className="text-gray-300">In-depth security analysis of modern complex web applications and custom tool development in Golang.</p>
                 </div>
               </div>
 
@@ -52,8 +52,8 @@ export default function Expertise() {
                   <Eye className="h-6 w-6 text-cyan-500" />
                 </div>
                 <div className="ml-4">
-                  <h4 className="text-white font-semibold">Attacker's Perspective</h4>
-                  <p className="text-gray-300">First-hand knowledge of tools like evilginx2, modlishka, and mureana</p>
+                  <h4 className="text-white font-semibold">Offensive Security Mindset</h4>
+                  <p className="text-gray-300">Authored proof-of-concept of bypassing a modern, commonly encountered client-side bot detection system.</p>
                 </div>
               </div>
 

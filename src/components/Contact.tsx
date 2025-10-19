@@ -10,7 +10,7 @@ export default function Contact() {
             Get In Touch
           </h2>
           <p className="mt-4 text-xl text-gray-300 max-w-3xl mx-auto">
-            Ready to secure your digital infrastructure against MITM attacks? Contact us today.
+            Ready to enhance your security posture? Contact us for a specialized threat assessment.
           </p>
         </div>
         

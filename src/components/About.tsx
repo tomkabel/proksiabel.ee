@@ -71,13 +71,13 @@ export default function About() {
             <div>
               <h3 className="text-2xl font-bold text-white mb-6">Our Mission</h3>
               <p className="text-gray-300 mb-4">
-                At ProksiAbel OÜ, we're committed to protecting businesses from sophisticated cyber threats, with a special focus on man-in-the-middle attacks that can compromise sensitive data and user credentials.
+                Founded on the principles of proactive security, ProksiAbel OÜ specializes in providing digital security consulting for businesses. Our mission is to safeguard your assets through comprehensive web application penetration testing and diligent vulnerability management.
               </p>
               <p className="text-gray-300 mb-4">
-                Our approach combines technical expertise with practical experience to deliver security solutions that work in real-world scenarios, not just in theory.
+                We implement secure development practices tailored to each client's unique requirements, ensuring robust protection against emerging threats. Our approach is fortified by continuous security research and the development of innovative tools that enhance testing processes.
               </p>
               <p className="text-gray-300">
-                We believe that understanding the attacker's mindset is essential to building effective defenses, which is why our consultation services are built on first-hand knowledge of offensive security techniques.
+                Our expertise extends to combating sophisticated social engineering tactics, providing a holistic security service that truly understands and counters the attacker's mindset.
               </p>
             </div>
           </div>
