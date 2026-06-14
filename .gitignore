@@ -24,3 +24,37 @@ dist-ssr
 *.sw?
 .bolt/prompt
 .bolt/config.json
+
+# AI/Agent tooling configs
+.agents/
+.claude-flow/
+.claude/
+.commandcode/
+.kilocode/
+.serena/
+skills-lock.json
+
+# E2E testing
+.playwright-mcp/
+
+# Local databases
+*.db
+
+# Nested projects
+proksiabel/
+
+# Dev workflow tooling
+openspec/
+
+# Stale build artifacts
+pub/assets/index-C6ONCxts.css
+pub/assets/index-DwF39Qx7.js
+
+# Stray files
+,.
+
+# Incomplete component (missing lib/lenis module)
+src/components/Layout.tsx
+
+# External tool scripts (ImageMagick)
+scripts/
