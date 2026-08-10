@@ -50,7 +50,7 @@ Documented biome exceptions (see `biome.json` `overrides` / rule config):
   `#services`, `#contact`) is a legitimate anchor use, not a JS button.
 - `public/**` has `a11y` off: static assets (favicon, og-image) are not part
   of the rendered DOM's accessibility surface.
-- `src/index.css`: `noUnknownAtRules` off (Tailwind v3 `@tailwind` directives)
+- `src/index.css`: `noUnknownAtRules` off (Tailwind v4 `@theme`/`@apply`/`@import "tailwindcss"` syntax)
   and `noImportantStyles` off (reduced-motion block needs `!important`).
 - `src/components/Venn/VennDiagram.tsx`: `noStaticElementInteractions` off —
   the Venn is a pointer-explored visualization inside `role="img"`; zone
@@ -208,7 +208,7 @@ const [isLoading, setIsLoading] = React.useState(true);
 | `vite.config.ts` | Vite build configuration (output: `pub/`) |
 | `tsconfig.app.json` | TypeScript config (strict mode) |
 | `biome.json` | Biome config (format + lint + import organization) |
-| `tailwind.config.js` | Tailwind CSS configuration |
+| `src/index.css` `@theme` | Tailwind v4 CSS-first theme config (v4 has no tailwind.config.js) |
 | `postcss.config.js` | PostCSS configuration |
 
 ---
@@ -229,7 +229,7 @@ const [isLoading, setIsLoading] = React.useState(true);
 
 ### Modifying styles
 - Tailwind classes go directly in JSX `className` attributes
-- Global styles go in `src/index.css` (Tailwind directives only)
+- Global styles go in `src/index.css` (Tailwind v4: `@import "tailwindcss"`, `@theme` tokens)
 
 ---
 
