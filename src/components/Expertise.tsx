@@ -1,8 +1,10 @@
-import { Code, Shield, Eye, MapPin } from 'lucide-react';
+import React from 'react';
+import { Code, Shield, Eye, MapPin, Award } from 'lucide-react';
 import { useTranslation } from '../i18n';
 
 export default function Expertise() {
   const { t } = useTranslation();
+  const [imgFailed, setImgFailed] = React.useState(false);
 
   const expertiseItems = [
     {
@@ -35,25 +37,39 @@ export default function Expertise() {
           <div className="animate-fade-in">
             <div className="relative">
               {/* Image Container */}
-              <div className="relative aspect-[3/4] rounded-3xl overflow-hidden">
+              <div className="relative aspect-[3/4] rounded-3xl overflow-hidden ring-1 ring-white/10">
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900" />
-                <img
-                  src="/expert.webp"
-                  alt="Tom Kristian Abel - Founder and Security Consultant at ProksiAbel OÜ"
-                  className="object-cover w-full h-full"
-                  loading="lazy"
-                  decoding="async"
-                />
+                {imgFailed ? (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+                    <Shield className="h-12 w-12 text-sky-500/60" aria-hidden="true" />
+                    <span className="text-sm text-slate-400">{t.expertise.name}</span>
+                  </div>
+                ) : (
+                  <img
+                    src="/expert.webp"
+                    alt="Tom Kristian Abel - Founder and Security Consultant at ProksiAbel OÜ"
+                    className="object-cover w-full h-full"
+                    loading="lazy"
+                    decoding="async"
+                    onError={() => setImgFailed(true)}
+                  />
+                )}
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
               </div>
             </div>
 
-            {/* Location & Photo Credit */}
-            <div className="flex items-center justify-between mt-6 px-2">
-              <div className="flex items-center gap-2 text-sm text-slate-400">
-                <MapPin className="h-4 w-4" />
-                <span>{t.expertise.location}</span>
+            {/* Credentials Row */}
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 px-2">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-500/20 bg-sky-500/10 px-3 py-1 text-sm font-medium text-sky-300">
+                  <Award className="h-4 w-4" aria-hidden="true" />
+                  {t.expertise.experience}
+                </span>
+                <span className="inline-flex items-center gap-2 text-sm text-slate-400">
+                  <MapPin className="h-4 w-4" aria-hidden="true" />
+                  {t.expertise.location}
+                </span>
               </div>
               <p className="text-xs text-slate-400">{t.expertise.photoCredit}</p>
             </div>
@@ -63,12 +79,12 @@ export default function Expertise() {
           <div className="animate-slide-up stagger-2">
             {/* Header */}
             <div className="mb-8">
-              <div className="accent-line mb-4" />
-              <h2 className="heading-2 mb-2">{t.expertise.title}</h2>
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+              <h2 className="heading-2 mb-3">{t.expertise.title}</h2>
+              <div className="flex flex-wrap items-center gap-3">
                 <h3 className="text-2xl font-bold text-sky-400">{t.expertise.name}</h3>
-                <span className="hidden sm:block w-px h-6 bg-slate-700" />
-                <p className="text-lg text-slate-300">{t.expertise.role}</p>
+                <span className="inline-flex items-center rounded-full border border-sky-500/30 bg-sky-500/10 px-3 py-1 text-sm font-medium text-sky-300">
+                  {t.expertise.role}
+                </span>
               </div>
             </div>
 
@@ -87,14 +103,14 @@ export default function Expertise() {
               {expertiseItems.map((item) => (
                 <div 
                   key={item.title}
-                  className="group flex items-start gap-4 p-5 rounded-xl bg-slate-800/50 border border-slate-700/50 hover:border-sky-500/30 hover:bg-slate-800 transition-all duration-300"
+                  className="group flex items-start gap-4 p-5 rounded-xl bg-slate-800/50 border border-slate-600/50 hover:border-sky-500/30 hover:bg-slate-800 transition-all duration-300"
                 >
                   <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500/20 to-teal-500/20 flex items-center justify-center group-hover:from-sky-500/30 group-hover:to-teal-500/30 transition-all duration-300">
                     <item.icon className="h-6 w-6 text-sky-400" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-white mb-1">{item.title}</h4>
-                    <p className="text-slate-400 text-sm">{item.description}</p>
+                    <p className="text-slate-300 text-sm">{item.description}</p>
                   </div>
                 </div>
               ))}

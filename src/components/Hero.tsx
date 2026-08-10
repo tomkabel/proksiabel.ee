@@ -98,7 +98,7 @@ export default function Hero() {
                     return (
                       <div 
                         key={service.title}
-                        className="group flex items-center gap-4 p-4 rounded-xl bg-slate-800/50 border border-slate-700/50 hover:border-sky-500/30 hover:bg-slate-800/50 transition-all duration-300"
+                        className="group flex items-center gap-4 p-4 rounded-xl bg-slate-800/50 border border-slate-600/50 hover:border-sky-500/30 hover:bg-slate-800/50 transition-all duration-300"
                       >
                         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500/20 to-teal-500/20 flex items-center justify-center">
                           <Icon className="h-6 w-6" />
@@ -107,7 +107,7 @@ export default function Hero() {
                           <h3 className="font-semibold text-white group-hover:text-sky-400 transition-colors">
                             {service.title}
                           </h3>
-                          <p className="text-sm text-slate-400 line-clamp-2">
+                          <p className="text-sm text-slate-300 line-clamp-2">
                             {service.heroDescription}
                           </p>
                         </div>

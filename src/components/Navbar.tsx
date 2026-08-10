@@ -54,7 +54,6 @@ export default function Navbar() {
     { href: '/#expertise', label: t.nav.expertise },
     { href: '/#about', label: t.nav.about },
     { href: '/#contact', label: t.nav.contact },
-    { href: '/#pgp', label: t.nav.pgpKey },
   ];
 
   return (
