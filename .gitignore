@@ -26,12 +26,49 @@ dist-ssr
 .bolt/config.json
 
 # AI/Agent tooling configs
+.adal/
 .agents/
+.aider-desk/
+.augment/
+.bob/
 .claude-flow/
 .claude/
+.codeartsdoer/
+.codebuddy/
+.codemaker/
+.codestudio/
 .commandcode/
+.continue/
+.cortex/
+.crush/
+.devin/
+.factory/
+.forge/
+.goose/
+.goose-aeo.yml
+.hermes/
+.iflow/
+.inferencesh/
+.junie/
+.kiro/
 .kilocode/
+.kode/
+.mcpjam/
+.mux/
+.neovate/
+.openhands/
+.pi/
+.pochi/
+.qoder/
+.qwen/
+.roo/
+.rovodev/
 .serena/
+.tabnine/
+.trae/
+.vibe/
+.windsurf/
+.zencoder/
 skills-lock.json
 
 # E2E testing
@@ -53,9 +90,11 @@ openspec/
 # Stale build artifacts
 pub/assets/index-C6ONCxts.css
 pub/assets/index-DwF39Qx7.js
+*.tsbuildinfo
 
 # Stray files
 ,.
+${WORKSPACE_ROOT}
 
 # Incomplete component (missing lib/lenis module)
 src/components/Layout.tsx
