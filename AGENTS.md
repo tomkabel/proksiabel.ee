@@ -8,6 +8,8 @@ This document provides guidelines for AI agents working on this codebase.
 - **Purpose**: Security consultancy landing page (ProksiAbel OÜ)
 - **Output Directory**: `pub/` (not default `dist`)
 - **No tests currently configured**
+- **i18n**: EN + ET, both in `src/i18n/translations.ts`; default language is Estonian
+- **Deploy**: Cloudflare Workers static assets (`wrangler deploy --assets=pub`); GitHub Pages workflow exists but is not the live origin
 
 ---
 
@@ -20,7 +22,7 @@ npm run dev          # Start Vite dev server
 
 ### Building
 ```bash
-npm run build        # Build for production (outputs to pub/)
+npm run build        # tsc -b && vite build, then postbuild (updates sitemap lastmod, copies 404.html, prerenders every route from sitemap.xml into pub/ via system Chromium)
 npm run preview      # Preview production build locally
 ```
 
@@ -56,6 +58,12 @@ Documented biome exceptions (see `biome.json` `overrides` / rule config):
   the Venn is a pointer-explored visualization inside `role="img"`; zone
   content is reachable without interaction.
 
+### Images / Cloudflare
+```bash
+npm run optimize-images        # Optimize images (requires ImageMagick; see scripts/check-imagemagick.sh)
+scripts/cloudflare-apply.sh    # Apply Cloudflare zone config (SSL, cache rules, redirects); reads wrangler OAuth token
+```
+
 ### No Test Framework
 This project does NOT currently have a test framework (Vitest/Jest) configured. Do not write tests unless explicitly instructed.
 
@@ -74,11 +82,11 @@ This project does NOT currently have a test framework (Vitest/Jest) configured. 
 
 ```
 src/
-├── components/       # React components
-│   ├── Navbar.tsx
-│   ├── Hero.tsx
-│   └── data.ts       # Static data/constants
-├── App.tsx           # Root component
+├── components/       # React components (incl. guides: Fido2PasskeysGuide.tsx, SsrfGuide.tsx; SEOMeta.tsx for per-route head)
+├── config/           # Static config (images.ts)
+├── data/             # Static data (contact.tsx, projects.ts)
+├── i18n/             # translations.ts (en + et), LanguageProvider/useTranslation
+├── App.tsx           # Root component (routes)
 ├── main.tsx          # Entry point
 └── index.css         # Global styles (Tailwind directives)
 ```
@@ -206,10 +214,14 @@ const [isLoading, setIsLoading] = React.useState(true);
 | File | Purpose |
 |------|---------|
 | `vite.config.ts` | Vite build configuration (output: `pub/`) |
+| `tsconfig.json` | Solution-style root (references only — see Pitfalls) |
 | `tsconfig.app.json` | TypeScript config (strict mode) |
 | `biome.json` | Biome config (format + lint + import organization) |
 | `tailwind.config.js` | Tailwind CSS configuration |
 | `postcss.config.js` | PostCSS configuration |
+| `scripts/prerender.js` | Post-build prerender (puppeteer-core + system Chromium) |
+| `scripts/postbuild-seo.js` | Post-build sitemap lastmod + 404.html |
+| `.github/workflows/static.yml` | GitHub Pages deploy (CI: npm ci → tsc --noEmit → lint → build) |
 
 ---
 
@@ -227,6 +239,12 @@ const [isLoading, setIsLoading] = React.useState(true);
 1. Import from `lucide-react`: `import { IconName } from 'lucide-react';`
 2. Use in JSX: `<IconName className="h-6 w-6 text-cyan-500" />`
 
+### Adding a new guide (e.g. /guides/foo)
+1. Add route in `App.tsx` + component in `src/components/` (with SEOMeta for per-route title/canonical/JSON-LD)
+2. Wire it into `Footer.tsx`, `pub/sitemap.xml`, and `pub/llms.txt`
+3. Rebuild so prerender generates the route HTML
+4. Guides are English-only by design (English search cluster)
+
 ### Modifying styles
 - Tailwind classes go directly in JSX `className` attributes
 - Global styles go in `src/index.css` (Tailwind directives only)
@@ -239,3 +257,11 @@ const [isLoading, setIsLoading] = React.useState(true);
 - The build output is `pub/`, not `dist/` - remember this for deployment
 - This is a marketing website, not a complex web application
 - Keep dependencies minimal - this project uses React, Tailwind, and Lucide icons only
+
+## Pitfalls
+
+- **`pub/` is regenerated on every build** (postbuild + prerender rewrite HTML, assets, sitemap, llms.txt). Don't hand-edit it; change `src/` and rebuild. Rebuilt `pub/` is committed per convention (see recent commits).
+- **`npx tsc --noEmit` at the root is a no-op** — the root `tsconfig.json` is solution-style (`"files": []`, references only). Use `npx tsc -b`. (CI's `static.yml` still runs the no-op form.)
+- **Stale dev servers on shared ports serve old code.** If a dev server is already running on a port (e.g. from another session), Vite won't start and the old build keeps serving. Use a fresh port + `--strictPort` (`npm run dev -- --port <new> --strictPort`) and verify the served module, not just the HTTP 200.
+- **`pub/full_exploit_final_v2_release.zip` must be kept** — it is a deployment artifact the site links to; don't delete it when rebuilding/cleaning pub/.
+- **Deploying** (real origin is Cloudflare Workers static assets, not GitHub Pages): build, then `wrangler deploy --assets=pub`, then purge the zone cache (bare paths can need a targeted purge).
