@@ -86,10 +86,12 @@ Notes:
 ## 5. WAF / security posture
 
 - Cloudflare Managed Ruleset: keep default ON (free essential set).
-- Bot Fight Mode: OFF — managed robots.txt already blocks AI bots
-  (Google-Extended, GPTBot, ClaudeBot…); Bot Fight Mode on Free can
-  occasionally challenge legitimate crawlers. No endpoints → no rate
-  limiting needed.
+- Bot Fight Mode: **ON (dashboard-only toggle — cannot be changed via API;
+  `PATCH /zones/{id}/bot_management` → 10405 for both API tokens and OAuth)**.
+  Plan target is OFF (managed robots.txt already blocks AI bots; BFM on Free
+  can occasionally challenge legitimate crawlers). Flip manually:
+  dash.cloudflare.com → zone → Security → Settings → filter "Bot traffic" →
+  Bot fight mode → off. No endpoints → no rate limiting needed.
 
 ## 6. Post-apply verification
 
