@@ -3,7 +3,7 @@ export const translations = {
     seo: {
       home: {
         title: 'Expert MITM Defense & Security Consulting',
-        description: 'ProksiAbel OÜ provides specialized offensive security services including web application penetration testing, vulnerability management, and secure development practices. Protect your digital assets with expert help.',
+        description: 'ProksiAbel OÜ provides offensive security services: web application penetration testing, vulnerability management, and secure development practices.',
       },
       privacy: {
         title: 'Privacy Policy',
@@ -532,7 +532,7 @@ export const translations = {
     seo: {
       home: {
         title: 'Ekspert MITM kaitse ja turvanõustamine',
-        description: 'ProksiAbel OÜ pakub spetsialiseeritud küberturbe teenuseid, sealhulgas veebirakenduse penetratatsioonitestimist, haavatavuse haldamist ja turvalise arenduse praktikaid. Kaitske oma digitaalseid varasid ekspertide abil.',
+        description: 'ProksiAbel OÜ pakub küberturbe teenuseid: veebirakenduste penetratsioonitestimine, haavatavuste haldamine ja turvalise arenduse praktikad.',
       },
       privacy: {
         title: 'Privaatsuspoliitika',
