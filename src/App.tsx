@@ -16,6 +16,7 @@ const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy'));
 const TermsOfService = React.lazy(() => import('./components/TermsOfService'));
 const CookiePolicy = React.lazy(() => import('./components/CookiePolicy'));
 const Disclosure = React.lazy(() => import('./components/Disclosure'));
+const Fido2PasskeysGuide = React.lazy(() => import('./components/Fido2PasskeysGuide'));
 const NotFound = React.lazy(() => import('./components/NotFound'));
 
 function HomePage() {
@@ -99,6 +100,16 @@ function App() {
               <Route path="/disclosure" element={
                 <LegalLayout titleKey="seo.disclosure.title" descriptionKey="seo.disclosure.description" defaultTitle="Responsible Disclosure" defaultDescription="Responsible disclosure policy for ProksiAbel OÜ." breadcrumbTitle="Responsible Disclosure" breadcrumbUrl="/disclosure">
                   <Disclosure />
+                </LegalLayout>
+              } />
+              <Route path="/guides/fido2-vs-passkeys" element={
+                <LegalLayout
+                  defaultTitle="FIDO2 vs Passkeys: A Technical Guide"
+                  defaultDescription="FIDO2 is a protocol family; passkeys are a product concept built on one WebAuthn feature. A practical comparison of discoverable credentials, attestation, sync, and deployment."
+                  breadcrumbTitle="FIDO2 vs Passkeys"
+                  breadcrumbUrl="/guides/fido2-vs-passkeys"
+                >
+                  <Fido2PasskeysGuide />
                 </LegalLayout>
               } />
               <Route path="*" element={<LegalLayout><NotFound /></LegalLayout>} />

@@ -122,10 +122,24 @@ async function main() {
       // Drop the static index.html canonical (pre-hydration) so only the
       // per-page Helmet canonical (data-rh) remains — two canonicals on a page
       // makes Google treat it as "duplicate without user-selected canonical".
+      // Same for description/og/twitter metas: the static home-page copies
+      // would otherwise shadow Helmet's per-page values for scrapers.
       await page.evaluate(() => {
-        document
-          .querySelectorAll('link[rel="canonical"]:not([data-rh])')
-          .forEach((l) => l.remove());
+        const dupSelectors = [
+          'link[rel="canonical"]',
+          'meta[name="description"]',
+          'meta[property="og:title"]',
+          'meta[property="og:description"]',
+          'meta[property="og:url"]',
+          'meta[name="twitter:title"]',
+          'meta[name="twitter:description"]',
+          'meta[name="twitter:url"]',
+        ];
+        dupSelectors.forEach((sel) => {
+          document
+            .querySelectorAll(`${sel}:not([data-rh])`)
+            .forEach((l) => l.remove());
+        });
       });
 
       const html = await page.content();

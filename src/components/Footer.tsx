@@ -12,6 +12,7 @@ export default function Footer() {
       { label: t.footer.expertise, href: '/#expertise' },
       { label: t.footer.contact, href: '/#contact' },
       { label: t.footer.pgp, href: '/#pgp' },
+      { label: 'FIDO2 vs Passkeys Guide', href: '/guides/fido2-vs-passkeys' },
     ],
     legal: [
       { label: t.footer.privacy, href: '/privacy' },
