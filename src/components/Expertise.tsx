@@ -48,7 +48,7 @@ export default function Expertise() {
                   <img
                     src="/expert.webp"
                     alt="Tom Kristian Abel - Founder and Security Consultant at ProksiAbel OÜ"
-                    className="object-cover w-full h-full"
+                    className="relative object-cover w-full h-full"
                     loading="lazy"
                     decoding="async"
                     onError={() => setImgFailed(true)}
