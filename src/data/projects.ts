@@ -1,11 +1,4 @@
-export type VennZone =
-  | 'security'
-  | 'ai'
-  | 'systems'
-  | 'sec-ai'
-  | 'sec-sys'
-  | 'ai-sys'
-  | 'center';
+export type VennZone = 'security' | 'ai' | 'systems' | 'sec-ai' | 'sec-sys' | 'ai-sys' | 'center';
 
 export type Domain = 'security' | 'ai' | 'systems';
 
@@ -172,11 +165,11 @@ export const projects: Project[] = [
     title: 'BotGuard VM Research',
     tagline: {
       en: "Reverse-engineered Google's BotGuard VM — opcode architecture and anti-debug defenses",
-      et: 'Google\'i BotGuard VM pöördprojekteerimine — opkoodi arhitektuur ja anti-debug kaitsed',
+      et: "Google'i BotGuard VM pöördprojekteerimine — opkoodi arhitektuur ja anti-debug kaitsed",
     },
     description: {
       en: "Comprehensive reverse engineering of Google's BotGuard virtual machine. Mapped the complete opcode architecture, analyzed chronometric anti-debug defenses, documented anti-logger mechanisms, and developed a Puppet bypass strategy using go-rod. Published original research advancing public understanding of obfuscated JavaScript VMs.",
-      et: 'Google\'i BotGuard virtuaalmasina põhjalik pöördprojekteerimine. Kaardistas täieliku opkoodi arhitektuuri, analüüsis kronomeetrilisi anti-debug kaitsemehhanisme ja arendas Puppet möödaviigu strateegiat.',
+      et: "Google'i BotGuard virtuaalmasina põhjalik pöördprojekteerimine. Kaardistas täieliku opkoodi arhitektuuri, analüüsis kronomeetrilisi anti-debug kaitsemehhanisme ja arendas Puppet möödaviigu strateegiat.",
     },
     zones: ['security'],
     domains: ['security'],
@@ -413,9 +406,7 @@ export const zoneContent: ZoneContent[] = [
 ];
 
 export function getProjectsByZone(zone: VennZone): Project[] {
-  return projects.filter(
-    (p) => p.zones.includes(zone) && p.nodeType === 'project',
-  );
+  return projects.filter((p) => p.zones.includes(zone) && p.nodeType === 'project');
 }
 
 export function getProjectsByDomains(domains: Domain[]): Project[] {
