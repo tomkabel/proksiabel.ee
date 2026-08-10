@@ -98,7 +98,7 @@ export default function Hero() {
                     return (
                       <div 
                         key={service.title}
-                        className="group flex items-center gap-4 p-4 rounded-xl bg-slate-800/50 border border-slate-700/50 hover:border-sky-500/30 hover:bg-slate-800/50 transition-all duration-300 cursor-pointer"
+                        className="group flex items-center gap-4 p-4 rounded-xl bg-slate-800/50 border border-slate-700/50 hover:border-sky-500/30 hover:bg-slate-800/50 transition-all duration-300"
                       >
                         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500/20 to-teal-500/20 flex items-center justify-center">
                           <Icon className="h-6 w-6" />
@@ -111,7 +111,7 @@ export default function Hero() {
                             {service.heroDescription}
                           </p>
                         </div>
-                        <ArrowRight className="h-5 w-5 text-slate-600 group-hover:text-sky-400 group-hover:translate-x-1 transition-all duration-300" />
+                        <ArrowRight className="h-5 w-5 text-slate-400 group-hover:text-sky-400 group-hover:translate-x-1 transition-all duration-300" />
                       </div>
                     );
                   })}
@@ -125,7 +125,7 @@ export default function Hero() {
         <div className="flex justify-center mt-16">
           <button 
             onClick={() => scrollToSection('services')}
-            className="flex flex-col items-center gap-2 text-slate-500 hover:text-sky-400 transition-colors animate-float"
+            className="flex flex-col items-center gap-2 text-slate-400 hover:text-sky-400 transition-colors animate-float"
           >
             <span className="text-sm font-medium">{t.hero.exploreServices}</span>
             <ChevronDown className="h-5 w-5" />

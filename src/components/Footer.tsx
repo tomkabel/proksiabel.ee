@@ -36,7 +36,7 @@ export default function Footer() {
               </div>
               <div>
                 <span className="text-white font-bold text-lg">ProksiAbel</span>
-                <p className="text-xs text-slate-500">{t.hero.securityConsultancy}</p>
+                <p className="text-xs text-slate-400">{t.hero.securityConsultancy}</p>
               </div>
             </a>
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
@@ -115,10 +115,10 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-slate-800">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-slate-500 text-sm">
+            <p className="text-slate-400 text-sm">
               © {currentYear} {contactInfo.company.name}. {t.footer.rights}
             </p>
-            <p className="text-slate-600 text-xs">
+            <p className="text-slate-400 text-xs">
               {contactInfo.company.name} • Reg. {contactInfo.company.registrationCode} • {contactInfo.address.full}
             </p>
           </div>

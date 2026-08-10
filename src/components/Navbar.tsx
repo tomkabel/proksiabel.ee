@@ -77,7 +77,7 @@ export default function Navbar() {
             </div>
             <div className="flex flex-col">
               <span className="text-white font-bold text-xl tracking-tight">ProksiAbel</span>
-              <span className="text-xs text-slate-500 -mt-0.5">{t.hero.securityConsultancy}</span>
+              <span className="text-xs text-slate-400 -mt-0.5">{t.hero.securityConsultancy}</span>
             </div>
           </a>
 

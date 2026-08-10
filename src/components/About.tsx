@@ -47,7 +47,7 @@ export default function About() {
                       <Building className="h-5 w-5 text-sky-400" />
                     </div>
                     <div>
-                      <p className="text-sm text-slate-500 mb-1">{t.about.businessName}</p>
+                      <p className="text-sm text-slate-400 mb-1">{t.about.businessName}</p>
                       <p className="text-white font-medium">{contactInfo.company.name}</p>
                     </div>
                   </div>
@@ -57,7 +57,7 @@ export default function About() {
                       <span className="text-sky-400 font-bold text-lg">#</span>
                     </div>
                     <div>
-                      <p className="text-sm text-slate-500 mb-1">{t.about.registrationCode}</p>
+                      <p className="text-sm text-slate-400 mb-1">{t.about.registrationCode}</p>
                       <p className="text-white font-medium">{contactInfo.company.registrationCode}</p>
                     </div>
                   </div>
@@ -67,7 +67,7 @@ export default function About() {
                       <MapPin className="h-5 w-5 text-sky-400" />
                     </div>
                     <div>
-                      <p className="text-sm text-slate-500 mb-1">{t.about.businessAddress}</p>
+                      <p className="text-sm text-slate-400 mb-1">{t.about.businessAddress}</p>
                       <p className="text-white font-medium">{contactInfo.address.full}</p>
                     </div>
                   </div>
@@ -79,7 +79,7 @@ export default function About() {
                       <Mail className="h-5 w-5 text-teal-400" />
                     </div>
                     <div>
-                      <p className="text-sm text-slate-500 mb-1">{t.about.email}</p>
+                      <p className="text-sm text-slate-400 mb-1">{t.about.email}</p>
                       <a href={`mailto:${contactInfo.email}`} className="text-sky-400 hover:text-sky-300 transition-colors font-medium">
                         {contactInfo.email}
                       </a>
@@ -91,7 +91,7 @@ export default function About() {
                       <Phone className="h-5 w-5 text-teal-400" />
                     </div>
                     <div>
-                      <p className="text-sm text-slate-500 mb-1">{t.about.phone}</p>
+                      <p className="text-sm text-slate-400 mb-1">{t.about.phone}</p>
                       <a href={`tel:${contactInfo.phone}`} className="text-sky-400 hover:text-sky-300 transition-colors font-medium">
                         {contactInfo.phoneDisplay}
                       </a>
@@ -124,7 +124,7 @@ export default function About() {
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-white">{product.title}</p>
-                      <p className="text-xs text-slate-500 line-clamp-3">{product.desc}</p>
+                      <p className="text-xs text-slate-400 line-clamp-3">{product.desc}</p>
                     </div>
                   </div>
                 ))}

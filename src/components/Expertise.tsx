@@ -39,7 +39,7 @@ export default function Expertise() {
               <div className="relative aspect-[3/4] rounded-3xl overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900" />
                 <img
-                  src="/expert.jpg"
+                  src="/expert.webp"
                   alt="Tom Kristian Abel - Founder and Security Consultant at ProksiAbel OÜ"
                   className="object-cover w-full h-full"
                   loading="lazy"
@@ -52,11 +52,11 @@ export default function Expertise() {
 
             {/* Location & Photo Credit */}
             <div className="flex items-center justify-between mt-6 px-2">
-              <div className="flex items-center gap-2 text-sm text-slate-500">
+              <div className="flex items-center gap-2 text-sm text-slate-400">
                 <MapPin className="h-4 w-4" />
                 <span>{t.expertise.location}</span>
               </div>
-              <p className="text-xs text-slate-600">{t.expertise.photoCredit}</p>
+              <p className="text-xs text-slate-400">{t.expertise.photoCredit}</p>
             </div>
           </div>
 

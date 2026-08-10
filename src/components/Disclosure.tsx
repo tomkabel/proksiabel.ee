@@ -125,7 +125,7 @@ export default function Disclosure() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-slate-800">
-          <p className="text-slate-500 text-sm">
+          <p className="text-slate-400 text-sm">
             {t.disclosure.generalInquiries}: <a href="mailto:info@proksiabel.ee" className="text-sky-400 hover:underline">info@proksiabel.ee</a>
           </p>
         </div>

@@ -189,11 +189,11 @@ export default function Contact() {
             </form>
 
             <div className="flex items-center justify-center gap-6 mt-6 pt-6 border-t border-slate-700/50">
-              <div className="flex items-center gap-2 text-sm text-slate-500">
+              <div className="flex items-center gap-2 text-sm text-slate-400">
                 <Clock className="h-4 w-4" />
                 <span>{t.contact.responseTime}</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-slate-500">
+              <div className="flex items-center gap-2 text-sm text-slate-400">
                 <CheckCircle2 className="h-4 w-4" />
                 <span>{t.contact.secureConfidential}</span>
               </div>

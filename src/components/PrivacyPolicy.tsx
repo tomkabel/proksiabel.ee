@@ -155,7 +155,7 @@ export default function PrivacyPolicy() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-slate-800">
-          <p className="text-slate-500 text-sm">
+          <p className="text-slate-400 text-sm">
             {t.legal.lastUpdated}: {new Date().toLocaleDateString()}
           </p>
         </div>
