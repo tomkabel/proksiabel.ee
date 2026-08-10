@@ -1,5 +1,27 @@
 export const translations = {
   en: {
+    seo: {
+      home: {
+        title: 'Expert MITM Defense & Security Consulting',
+        description: 'ProksiAbel OÜ provides specialized offensive security services including web application penetration testing, vulnerability management, and secure development practices. Protect your digital assets with expert help.',
+      },
+      privacy: {
+        title: 'Privacy Policy',
+        description: 'Privacy policy for ProksiAbel OÜ — how we handle your data and protect your privacy.',
+      },
+      terms: {
+        title: 'Terms of Service',
+        description: 'Terms of service for ProksiAbel OÜ cybersecurity consultancy.',
+      },
+      cookies: {
+        title: 'Cookie Policy',
+        description: 'Cookie policy for ProksiAbel OÜ — we only use essential security cookies. No tracking.',
+      },
+      disclosure: {
+        title: 'Responsible Disclosure',
+        description: 'Responsible disclosure policy for ProksiAbel OÜ. How to report security vulnerabilities.',
+      },
+    },
     nav: {
       services: 'Services',
       expertise: 'Expertise',
@@ -507,6 +529,28 @@ export const translations = {
     },
   },
   et: {
+    seo: {
+      home: {
+        title: 'Ekspert MITM kaitse ja turvanõustamine',
+        description: 'ProksiAbel OÜ pakub spetsialiseeritud küberturbe teenuseid, sealhulgas veebirakenduse penetratatsioonitestimist, haavatavuse haldamist ja turvalise arenduse praktikaid. Kaitske oma digitaalseid varasid ekspertide abil.',
+      },
+      privacy: {
+        title: 'Privaatsuspoliitika',
+        description: 'ProksiAbel OÜ privaatsuspoliitika — kuidas me teie andmeid käsitleme ja privaatsust kaitseme.',
+      },
+      terms: {
+        title: 'Kasutustingimused',
+        description: 'ProksiAbel OÜ küberturbe konsultatsiooni kasutustingimused.',
+      },
+      cookies: {
+        title: 'Küpsisepoliitika',
+        description: 'ProksiAbel OÜ küpsisepoliitika — kasutame ainult hädavajalikke turvaküpsiseid. Ei mingit jälitamist.',
+      },
+      disclosure: {
+        title: 'Vastutustundlik avalikustamine',
+        description: 'ProksiAbel OÜ vastutustundliku avalikustamise poliitika. Kuidas turvanõrkustest teatada.',
+      },
+    },
     nav: {
       services: 'Teenused',
       expertise: 'Kogemus',
