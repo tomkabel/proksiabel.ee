@@ -1,0 +1,18 @@
+# ProksiAbel OÜ
+
+> ProksiAbel OÜ is an EU-based (Estonia) offensive security consultancy specializing in MITM attack defense, web application penetration testing, vulnerability management, and secure development practices. The site is bilingual (Estonian/English).
+
+ProksiAbel OÜ (registry code 17017826) runs hands-on penetration tests of web applications and authentication flows, builds practical countermeasures against MITM attacks and client fingerprinting, and develops custom security research tooling. Services: Penetration Testing & Vulnerability Management, Secure Development Practices, Security Research & Tool Development.
+
+## Pages
+
+- [Home](https://proksiabel.ee/): Services overview, expertise, about, and contact.
+- [Privacy Policy](https://proksiabel.ee/privacy): How ProksiAbel OÜ handles your data.
+- [Terms of Service](https://proksiabel.ee/terms): Terms for the consultancy's services.
+- [Cookie Policy](https://proksiabel.ee/cookies): Only essential security cookies; no tracking.
+- [Responsible Disclosure](https://proksiabel.ee/disclosure): How to report security vulnerabilities.
+
+## Optional
+
+- [Security contact](https://proksiabel.ee/.well-known/security.txt): security@proksiabel.ee
+- [PGP key](https://proksiabel.ee/public-key.asc): Key ID 0x30A8306F110AAAC5
