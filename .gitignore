@@ -40,6 +40,10 @@ skills-lock.json
 # Local databases
 *.db
 
+# Local secrets
+.env
+.env.*
+
 # Nested projects
 proksiabel/
 
@@ -57,4 +61,3 @@ pub/assets/index-DwF39Qx7.js
 src/components/Layout.tsx
 
 # External tool scripts (ImageMagick)
-scripts/
