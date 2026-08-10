@@ -1,10 +1,9 @@
-import { serviceIcons } from './data';
 import { useTranslation } from '../i18n';
-import { ArrowRight, Shield, ChevronDown } from 'lucide-react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
+import AttackTerminal from './AttackTerminal';
 
 export default function Hero() {
   const { t } = useTranslation();
-  const services = [t.services.service1, t.services.service2, t.services.service3];
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -80,43 +79,13 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right Content - Services Preview */}
+          {/* Right Content - Live Attack Surface Scan */}
           <div className="animate-slide-up stagger-2">
             <div className="relative">
-              {/* Background Card */}
-              <div className="absolute inset-0 bg-gradient-to-br from-sky-500/20 to-teal-500/20 rounded-3xl blur-2xl" />
-              
-              <div className="relative glass-card p-8 md:p-10">
-                <h2 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
-                  <Shield className="h-5 w-5 text-sky-400" />
-                  {t.hero.coreServices}
-                </h2>
+              {/* Background Glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-sky-500/20 to-teal-500/20 rounded-3xl blur-2xl" aria-hidden="true" />
 
-                <div className="space-y-4">
-                  {services.map((service, index) => {
-                    const Icon = serviceIcons[index].icon;
-                    return (
-                      <div 
-                        key={service.title}
-                        className="group flex items-center gap-4 p-4 rounded-xl bg-slate-800/50 border border-slate-700/50 hover:border-sky-500/30 hover:bg-slate-800/50 transition-all duration-300"
-                      >
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500/20 to-teal-500/20 flex items-center justify-center">
-                          <Icon className="h-6 w-6" />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-white group-hover:text-sky-400 transition-colors">
-                            {service.title}
-                          </h3>
-                          <p className="text-sm text-slate-400 line-clamp-2">
-                            {service.heroDescription}
-                          </p>
-                        </div>
-                        <ArrowRight className="h-5 w-5 text-slate-400 group-hover:text-sky-400 group-hover:translate-x-1 transition-all duration-300" />
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+              <AttackTerminal onSelectService={() => scrollToSection('services')} />
             </div>
           </div>
         </div>
