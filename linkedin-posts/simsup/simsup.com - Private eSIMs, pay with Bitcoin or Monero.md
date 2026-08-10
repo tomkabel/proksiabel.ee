@@ -134,7 +134,7 @@ The following evidence would be decisive, in descending order of strength:
 4. A profile-level technical inspection showing the IMSI's MCC/MNC, home PLMN and SM-DP+ provider, combined with the number-holder record. A phone's displayed network name alone is not sufficient.
 5. A carrier-generated activation/provisioning document, invoice or API documentation linking the service to Elisa.
 
-The most useful non-invasive verification is to obtain one legitimately purchased test eSIM, record only its public subscription metadata (ICCID/IMSI/MCC/MNC and displayed home/visited network), and compare the number range against TTJA's public numbering database. Do not publish the full QR code, activation code, IMSI, ICCID or subscriber number: those are credentials or identifying telecom data.
+The most useful non-invasive verification is to obtain one legitimately purchased test eSIM, record only genuinely non-sensitive metadata (MCC/MNC and the displayed home or visited network), and compare the number range against TTJA's public numbering database. ICCID and IMSI should not be collected unless necessary and explicitly covered by documented handling procedures; do not publish the full QR code, activation code, IMSI, ICCID or subscriber number: those are credentials or identifying telecom data.
 
 ## Contrarian possibilities and limitations
 

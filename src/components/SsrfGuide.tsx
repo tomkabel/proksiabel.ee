@@ -581,6 +581,7 @@ import urllib.parse
 
 import requests
 from requests.adapters import HTTPAdapter
+from urllib3 import HTTPConnectionPool, HTTPSConnectionPool, Retry
 
 
 def _resolve_all(host: str) -> list[str]:
@@ -607,31 +608,42 @@ def _is_blocked(ip: str) -> bool:
 class SSRFGuardAdapter(HTTPAdapter):
     """Resolve + validate every IP, then pin the connection to a validated IP.
 
-    Pinning closes the DNS-rebinding window: we connect to the address we
-    validated, not a re-resolved one. ponytail: for HTTPS targets this breaks
-    SNI (TLS ServerName becomes the IP); a production variant must set the
-    TLS server name explicitly.
+    get_connection_with_tls_context() returns a pool whose host is the
+    validated IP, so the socket never re-resolves the hostname (no
+    DNS-rebinding window). HTTPS keeps the original hostname as
+    server_hostname, so TLS SNI and certificate validation still use the
+    real name while the connection goes to the pinned address.
     """
 
-    def send(self, request, **kwargs):
+    def get_connection_with_tls_context(self, request, verify, proxies=None, cert=None):
         parsed = urllib.parse.urlsplit(request.url)
-        if parsed.scheme not in ("http", "https"):
-            raise requests.exceptions.InvalidURL("scheme not allowed")
         host = parsed.hostname or ""
         ips = _resolve_all(host)
         if not ips or any(_is_blocked(ip) for ip in ips):
             raise requests.exceptions.InvalidURL(
                 f"destination resolves to a blocked address: {host}"
             )
-        ip = ips[0]
-        netloc = f"[{ip}]" if ":" in ip else ip
-        if parsed.port:
-            netloc = f"{netloc}:{parsed.port}"
-        request.url = urllib.parse.urlunsplit(
-            (parsed.scheme, netloc, parsed.path, parsed.query, "")
-        )
-        request.headers["Host"] = parsed.netloc
-        return super().send(request, **kwargs)
+        # Prefer IPv4 when available (both families are validated above).
+        ip = next((a for a in ips if ":" not in a), ips[0])
+        port = parsed.port or (443 if parsed.scheme == "https" else 80)
+        if parsed.scheme == "https":
+            pool = HTTPSConnectionPool(
+                ip,
+                port,
+                server_hostname=host,
+                maxsize=self._pool_maxsize,
+                block=self._pool_block,
+                retries=Retry(0, read=False),
+            )
+        else:
+            pool = HTTPConnectionPool(
+                ip,
+                port,
+                maxsize=self._pool_maxsize,
+                block=self._pool_block,
+                retries=Retry(0, read=False),
+            )
+        return pool
 
 
 def fetch_safe(url: str, timeout: int = 5) -> requests.Response:
@@ -713,62 +725,79 @@ func guardedClient() *http.Client {
               </pre>
 
               <h3 className='text-lg text-sky-400 font-medium mb-3'>
-                Node.js (fetch) — resolve and validate, manual redirects
+                Node.js (http/https) — pinned lookup, SNI preserved, manual redirects
               </h3>
               <p className='leading-relaxed mb-4'>
-                The OWASP cheat sheet recommends the{' '}
-                <code className='text-slate-100'>ip-address</code> npm package for JS address
-                validation. The example below shows the full pattern with a compact IPv4 range
-                check; the IPv6 gap is flagged inline:
+                The example below resolves and validates every address at connect time —{' '}
+                <code className='text-slate-100'>ipaddr.js</code> (the OWASP cheat sheet&apos;s
+                recommended approach) classifies IPv4 and IPv6 in one call — pins the socket to a
+                validated address, and keeps the original hostname for TLS SNI and certificate
+                validation:
               </p>
               <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
-                {`import { lookup } from 'node:dns/promises';
+                {`import { request as httpRequest } from 'node:http';
+import { request as httpsRequest } from 'node:https';
+import { lookup } from 'node:dns/promises';
+import ipaddr from 'ipaddr.js'; // npm i ipaddr.js — complete IPv4/IPv6 classification
 
-// RFC 1918, loopback, link-local, unspecified, and multicast IPv4 ranges.
-const BLOCKED_V4 = [
-  ['10.0.0.0', 8], ['172.16.0.0', 12], ['192.168.0.0', 16],
-  ['127.0.0.0', 8], ['169.254.0.0', 16], ['0.0.0.0', 8],
-  ['224.0.0.0', 4],
-];
-
-function ipv4ToInt(ip) {
-  return ip.split('.').reduce((acc, octet) => (acc << 8) | Number(octet), 0) >>> 0;
+// Reject everything that is not a globally routable unicast address:
+// private (RFC 1918), loopback, link-local (incl. 169.254.169.254),
+// multicast, unspecified, ULA (fc00::/7), IPv4-mapped, and reserved ranges.
+function assertPublic(address) {
+  const addr = ipaddr.parse(address);
+  const ip = addr.kind() === 'ipv6' && addr.isIPv4MappedAddress() ? addr.toIPv4Address() : addr;
+  if (ip.range() !== 'unicast') throw new Error('blocked non-public address ' + address);
 }
 
-function isBlockedV4(ip) {
-  const n = ipv4ToInt(ip);
-  return BLOCKED_V4.some(([base, bits]) => {
-    const mask = (~0 << (32 - bits)) >>> 0;
-    return (n & mask) === (ipv4ToInt(base) & mask);
-  });
-}
-
-async function assertPublic(host) {
-  const records = await lookup(host, { all: true });
-  if (records.length === 0) throw new Error('no addresses for ' + host);
-  for (const { address, family } of records) {
-    if (family === 4) {
-      if (isBlockedV4(address)) throw new Error('blocked address ' + address);
-    } else {
-      // IPv6: reject loopback/unspecified here; ULA (fc00::/7) and link-local
-      // (fe80::/10) need a proper range check - e.g. the ip-address package
-      // recommended by the OWASP SSRF cheat sheet.
-      if (address === '::1' || address === '::') throw new Error('blocked address ' + address);
+export function fetchSafe(urlString, { timeout = 5000 } = {}) {
+  return new Promise((resolve, reject) => {
+    const url = new URL(urlString);
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+      reject(new Error('scheme not allowed'));
+      return;
     }
-  }
-}
-
-export async function fetchSafe(urlString) {
-  const url = new URL(urlString);
-  if (url.protocol !== 'http:' && url.protocol !== 'https:') {
-    throw new Error('scheme not allowed');
-  }
-  await assertPublic(url.hostname);
-  const res = await fetch(url, { redirect: 'manual' }); // never auto-follow
-  if (res.status >= 300 && res.status < 400) {
-    throw new Error('redirects disabled (SSRF guard)');
-  }
-  return res;
+    const host = url.hostname.replace(/^\\[|\\]$/g, '');
+    // IP-literal target: Node skips the lookup override for IPs, so the
+    // pinned callback never runs — reject before any connection.
+    if (ipaddr.isValid(host)) assertPublic(host);
+    // Resolve and validate at connect time, then pin the socket to the
+    // validated address — no window for DNS rebinding between check and use.
+    const pinned = (hostname, options, cb) => {
+      lookup(hostname, { all: true })
+        .then((records) => {
+          if (records.length === 0) throw new Error('no addresses for ' + hostname);
+          for (const { address } of records) assertPublic(address);
+          // Prefer IPv4 when available (both families are validated above).
+          const sorted = [...records].sort((a, b) => a.family - b.family);
+          // Node's lookup contract: options.all -> cb(err, addresses[]),
+          // otherwise cb(err, address, family).
+          if (options.all) cb(null, sorted);
+          else cb(null, sorted[0].address, sorted[0].family);
+        })
+        .catch((err) => cb(err));
+    };
+    const mod = url.protocol === 'https:' ? httpsRequest : httpRequest;
+    const req = mod(
+      url,
+      {
+        lookup: pinned,           // socket connects to the validated IP
+        servername: url.hostname, // HTTPS SNI + cert validation keep the hostname
+        headers: { Host: url.host },
+        timeout,
+      },
+      (res) => {
+        if (res.statusCode >= 300 && res.statusCode < 400) {
+          res.resume();
+          reject(new Error('redirects disabled (SSRF guard)'));
+          return;
+        }
+        resolve(res);
+      },
+    );
+    req.on('timeout', () => req.destroy(new Error('request timed out')));
+    req.on('error', reject);
+    req.end();
+  });
 }`}
               </pre>
 

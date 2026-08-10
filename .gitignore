@@ -94,7 +94,6 @@ pub/assets/index-DwF39Qx7.js
 
 # Stray files
 ,.
-${WORKSPACE_ROOT}
 
 # Incomplete component (missing lib/lenis module)
 src/components/Layout.tsx

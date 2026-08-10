@@ -31,24 +31,28 @@ schema defects → entity groundwork (Wikidata, NAP consistency). Details below.
 
 | Check | LIVE (proksiabel.ee) | Repo (`pub/`, new Vite build) |
 |---|---|---|
-| App | Old TanStack "Security Product Studio", EN-only | New consultancy build, et/en, 5 routes |
+| App | Old TanStack "Security Product Studio", EN-only | New consultancy build, et/en, 7 routes (5 pages + 2 guides) |
 | Canonical tags | **zero** (grep of served HTML) | exactly 1 per prerendered page (prerender.js strips non-`data-rh` dupes) |
 | JSON-LD | **zero** | ProfessionalService + WebSite on home, BreadcrumbList per subpage |
-| Sitemap | 6 URLs (`/products` `/work-with-us` `/approach` `/principal` `/contact`) — **all now 301→/** | 5 URLs (`/` `/privacy` `/terms` `/cookies` `/disclosure`), lastmod 2026-08-10 |
+| Sitemap | 6 URLs (`/products` `/work-with-us` `/approach` `/principal` `/contact`) — **all now 301→/** | 7 URLs (`/` `/privacy` `/terms` `/cookies` `/disclosure` `/guides/fido2-vs-passkeys` `/guides/ssrf-explained`), lastmod 2026-08-10 |
 | Legal routes | `/privacy /terms /cookies /disclosure` → **404** | prerendered `pub/<route>/index.html` |
 | robots.txt | Cloudflare Managed block + `Allow: /` + Sitemap line | `Allow: /`, `Disallow: /.well-known/openpgpkey/`, Sitemap |
 | llms.txt | OLD content ("Security product studio shipping authentication…") | NEW copy (consultancy, services, legal pages, PGP 0x30A8306F110AAAC5) |
 | og:image | references `og-image.svg`; **`/og-image.png` → 404** | `pub/og-image.png` 1200×630 present |
 | Old routes | 301 → `/` (bulk redirects live, verified) | n/a |
 
-Root cause of the divergence: the GH Pages workflow
-(`.github/workflows/static.yml`) deploys `pub/` on push to main, but the live
-origin is serving the old app — either the workflow hasn't succeeded since the
-new build, or the Pages source is still pointed at the old artifact. **GSC
-reports on the deployed artifact** ([seo-indexing-audit skill]);
-everything below assumes the new build becomes live. Until then, the live
-surface — no canonicals, no structured data, 301'd sitemap URLs, 404 legal
-pages — is actively uncompetitive regardless of the repo's quality.
+Root cause of the divergence: the live origin is a Cloudflare Workers
+static-assets deployment (`wrangler deploy --assets=pub`), not GitHub Pages —
+the GH Pages workflow (`.github/workflows/static.yml`) is decorative. The
+deployed Worker was serving a stale artifact from before the new build.
+Diagnosis should inspect the deployed Worker version (`wrangler deployments
+list`), its static-asset binding, and Cloudflare cache state — a stale edge
+cache can keep serving the old bundle after a correct deploy, and bare paths
+may need a targeted purge. **GSC reports on the deployed artifact**
+([seo-indexing-audit skill]); everything below assumes the new build becomes
+live. Until then, the live surface — no canonicals, no structured data, 301'd
+sitemap URLs, 404 legal pages — is actively uncompetitive regardless of the
+repo's quality.
 
 ### Live crawler-access probe (curl, real user-agents)
 
@@ -165,7 +169,9 @@ Defects (verified in `index.html` / SEOMeta.tsx):
   "Page with redirect"; they belong out of the sitemap. The repo sitemap is
   correct and will replace it on deploy. Post-deploy: submit the new sitemap
   in GSC and request re-indexing of `/`, `/privacy`, `/terms`, `/cookies`,
-  `/disclosure` ([seo-indexing-audit skill]).
+  `/disclosure`, `/guides/fido2-vs-passkeys`, `/guides/ssrf-explained` — and
+  verify `pub/sitemap.xml` includes both guide routes before publishing
+  ([seo-indexing-audit skill]).
 - **No-slash URL forms** (`/privacy`, not `/privacy/`) — consistent between
   sitemap, canonicals, and prerendered output; the old app's trailing-slash
   forms now 307. Keep it that way (static-host SPA pitfall documented in
@@ -230,7 +236,8 @@ Recommendation: option 1 now; revisit if EN organic demand appears.
    SearchAction, remove stray x-default, add Person (+ sameAs) for the
    founder, add FAQPage only where real Q&A exists.
 4. **Post-deploy checklist:** submit new sitemap in GSC, request indexing for
-   the 5 routes, watch GSC for the old 301'd URLs to clear.
+   the 7 routes (5 pages + 2 guides), verify the sitemap includes both guide
+   routes, watch GSC for the old 301'd URLs to clear.
 5. **Entity groundwork (compounding):** Wikidata item for ProksiAbel OÜ,
    consistent NAP/email across site + LinkedIn + registry, `dateModified` in
    schema.

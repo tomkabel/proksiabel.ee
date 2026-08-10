@@ -39,7 +39,7 @@ Capabilities (services):
 Content: two technical guides (FIDO2 vs Passkeys; SSRF Explained with a reproducible local lab), responsible-disclosure/security-research policy, PGP page, privacy/terms/cookie policies, llms.txt, sitemap.xml, security.txt, robots.txt.
 
 Technical constraints:
-- Vite + React 18 + TypeScript (strict) + Tailwind + react-router + react-helmet-async; prerendered route shells with per-route SEO; build outputs to `pub/`.
+- Vite + React 19 + TypeScript (strict) + Tailwind + react-router + react-helmet-async; prerendered route shells with per-route SEO; build outputs to `pub/`.
 - i18n: EN + ET only.
 - Infrastructure: Cloudflare (Workers static assets; full SSL, HSTS, CSP, cache rules, bulk redirects for legacy URLs; Bot Fight Mode is dashboard-only and intentionally off).
 - Privacy commitment is explicit and binding in copy: no tracking cookies, no Google Analytics, no ad pixels, no profiling; only Cloudflare's `_cf_bm`/`_cfuvid` security cookies; GDPR + AKI-compliant, logs retained 12 months.

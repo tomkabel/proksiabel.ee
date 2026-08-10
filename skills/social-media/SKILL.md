@@ -53,7 +53,7 @@ Example: A LinkedIn post about "prompt engineering" → `linkedin/prompt-enginee
 
 **You MUST complete both steps:**
 1. Write the content to the appropriate path
-2. Generate an image using `generate_image` and save alongside the post
+2. Generate an image using `generate_social_image` and save alongside the post
 
 **A social media post is NOT complete without its image.**
 

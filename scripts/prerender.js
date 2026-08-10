@@ -142,7 +142,10 @@ async function main() {
         });
       });
 
-      const html = await page.content();
+      // Strip the local dev-origin from absolute asset URLs (Vite's
+      // modulepreload helper emits them during prerender) so production
+      // HTML only contains root-relative /assets/ paths.
+      const html = (await page.content()).replaceAll(BASE_URL, '');
       const outDir = join(PUB_DIR, pathname.replace(/^\//, ''));
       const outFile = pathname === '/' ? join(PUB_DIR, 'index.html') : join(outDir, 'index.html');
 

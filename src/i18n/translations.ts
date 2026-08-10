@@ -42,7 +42,7 @@ export const translations = {
       description:
         "ProksiAbel OÜ runs highly specialized offensive security assessments. I don't just hand you a PDF of automated scanner results. We build realistic defense strategies because, frankly, we know exactly how to break in.",
       quote:
-        '"Standing on the defensive indicates insufficient strength; attacking, a superabundance of strength"',
+        'Standing on the defensive indicates insufficient strength; attacking, a superabundance of strength',
       bookConsultation: 'Book Consultation',
       learnMore: 'Learn More',
       badge: 'Estonian Security Consultancy',
@@ -600,7 +600,7 @@ export const translations = {
       subheading: 'Reaalne ründekogemus loob reaalse kaitse.',
       description:
         'ProksiAbel OÜ viib läbi väga spetsiifilisi ründeturbe hindamisi. Me ei viska sulle lihtsalt lauale skänneri genereeritud PDF-i. Me ehitame reaalseid kaitsestrateegiaid, sest, ausalt öeldes, me teame täpselt, kuidas sisse murda.',
-      quote: '"Kaitsel seismine näitab ebapiisavat tugevust; ründamine aga ülearust tugevust"',
+      quote: 'Kaitsel seismine näitab ebapiisavat tugevust; ründamine aga ülearust tugevust',
       bookConsultation: 'Võta ühendust',
       learnMore: 'Loe lähemalt',
       badge: 'Eesti turvanõustamine',

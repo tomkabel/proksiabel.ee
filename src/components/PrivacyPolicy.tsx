@@ -1,7 +1,8 @@
 import { useTranslation } from '../i18n';
 
 export default function PrivacyPolicy() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
+  const locale = language === 'et' ? 'et-EE' : 'en-US';
 
   return (
     <div className='min-h-screen bg-slate-900 pt-24 pb-12'>
@@ -208,7 +209,7 @@ export default function PrivacyPolicy() {
 
         <div className='mt-12 pt-8 border-t border-slate-800'>
           <p className='text-slate-400 text-sm'>
-            {t.legal.lastUpdated}: {new Date().toLocaleDateString()}
+            {t.legal.lastUpdated}: {new Date().toLocaleDateString(locale)}
           </p>
         </div>
       </div>

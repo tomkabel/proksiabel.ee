@@ -92,6 +92,7 @@ import urllib.parse
 
 import requests
 from requests.adapters import HTTPAdapter
+from urllib3 import HTTPConnectionPool, HTTPSConnectionPool, Retry
 
 
 def _resolve_all(host: str) -> list[str]:
@@ -118,31 +119,42 @@ def _is_blocked(ip: str) -> bool:
 class SSRFGuardAdapter(HTTPAdapter):
     """Resolve + validate every IP, then pin the connection to a validated IP.
 
-    Pinning closes the DNS-rebinding window: we connect to the address we
-    validated, not a re-resolved one. ponytail: for HTTPS targets this breaks
-    SNI (TLS ServerName becomes the IP); a production variant must set the
-    TLS server name explicitly.
+    get_connection_with_tls_context() returns a pool whose host is the
+    validated IP, so the socket never re-resolves the hostname (no
+    DNS-rebinding window). HTTPS keeps the original hostname as
+    server_hostname, so TLS SNI and certificate validation still use the
+    real name while the connection goes to the pinned address.
     """
 
-    def send(self, request, **kwargs):
+    def get_connection_with_tls_context(self, request, verify, proxies=None, cert=None):
         parsed = urllib.parse.urlsplit(request.url)
-        if parsed.scheme not in ("http", "https"):
-            raise requests.exceptions.InvalidURL("scheme not allowed")
         host = parsed.hostname or ""
         ips = _resolve_all(host)
         if not ips or any(_is_blocked(ip) for ip in ips):
             raise requests.exceptions.InvalidURL(
                 f"destination resolves to a blocked address: {host}"
             )
-        ip = ips[0]
-        netloc = f"[{ip}]" if ":" in ip else ip
-        if parsed.port:
-            netloc = f"{netloc}:{parsed.port}"
-        request.url = urllib.parse.urlunsplit(
-            (parsed.scheme, netloc, parsed.path, parsed.query, "")
-        )
-        request.headers["Host"] = parsed.netloc
-        return super().send(request, **kwargs)
+        # Prefer IPv4 when available (both families are validated above).
+        ip = next((a for a in ips if ":" not in a), ips[0])
+        port = parsed.port or (443 if parsed.scheme == "https" else 80)
+        if parsed.scheme == "https":
+            pool = HTTPSConnectionPool(
+                ip,
+                port,
+                server_hostname=host,
+                maxsize=self._pool_maxsize,
+                block=self._pool_block,
+                retries=Retry(0, read=False),
+            )
+        else:
+            pool = HTTPConnectionPool(
+                ip,
+                port,
+                maxsize=self._pool_maxsize,
+                block=self._pool_block,
+                retries=Retry(0, read=False),
+            )
+        return pool
 
 
 def fetch_safe(url: str, timeout: int = 5) -> requests.Response:
@@ -204,51 +216,67 @@ func guardedClient() *http.Client {
         },
         Timeout: 10 * time.Second,
     }
-}`}),(0,n.jsx)(`h3`,{className:`text-lg text-sky-400 font-medium mb-3`,children:`Node.js (fetch) — resolve and validate, manual redirects`}),(0,n.jsxs)(`p`,{className:`leading-relaxed mb-4`,children:[`The OWASP cheat sheet recommends the`,` `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`ip-address`}),` npm package for JS address validation. The example below shows the full pattern with a compact IPv4 range check; the IPv6 gap is flagged inline:`]}),(0,n.jsx)(`pre`,{className:`bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4`,children:`import { lookup } from 'node:dns/promises';
+}`}),(0,n.jsx)(`h3`,{className:`text-lg text-sky-400 font-medium mb-3`,children:`Node.js (http/https) — pinned lookup, SNI preserved, manual redirects`}),(0,n.jsxs)(`p`,{className:`leading-relaxed mb-4`,children:[`The example below resolves and validates every address at connect time —`,` `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`ipaddr.js`}),` (the OWASP cheat sheet's recommended approach) classifies IPv4 and IPv6 in one call — pins the socket to a validated address, and keeps the original hostname for TLS SNI and certificate validation:`]}),(0,n.jsx)(`pre`,{className:`bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4`,children:`import { request as httpRequest } from 'node:http';
+import { request as httpsRequest } from 'node:https';
+import { lookup } from 'node:dns/promises';
+import ipaddr from 'ipaddr.js'; // npm i ipaddr.js — complete IPv4/IPv6 classification
 
-// RFC 1918, loopback, link-local, unspecified, and multicast IPv4 ranges.
-const BLOCKED_V4 = [
-  ['10.0.0.0', 8], ['172.16.0.0', 12], ['192.168.0.0', 16],
-  ['127.0.0.0', 8], ['169.254.0.0', 16], ['0.0.0.0', 8],
-  ['224.0.0.0', 4],
-];
-
-function ipv4ToInt(ip) {
-  return ip.split('.').reduce((acc, octet) => (acc << 8) | Number(octet), 0) >>> 0;
+// Reject everything that is not a globally routable unicast address:
+// private (RFC 1918), loopback, link-local (incl. 169.254.169.254),
+// multicast, unspecified, ULA (fc00::/7), IPv4-mapped, and reserved ranges.
+function assertPublic(address) {
+  const addr = ipaddr.parse(address);
+  const ip = addr.kind() === 'ipv6' && addr.isIPv4MappedAddress() ? addr.toIPv4Address() : addr;
+  if (ip.range() !== 'unicast') throw new Error('blocked non-public address ' + address);
 }
 
-function isBlockedV4(ip) {
-  const n = ipv4ToInt(ip);
-  return BLOCKED_V4.some(([base, bits]) => {
-    const mask = (~0 << (32 - bits)) >>> 0;
-    return (n & mask) === (ipv4ToInt(base) & mask);
-  });
-}
-
-async function assertPublic(host) {
-  const records = await lookup(host, { all: true });
-  if (records.length === 0) throw new Error('no addresses for ' + host);
-  for (const { address, family } of records) {
-    if (family === 4) {
-      if (isBlockedV4(address)) throw new Error('blocked address ' + address);
-    } else {
-      // IPv6: reject loopback/unspecified here; ULA (fc00::/7) and link-local
-      // (fe80::/10) need a proper range check - e.g. the ip-address package
-      // recommended by the OWASP SSRF cheat sheet.
-      if (address === '::1' || address === '::') throw new Error('blocked address ' + address);
+export function fetchSafe(urlString, { timeout = 5000 } = {}) {
+  return new Promise((resolve, reject) => {
+    const url = new URL(urlString);
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+      reject(new Error('scheme not allowed'));
+      return;
     }
-  }
-}
-
-export async function fetchSafe(urlString) {
-  const url = new URL(urlString);
-  if (url.protocol !== 'http:' && url.protocol !== 'https:') {
-    throw new Error('scheme not allowed');
-  }
-  await assertPublic(url.hostname);
-  const res = await fetch(url, { redirect: 'manual' }); // never auto-follow
-  if (res.status >= 300 && res.status < 400) {
-    throw new Error('redirects disabled (SSRF guard)');
-  }
-  return res;
+    const host = url.hostname.replace(/^\\[|\\]$/g, '');
+    // IP-literal target: Node skips the lookup override for IPs, so the
+    // pinned callback never runs — reject before any connection.
+    if (ipaddr.isValid(host)) assertPublic(host);
+    // Resolve and validate at connect time, then pin the socket to the
+    // validated address — no window for DNS rebinding between check and use.
+    const pinned = (hostname, options, cb) => {
+      lookup(hostname, { all: true })
+        .then((records) => {
+          if (records.length === 0) throw new Error('no addresses for ' + hostname);
+          for (const { address } of records) assertPublic(address);
+          // Prefer IPv4 when available (both families are validated above).
+          const sorted = [...records].sort((a, b) => a.family - b.family);
+          // Node's lookup contract: options.all -> cb(err, addresses[]),
+          // otherwise cb(err, address, family).
+          if (options.all) cb(null, sorted);
+          else cb(null, sorted[0].address, sorted[0].family);
+        })
+        .catch((err) => cb(err));
+    };
+    const mod = url.protocol === 'https:' ? httpsRequest : httpRequest;
+    const req = mod(
+      url,
+      {
+        lookup: pinned,           // socket connects to the validated IP
+        servername: url.hostname, // HTTPS SNI + cert validation keep the hostname
+        headers: { Host: url.host },
+        timeout,
+      },
+      (res) => {
+        if (res.statusCode >= 300 && res.statusCode < 400) {
+          res.resume();
+          reject(new Error('redirects disabled (SSRF guard)'));
+          return;
+        }
+        resolve(res);
+      },
+    );
+    req.on('timeout', () => req.destroy(new Error('request timed out')));
+    req.on('error', reject);
+    req.end();
+  });
 }`}),(0,n.jsx)(`h3`,{className:`text-lg text-sky-400 font-medium mb-3`,children:`Network layer and cloud metadata`}),(0,n.jsxs)(`ul`,{className:`list-disc list-inside space-y-2 mb-4`,children:[(0,n.jsx)(`li`,{children:`Segment remote-resource-fetching functionality into its own network; enforce deny-by-default egress firewall rules so the app tier can only reach what it must (OWASP A10:2021 network-layer guidance).`}),(0,n.jsxs)(`li`,{children:[`AWS: enable IMDSv2 and disable IMDSv1. IMDSv2 requires a PUT-obtained session token plus the `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`X-aws-ec2-metadata-token`}),` `,`header, so a plain GET-based SSRF can no longer read credentials directly. This is a defense-in-depth layer, not a replacement for input validation — an SSRF with full request control can still obtain the token.`]}),(0,n.jsxs)(`li`,{children:[`GCP and Azure metadata services are reachable at the same link-local address`,` `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`169.254.169.254`}),` (GCP also via`,` `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`metadata.google.internal`}),`); the OWASP deny-list table blocks all of them plus RFC 1918, loopback, and multicast ranges as a minimum.`]})]})]}),(0,n.jsxs)(`section`,{className:`mb-10`,children:[(0,n.jsx)(`h2`,{className:`text-xl text-sky-500 font-semibold mb-4`,children:`Prevention checklist`}),(0,n.jsx)(`div`,{className:`overflow-x-auto mb-4`,children:(0,n.jsxs)(`table`,{className:`w-full text-sm text-left border-collapse`,children:[(0,n.jsx)(`thead`,{children:(0,n.jsxs)(`tr`,{className:`border-b border-slate-700`,children:[(0,n.jsx)(`th`,{className:`py-3 pr-4 text-slate-100 font-semibold`,children:`Check`}),(0,n.jsx)(`th`,{className:`py-3 text-slate-100 font-semibold`,children:`How to verify`})]})}),(0,n.jsxs)(`tbody`,{className:`text-slate-300`,children:[(0,n.jsxs)(`tr`,{className:`border-b border-slate-800`,children:[(0,n.jsx)(`td`,{className:`py-3 pr-4 align-top`,children:`Every server-side fetch is inventoried (requests, urllib, http, fetch, curl, proxy rules)`}),(0,n.jsx)(`td`,{className:`py-3 align-top`,children:`grep the codebase + configs; SAST rule in CI flags new call sites`})]}),(0,n.jsxs)(`tr`,{className:`border-b border-slate-800`,children:[(0,n.jsx)(`td`,{className:`py-3 pr-4 align-top`,children:`Scheme allowlist enforced (http/https)`}),(0,n.jsxs)(`td`,{className:`py-3 align-top`,children:[`Send `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`file://`}),`,`,` `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`gopher://`}),`,`,` `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`dict://`}),` — expect rejection`]})]}),(0,n.jsxs)(`tr`,{className:`border-b border-slate-800`,children:[(0,n.jsx)(`td`,{className:`py-3 pr-4 align-top`,children:`All resolved IPs validated (A + AAAA), connection pinned`}),(0,n.jsx)(`td`,{className:`py-3 align-top`,children:`Point the app at a domain alternating public/private answers with a short TTL (DNS rebinding) — connection must still be blocked`})]}),(0,n.jsxs)(`tr`,{className:`border-b border-slate-800`,children:[(0,n.jsx)(`td`,{className:`py-3 pr-4 align-top`,children:`Redirects disabled or re-validated per hop`}),(0,n.jsxs)(`td`,{className:`py-3 align-top`,children:[`Serve a 302 from a host you control to`,` `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`http://169.254.169.254/`}),` — expect rejection`]})]}),(0,n.jsxs)(`tr`,{className:`border-b border-slate-800`,children:[(0,n.jsx)(`td`,{className:`py-3 pr-4 align-top`,children:`Metadata endpoints blocked (AWS/GCP/Azure, 169.254.169.254)`}),(0,n.jsx)(`td`,{className:`py-3 align-top`,children:`Lab walkthrough request — expect block; network signature fires on metadata path`})]}),(0,n.jsxs)(`tr`,{className:`border-b border-slate-800`,children:[(0,n.jsx)(`td`,{className:`py-3 pr-4 align-top`,children:`Egress firewall deny-by-default from app tier`}),(0,n.jsx)(`td`,{className:`py-3 align-top`,children:`Attempt app → internal admin port from the app host; observe deny logs`})]}),(0,n.jsxs)(`tr`,{className:`border-b border-slate-800`,children:[(0,n.jsx)(`td`,{className:`py-3 pr-4 align-top`,children:`IMDSv2 enforced, IMDSv1 disabled (AWS)`}),(0,n.jsxs)(`td`,{className:`py-3 align-top`,children:[(0,n.jsx)(`code`,{className:`text-slate-100`,children:`aws ec2 describe-instances`}),` —`,` `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`HttpTokens: required`}),` on every instance`]})]}),(0,n.jsxs)(`tr`,{className:`border-b border-slate-800`,children:[(0,n.jsx)(`td`,{className:`py-3 align-top`,children:`Outbound-to-metadata alerts configured`}),(0,n.jsx)(`td`,{className:`py-3 align-top`,children:`Trigger the Suricata rule or log query in staging; confirm the alert fires`})]})]})]})})]}),(0,n.jsxs)(`section`,{className:`mb-10`,children:[(0,n.jsx)(`h2`,{className:`text-xl text-sky-500 font-semibold mb-4`,children:`Key takeaways`}),(0,n.jsxs)(`ul`,{className:`list-disc list-inside space-y-2 mb-4`,children:[(0,n.jsx)(`li`,{children:`SSRF converts the application's trusted network position into a proxy for the attacker — firewalls and ACLs are irrelevant once the fetch is attacker-controlled.`}),(0,n.jsx)(`li`,{children:`The metadata chain (169.254.169.254 → IAM credentials → S3/control plane) is the highest-impact variant; it drove the Capital One breach and remains a current initial-access vector (CVE-2026-15409, KEV July 2026).`}),(0,n.jsx)(`li`,{children:`Allowlists beat deny-lists; deny-lists are a documented last resort. Whatever you use, validate every resolved IP, pin the connection, and disable redirects.`}),(0,n.jsx)(`li`,{children:`Detection is cheap relative to the blast radius: SAST in CI, two Suricata signatures, and outbound-flow logs catch the common variants.`})]})]}),(0,n.jsxs)(`section`,{className:`mb-10 border-t border-slate-800 pt-8`,children:[(0,n.jsx)(`h2`,{className:`text-xl text-sky-500 font-semibold mb-4`,children:`Kokkuvõte eesti keeles`}),(0,n.jsx)(`p`,{className:`leading-relaxed mb-4`,children:`Server-Side Request Forgery (SSRF) on rünnak, kus ründaja sunnib rakendust tegema päringuid serveri enda nimel — näiteks localhosti, sisemiste teenuste või pilve metaandmete lõpp-punkti (169.254.169.254) poole. Nii saab varastada IAM-mandaate ja pääseda ligi sisemistele süsteemidele, mida tulemüür kaitseb. Peamised kaitsed: positiivne lubatud-URL-ide nimekiri (allowlist), kõigi DNS-ist lahendatud IP-aadresside kontroll, ümbersuunamiste keelamine ning võrgu tasandil deny-by-default egress-tulemüür. AWS-is lülitage sisse IMDSv2 ja keelake IMDSv1. Täielik laborikäik ja koodinäited on ülal inglise keeles.`})]}),(0,n.jsxs)(`section`,{className:`mb-10 border-t border-slate-800 pt-8`,children:[(0,n.jsx)(`h2`,{className:`text-xl text-sky-500 font-semibold mb-4`,children:`Sources`}),(0,n.jsxs)(`ul`,{className:`list-disc list-inside space-y-1 text-sm`,children:[(0,n.jsx)(`li`,{children:(0,n.jsx)(`a`,{className:`text-sky-400 hover:text-sky-300`,href:`https://owasp.org/Top10/2021/A10_2021-Server-Side_Request_Forgery_(SSRF)/`,children:`OWASP Top 10:2021 — A10 Server-Side Request Forgery`})}),(0,n.jsx)(`li`,{children:(0,n.jsx)(`a`,{className:`text-sky-400 hover:text-sky-300`,href:`https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html`,children:`OWASP Server-Side Request Forgery Prevention Cheat Sheet`})}),(0,n.jsx)(`li`,{children:(0,n.jsx)(`a`,{className:`text-sky-400 hover:text-sky-300`,href:`https://owasp.org/Top10/2025/0x00_2025-Introduction/`,children:`OWASP Top 10:2025 — Introduction (SSRF rolled into A01)`})}),(0,n.jsx)(`li`,{children:(0,n.jsx)(`a`,{className:`text-sky-400 hover:text-sky-300`,href:`https://cwe.mitre.org/data/definitions/918.html`,children:`CWE-918 — Server-Side Request Forgery`})}),(0,n.jsx)(`li`,{children:(0,n.jsx)(`a`,{className:`text-sky-400 hover:text-sky-300`,href:`https://portswigger.net/web-security/ssrf`,children:`PortSwigger Web Security Academy — SSRF`})}),(0,n.jsx)(`li`,{children:(0,n.jsx)(`a`,{className:`text-sky-400 hover:text-sky-300`,href:`https://portswigger.net/web-security/ssrf/url-validation-bypass-cheat-sheet`,children:`PortSwigger — URL validation bypass cheat sheet`})}),(0,n.jsx)(`li`,{children:(0,n.jsx)(`a`,{className:`text-sky-400 hover:text-sky-300`,href:`https://aws.amazon.com/blogs/security/defense-in-depth-open-firewalls-reverse-proxies-ssrf-vulnerabilities-ec2-instance-metadata-service/`,children:`AWS Security Blog — IMDSv2 defense in depth`})}),(0,n.jsx)(`li`,{children:(0,n.jsx)(`a`,{className:`text-sky-400 hover:text-sky-300`,href:`https://httpd.apache.org/security/vulnerabilities_24.html`,children:`Apache HTTP Server vulnerabilities — CVE-2021-40438`})}),(0,n.jsx)(`li`,{children:(0,n.jsx)(`a`,{className:`text-sky-400 hover:text-sky-300`,href:`https://www.cisa.gov/known-exploited-vulnerabilities-catalog`,children:`CISA Known Exploited Vulnerabilities Catalog (CVE-2026-15409)`})}),(0,n.jsx)(`li`,{children:(0,n.jsxs)(`a`,{className:`text-sky-400 hover:text-sky-300`,href:`https://attack.mitre.org/techniques/T1190/`,children:[`MITRE ATT&CK T1190 / `,(0,n.jsx)(`span`,{className:`text-slate-300`,children:`T1552.005`}),` `,`(Cloud Instance Metadata API)`]})}),(0,n.jsxs)(`li`,{children:[(0,n.jsx)(`a`,{className:`text-sky-400 hover:text-sky-300`,href:`https://www.capitalone.com/facts2019/`,children:`Capital One — 2019 incident facts`}),`;`,` `,(0,n.jsx)(`a`,{className:`text-sky-400 hover:text-sky-300`,href:`https://dl.acm.org/doi/10.1145/3546068`,children:`systematic analysis (ACM)`})]}),(0,n.jsxs)(`li`,{children:[(0,n.jsx)(`a`,{className:`text-sky-400 hover:text-sky-300`,href:`https://www.rfc-editor.org/rfc/rfc1918`,children:`RFC 1918`}),`,`,` `,(0,n.jsx)(`a`,{className:`text-sky-400 hover:text-sky-300`,href:`https://www.rfc-editor.org/rfc/rfc3927`,children:`RFC 3927`}),` `,`(link-local),`,` `,(0,n.jsx)(`a`,{className:`text-sky-400 hover:text-sky-300`,href:`https://www.rfc-editor.org/rfc/rfc4193`,children:`RFC 4193`}),` `,`(ULA),`,` `,(0,n.jsx)(`a`,{className:`text-sky-400 hover:text-sky-300`,href:`https://www.rfc-editor.org/rfc/rfc5737`,children:`RFC 5737`}),` `,`(documentation ranges)`]})]})]})]})]})})]})}export{i as default};
