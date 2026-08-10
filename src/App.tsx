@@ -17,6 +17,7 @@ const TermsOfService = React.lazy(() => import('./components/TermsOfService'));
 const CookiePolicy = React.lazy(() => import('./components/CookiePolicy'));
 const Disclosure = React.lazy(() => import('./components/Disclosure'));
 const Fido2PasskeysGuide = React.lazy(() => import('./components/Fido2PasskeysGuide'));
+const SsrfGuide = React.lazy(() => import('./components/SsrfGuide'));
 const NotFound = React.lazy(() => import('./components/NotFound'));
 
 function HomePage() {
@@ -110,6 +111,16 @@ function App() {
                   breadcrumbUrl="/guides/fido2-vs-passkeys"
                 >
                   <Fido2PasskeysGuide />
+                </LegalLayout>
+              } />
+              <Route path="/guides/ssrf-explained" element={
+                <LegalLayout
+                  defaultTitle="SSRF Explained: Attack Examples & Prevention"
+                  defaultDescription="Server-side request forgery (SSRF) explained: attack anatomy, cloud metadata credential theft, detection rules, and prevention patterns, with a reproducible local lab."
+                  breadcrumbTitle="SSRF Explained"
+                  breadcrumbUrl="/guides/ssrf-explained"
+                >
+                  <SsrfGuide />
                 </LegalLayout>
               } />
               <Route path="*" element={<LegalLayout><NotFound /></LegalLayout>} />
