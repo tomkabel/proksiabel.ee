@@ -51,13 +51,13 @@ The audience searches these when forced to make an architecture decision under c
 Full technical post-mortems of a vulnerability class (SSRF, IDOR, JWT alg-confusion, race conditions, template injection): *how it works, how to exploit it in a local lab, how to detect it, how to fix it*. Format: exploit walkthrough + detection rules + fix patterns, with a Docker-based lab repo per article.
 
 **2.2 Searcher Intent & Technical Motivation**
-AppSec specialists and pentesters search these when they hit a class of bug in a client engagement or a bug bounty target and need (a) the exploitation mechanics, (b) detection queries, (c) the remediation pattern to write up in the report. This is the highest-trust query class in AppSec — the reader is actively trying to break something or fix something right now. OWASP Top 10 (85K MSV) is the umbrella these queries cluster under, and OWASP 2025 folded SSRF into A10 (it is a named, funded research topic).
+AppSec specialists and pentesters search these when they hit a class of bug in a client engagement or a bug bounty target and need (a) the exploitation mechanics, (b) detection queries, (c) the remediation pattern to write up in the report. This is the highest-trust query class in AppSec — the reader is actively trying to break something or fix something right now. OWASP Top 10 (85K MSV) is the umbrella these queries cluster under, and OWASP 2025 folded SSRF into A01:2025 Broken Access Control (CWE-918) — treating it as an authorization failure, not a data-validation issue.
 
 **2.3 Example High-Volume Keyword Clusters**
 
 | Keyword | Estimated MSV | Search Intent | Primary Topic Focus |
 |---|---|---|---|
-| OWASP Top 10 / OWASP Top 10 2025 / OWASP Top 10 vulnerabilities | 85,000 (G — gracker.ai 2026 pen-testing table; note: other tools quote 6.6K — validate in Ahrefs before committing budget) | Informational | 2025 category changes (A06:2025 vulnerable components, SSRF merged into A10) |
+| OWASP Top 10 / OWASP Top 10 2025 / OWASP Top 10 vulnerabilities | 85,000 (G — gracker.ai 2026 pen-testing table; note: other tools quote 6.6K — validate in Ahrefs before committing budget) | Informational | 2025 category changes (A06:2025 vulnerable components, SSRF merged into A01:2025 Broken Access Control) |
 | SSRF / server side request forgery / SSRF attack example | 8,000-20,000 (P — OWASP funding + CVE volume + training-site competition) | Informational + educational | SSRF detection, blind SSRF, cloud-metadata exploitation |
 | IDOR / broken access control / insecure direct object reference | 5,000-12,000 (P — #1 OWASP category since 2021; bug-bounty blog long-tail) | Informational + educational | Object-level authorization, UUID vs sequential IDs |
 | JWT attack / JWT alg none / JWT algorithm confusion | 3,000-8,000 (P — JWT tooling (jwt_tool, portswigger labs) long-tail) | Educational | Signature confusion, key confusion, verification gaps |
