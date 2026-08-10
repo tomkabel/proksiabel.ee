@@ -28,3 +28,5 @@ Format: `YYYY-MM-DD | route | topic | strategy # | keyword target | result`
 **Gates:** npx tsc --noEmit pass · npm run lint pass (3 pre-existing errors in unrelated untracked dirs .claude/.remember/proksiabel — untouched; my files clean) · npm run build pass (7/7 pages prerendered incl. /guides/ssrf-explained) · built-page check pass: title "SSRF Explained: Attack Examples & Prevention — ProksiAbel OÜ", canonical https://proksiabel.ee/guides/ssrf-explained, TechArticle JSON-LD, full article content verified.
 
 **Not deployed:** dry-run mode — no commit/push/wrangler deploy/cache purge performed.
+
+**2026-08-11 | SHIPPED | /guides/ssrf-explained | SSRF deep-dive with local lab | Strategy 2 | commits 9a6fcb5 + 35dc7ef | live 200, canonical verified, cache purged**
