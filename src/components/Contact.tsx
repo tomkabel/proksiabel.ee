@@ -6,14 +6,16 @@ import { useTranslation } from '../i18n';
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function Contact() {
-  const { t, locale } = useTranslation();
+  const { t, language } = useTranslation();
   const [emailError, setEmailError] = useState<string | null>(null);
+  const [messageError, setMessageError] = useState<string | null>(null);
   const [messageSent, setMessageSent] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setEmailError(null);
+    setMessageError(null);
 
     const formData = new FormData(e.currentTarget);
     const name = formData.get('name') as string;
@@ -21,24 +23,25 @@ export default function Contact() {
     const message = formData.get('message') as string;
 
     if (!EMAIL_REGEX.test(email)) {
-      setEmailError(locale === 'et' ? 'Palun sisesta kehtiv e-posti aadress' : 'Please enter a valid email address');
+      setEmailError(language === 'et' ? 'Palun sisesta kehtiv e-posti aadress' : 'Please enter a valid email address');
       return;
     }
 
     if (!message.trim()) {
+      setMessageError(language === 'et' ? 'Palun kirjuta sõnum enne saatmist' : 'Please write a message before sending');
       return;
     }
 
-    const subject = locale === 'et'
+    const subject = language === 'et'
       ? 'Kontaktvorm - proksiabel.ee'
       : 'Contact Form - proksiabel.ee';
 
-    const nl = '%0A';
-    const body = locale === 'et'
+    const nl = '\n';
+    const body = language === 'et'
       ? 'Nimi: ' + (name || 'Pole märgitud') + nl + 'E-post: ' + email + nl + nl + 'Sõnum:' + nl + message
       : 'Name: ' + (name || 'Not specified') + nl + 'Email: ' + email + nl + nl + 'Message:' + nl + message;
 
-    const mailtoLink = 'mailto:' + contactInfo.email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body).replace(/%0A/g, nl);
+    const mailtoLink = 'mailto:' + contactInfo.email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
 
     window.location.href = mailtoLink;
     setMessageSent(true);
@@ -175,8 +178,13 @@ export default function Contact() {
                   rows={5}
                   placeholder={t.contact.form.messagePlaceholder}
                   required
-                  className="input-field resize-none"
+                  aria-invalid={!!messageError}
+                  aria-describedby={messageError ? 'message-error' : undefined}
+                  className={`input-field resize-none ${messageError ? 'border-red-500' : ''}`}
                 />
+                {messageError && (
+                  <p id="message-error" className="text-red-400 text-sm mt-1" role="alert">{messageError}</p>
+                )}
               </div>
 
               <button

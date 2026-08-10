@@ -31,7 +31,7 @@ npm run lint         # Run ESLint on all files
 
 ### Type Checking
 ```bash
-npx tsc --noEmit     # Run TypeScript compiler check
+npx tsc -b     # Run TypeScript compiler check (project references; also runs in npm run build)
 ```
 
 ### Single File Linting

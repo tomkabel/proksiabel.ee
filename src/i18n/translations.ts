@@ -83,8 +83,8 @@ export const translations = {
       title: 'Meet the guy breaking your stuff (so others can\'t)',
       name: 'Tom Kristian Abel',
       role: 'Offensive Security Specialist',
-      bio1: 'Look, my background is heavily rooted in offensive security. I build custom tools in Go and rip apart complex web applications to see what makes them tick. It gives me a massive edge when telling you how to defend them.',
-      bio2: 'I\'ve spent over 6 years doing this. I even wrote a proof-of-concept that completely bypassed a major platform\'s client-side bot detection system. Yeah, that was a fun weekend.',
+      bio1: 'My background is deeply rooted in offensive security. I write custom tooling in Go and take complex web applications apart to understand exactly how they work — which is what gives my defensive recommendations their edge.',
+      bio2: 'I have spent over 6 years doing this. I have also authored a proof-of-concept that fully bypassed a major platform\'s client-side bot detection system. That kind of hands-on evidence is what separates a real assessment from a scanner report.',
       experience: '6+ Years Breaking Stuff',
       yearsActive: 'Years Active',
       projects: 'Projects',
@@ -612,8 +612,8 @@ export const translations = {
       title: 'Saame tuttavaks: mees, kes su süsteeme lõhub (et teised seda ei saaks teha)',
       name: 'Tom Kristian Abel',
       role: 'Ründeturbe (Offensive Security) Spetsialist',
-      bio1: 'Kuule, minu taust on sügavalt ründeturbe poolel. Ma kirjutan Go\'s oma tööriistu ja võtan keerulisi veebirakendusi algosadeks lahti, et aru saada, kuidas need töötavad. See annab mulle tohutu eelise, kui on vaja soovitada, kuidas neid kaitsta.',
-      bio2: 'Olen seda teinud üle 6 aasta. Kirjutasin isegi proof-of-concept lahenduse, mis läks täielikult mööda ühe suure platvormi kliendipoolsest bot-tuvastusest. Jah, see oli lõbus nädalavahetus.',
+      bio1: 'Minu taust on sügavalt ründeturbe poolel. Kirjutan Go keeles oma tööriistu ja võtan keerulised veebirakendused algosadeks lahti, et mõista täpselt, kuidas need töötavad — just see annab minu kaitsealastele soovitustele eelise.',
+      bio2: 'Olen seda teinud üle 6 aasta. Olen kirjutanud ka proof-of-concept lahenduse, mis läks täielikult mööda ühe suure platvormi kliendipoolsest bot-tuvastusest. Just selline praktiline tõend eristab põhjalikku testi skänneripõhisest raportist.',
       experience: '6+ aastat süsteemide lõhkumist',
       yearsActive: 'Aastat tegutsenud',
       projects: 'Projekti',
@@ -1061,3 +1061,8 @@ export const translations = {
 
 export type Language = 'en' | 'et';
 export type TranslationKeys = typeof translations;
+type DeepStrings<T> =
+  T extends string ? string
+  : T extends readonly (infer U)[] ? readonly DeepStrings<U>[]
+  : { [K in keyof T]: DeepStrings<T[K]> };
+export type TranslationShape = DeepStrings<TranslationKeys>;
