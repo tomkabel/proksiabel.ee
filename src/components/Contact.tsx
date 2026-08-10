@@ -85,16 +85,9 @@ export default function Contact() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8 mb-12">
-          {contactMethods.map((method, index) => (
-            <div
-              key={method.title}
-              className="group animate-slide-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <a
-                href={method.href || undefined}
-                className="block glass-card-hover p-8 text-center h-full"
-              >
+          {contactMethods.map((method, index) => {
+            const content = (
+              <>
                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${method.color} flex items-center justify-center mx-auto mb-4 shadow-lg`}>
                   <method.icon className="h-6 w-6 text-white" />
                 </div>
@@ -102,9 +95,23 @@ export default function Contact() {
                 <p className={`text-sm ${method.href ? 'text-sky-400 group-hover:text-sky-300' : 'text-slate-400'} transition-colors`}>
                   {method.value}
                 </p>
-              </a>
-            </div>
-          ))}
+              </>
+            );
+            const cardClass = 'block glass-card-hover p-8 text-center h-full';
+            return (
+              <div
+                key={method.title}
+                className="group animate-slide-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {method.href ? (
+                  <a href={method.href} className={cardClass}>{content}</a>
+                ) : (
+                  <div className={cardClass}>{content}</div>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         <div className="max-w-2xl mx-auto animate-slide-up stagger-3">

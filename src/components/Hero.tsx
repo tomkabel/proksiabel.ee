@@ -87,10 +87,10 @@ export default function Hero() {
               <div className="absolute inset-0 bg-gradient-to-br from-sky-500/20 to-teal-500/20 rounded-3xl blur-2xl" />
               
               <div className="relative glass-card p-8 md:p-10">
-                <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
+                <h2 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
                   <Shield className="h-5 w-5 text-sky-400" />
                   {t.hero.coreServices}
-                </h3>
+                </h2>
 
                 <div className="space-y-4">
                   {services.map((service, index) => {
@@ -104,9 +104,9 @@ export default function Hero() {
                           <Icon className="h-6 w-6" />
                         </div>
                         <div className="flex-1">
-                          <h4 className="font-semibold text-white group-hover:text-sky-400 transition-colors">
+                          <h3 className="font-semibold text-white group-hover:text-sky-400 transition-colors">
                             {service.title}
-                          </h4>
+                          </h3>
                           <p className="text-sm text-slate-400 line-clamp-2">
                             {service.heroDescription}
                           </p>
