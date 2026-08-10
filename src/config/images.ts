@@ -3,7 +3,7 @@ export const images = {
     large: '/expert-large.webp',
     medium: '/expert-medium.webp',
     small: '/expert-small.webp',
-    default: '/expert.webp'
+    default: '/expert.webp',
   },
   og: '/og-image.png',
 };

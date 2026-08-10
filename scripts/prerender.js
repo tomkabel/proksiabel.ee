@@ -6,12 +6,12 @@
  * Reads sitemap.xml from pub/, launches a local preview server,
  * renders each URL, then saves the output.
  */
+
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
+import { createServer } from 'node:http';
+import { extname, join } from 'node:path';
 import { launch } from 'puppeteer-core';
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
-import { createServer } from 'http';
-import { readFile, access } from 'fs/promises';
-import { join, extname } from 'path';
-import { spawn } from 'child_process';
 
 const PUB_DIR = 'pub';
 const SITEMAP = `${PUB_DIR}/sitemap.xml`;
@@ -48,8 +48,7 @@ const MIME = {
 function extractUrls(xml) {
   const urls = [];
   const re = /<loc>(https?:\/\/[^<]+)<\/loc>/g;
-  let m;
-  while ((m = re.exec(xml)) !== null) {
+  for (let m = re.exec(xml); m; m = re.exec(xml)) {
     urls.push(m[1]);
   }
   return urls;
@@ -61,10 +60,14 @@ async function main() {
   const allUrls = extractUrls(sitemapXml);
   // Filter to same-domain, skip .well-known and external
   const urls = allUrls
-    .map(u => {
-      try { return new URL(u).pathname; } catch { return null; }
+    .map((u) => {
+      try {
+        return new URL(u).pathname;
+      } catch {
+        return null;
+      }
     })
-    .filter(u => u && !u.includes('.well-known'));
+    .filter((u) => u && !u.includes('.well-known'));
 
   console.log(`[prerender] Found ${urls.length} URLs in sitemap`);
 
@@ -73,9 +76,7 @@ async function main() {
     let filePath = join(PUB_DIR, req.url === '/' ? '/index.html' : req.url);
     // SPA fallback: non-asset paths serve index.html
     if (!extname(filePath)) {
-      filePath = filePath.endsWith('/')
-        ? join(filePath, 'index.html')
-        : filePath + '.html';
+      filePath = filePath.endsWith('/') ? join(filePath, 'index.html') : `${filePath}.html`;
     }
     try {
       const content = await readFile(filePath);
@@ -95,7 +96,7 @@ async function main() {
     }
   });
 
-  await new Promise(resolve => server.listen(38765, resolve));
+  await new Promise((resolve) => server.listen(38765, resolve));
 
   // 3. Launch Chromium and render each page
   const browser = await launch({
@@ -114,10 +115,9 @@ async function main() {
         timeout: 15000,
       });
       // Wait for React to hydrate
-      await page.waitForFunction(
-        () => document.querySelector('h1, h2, nav a') !== null,
-        { timeout: 10000 }
-      ).catch(() => {});
+      await page
+        .waitForFunction(() => document.querySelector('h1, h2, nav a') !== null, { timeout: 10000 })
+        .catch(() => {});
 
       // Drop the static index.html canonical (pre-hydration) so only the
       // per-page Helmet canonical (data-rh) remains — two canonicals on a page
@@ -136,17 +136,15 @@ async function main() {
           'meta[name="twitter:url"]',
         ];
         dupSelectors.forEach((sel) => {
-          document
-            .querySelectorAll(`${sel}:not([data-rh])`)
-            .forEach((l) => l.remove());
+          document.querySelectorAll(`${sel}:not([data-rh])`).forEach((l) => {
+            l.remove();
+          });
         });
       });
 
       const html = await page.content();
       const outDir = join(PUB_DIR, pathname.replace(/^\//, ''));
-      const outFile = pathname === '/'
-        ? join(PUB_DIR, 'index.html')
-        : join(outDir, 'index.html');
+      const outFile = pathname === '/' ? join(PUB_DIR, 'index.html') : join(outDir, 'index.html');
 
       if (pathname !== '/') {
         mkdirSync(outDir, { recursive: true });
@@ -175,12 +173,14 @@ async function main() {
     return count !== 1;
   });
   if (offenders.length > 0) {
-    console.error(`[prerender] FAIL: ${offenders.length} page(s) have != 1 canonical: ${offenders.join(', ')}`);
+    console.error(
+      `[prerender] FAIL: ${offenders.length} page(s) have != 1 canonical: ${offenders.join(', ')}`,
+    );
     process.exit(1);
   }
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error('[prerender] Failed:', err);
   process.exit(1);
 });

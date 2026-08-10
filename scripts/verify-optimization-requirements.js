@@ -5,13 +5,12 @@
  * Checks if all requirements are met before running optimization
  */
 
-import fs from 'fs/promises';
-import path from 'path';
+import fs from 'node:fs/promises';
 
 // Check if ImageMagick is installed
 async function checkImageMagick() {
   try {
-    const { execSync } = await import('child_process');
+    const { execSync } = await import('node:child_process');
     // Try magick first (ImageMagick 7), then convert (ImageMagick 6)
     try {
       execSync('magick -version', { stdio: 'ignore' });
@@ -20,7 +19,7 @@ async function checkImageMagick() {
       execSync('convert -version', { stdio: 'ignore' });
       return { installed: true, command: 'convert' };
     }
-  } catch (error) {
+  } catch {
     return { installed: false, command: null };
   }
 }
@@ -29,22 +28,23 @@ async function checkImageMagick() {
 async function checkPublicDirectory() {
   try {
     const files = await fs.readdir('./public');
-    const imageFiles = files.filter(file => 
-      file.toLowerCase().endsWith('.jpg') || 
-      file.toLowerCase().endsWith('.jpeg') || 
-      file.toLowerCase().endsWith('.png')
+    const imageFiles = files.filter(
+      (file) =>
+        file.toLowerCase().endsWith('.jpg') ||
+        file.toLowerCase().endsWith('.jpeg') ||
+        file.toLowerCase().endsWith('.png'),
     );
-    
+
     return {
       exists: true,
       imageCount: imageFiles.length,
-      images: imageFiles
+      images: imageFiles,
     };
-  } catch (error) {
+  } catch {
     return {
       exists: false,
       imageCount: 0,
-      images: []
+      images: [],
     };
   }
 }
@@ -54,15 +54,15 @@ async function checkNpmScripts() {
   try {
     const packageJson = JSON.parse(await fs.readFile('./package.json', 'utf8'));
     const scripts = packageJson.scripts || {};
-    
+
     return {
       optimizeImages: !!scripts['optimize-images'],
-      checkImagemagick: !!scripts['check-imagemagick']
+      checkImagemagick: !!scripts['check-imagemagick'],
     };
-  } catch (error) {
+  } catch {
     return {
       optimizeImages: false,
-      checkImagemagick: false
+      checkImagemagick: false,
     };
   }
 }
@@ -70,7 +70,7 @@ async function checkNpmScripts() {
 // Main verification function
 async function verifyRequirements() {
   console.log('🔍 Verifying website optimization requirements...\n');
-  
+
   // Check 1: ImageMagick
   console.log('1. Checking ImageMagick installation...');
   const imStatus = await checkImageMagick();
@@ -81,7 +81,7 @@ async function verifyRequirements() {
     console.log('   💡 Install with: sudo apt install imagemagick (Ubuntu/Debian)');
     console.log('                   brew install imagemagick (macOS)');
   }
-  
+
   // Check 2: Public directory and images
   console.log('\n2. Checking public directory...');
   const publicStatus = await checkPublicDirectory();
@@ -93,7 +93,7 @@ async function verifyRequirements() {
   } else {
     console.log('   ❌ Public directory not found');
   }
-  
+
   // Check 3: NPM scripts
   console.log('\n3. Checking npm scripts...');
   const scriptStatus = await checkNpmScripts();
@@ -102,31 +102,35 @@ async function verifyRequirements() {
   } else {
     console.log('   ❌ optimize-images script is missing from package.json');
   }
-  
+
   if (scriptStatus.checkImagemagick) {
     console.log('   ✅ check-imagemagick script is configured');
   } else {
     console.log('   ❌ check-imagemagick script is missing from package.json');
   }
-  
+
   // Summary
   console.log('\n📋 SUMMARY:');
-  const allGood = imStatus.installed && publicStatus.exists && publicStatus.imageCount > 0 && 
-                  scriptStatus.optimizeImages && scriptStatus.checkImagemagick;
-  
+  const allGood =
+    imStatus.installed &&
+    publicStatus.exists &&
+    publicStatus.imageCount > 0 &&
+    scriptStatus.optimizeImages &&
+    scriptStatus.checkImagemagick;
+
   if (allGood) {
     console.log('   ✅ All requirements met! You can now run: npm run optimize-images');
   } else {
     console.log('   ⚠️  Some requirements are missing. Please address the issues above.');
-    
+
     if (!imStatus.installed) {
       console.log('   🔧 Fix: Install ImageMagick');
     }
-    
+
     if (!publicStatus.exists || publicStatus.imageCount === 0) {
       console.log('   🔧 Fix: Add images to public directory');
     }
-    
+
     if (!scriptStatus.optimizeImages || !scriptStatus.checkImagemagick) {
       console.log('   🔧 Fix: Verify package.json scripts');
     }

@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from '@dr.pogodin/react-helmet';
 import { useTranslation } from '../i18n';
 
 interface SEOMetaProps {
@@ -13,7 +13,7 @@ interface SEOMetaProps {
 const SITE_NAME = 'ProksiAbel OÜ';
 
 /**
- * Sets per-route <title> and <meta name="description"> via react-helmet-async.
+ * Sets per-route <title> and <meta name="description"> via @dr.pogodin/react-helmet.
  * Falls back to Estonian defaults when language-specific keys not provided.
  */
 export default function SEOMeta({
@@ -35,7 +35,7 @@ export default function SEOMeta({
     for (const k of keyPath) {
       value = (value as Record<string, unknown>)?.[k];
     }
-    pageTitle = typeof value === 'string' ? value : (defaultTitle || '');
+    pageTitle = typeof value === 'string' ? value : defaultTitle || '';
   } else {
     pageTitle = defaultTitle || '';
   }
@@ -52,7 +52,7 @@ export default function SEOMeta({
     for (const k of keyPath) {
       value = (value as Record<string, unknown>)?.[k];
     }
-    desc = typeof value === 'string' ? value : (defaultDescription || '');
+    desc = typeof value === 'string' ? value : defaultDescription || '';
   } else {
     desc = defaultDescription || '';
   }
@@ -63,20 +63,20 @@ export default function SEOMeta({
     <Helmet>
       <html lang={language === 'et' ? 'et' : 'en'} />
       <title>{title}</title>
-      <meta name="description" content={desc} />
-      <link rel="canonical" href={url} />
-      {noindex && <meta name="robots" content="noindex" />}
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={desc} />
-      <meta property="og:url" content={url} />
-      <meta property="og:type" content="website" />
-      <meta property="og:image" content="https://proksiabel.ee/og-image.png" />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={desc} />
-      <meta name="twitter:image" content="https://proksiabel.ee/og-image.png" />
+      <meta name='description' content={desc} />
+      <link rel='canonical' href={url} />
+      {noindex && <meta name='robots' content='noindex' />}
+      <meta property='og:title' content={title} />
+      <meta property='og:description' content={desc} />
+      <meta property='og:url' content={url} />
+      <meta property='og:type' content='website' />
+      <meta property='og:image' content='https://proksiabel.ee/og-image.png' />
+      <meta property='og:image:width' content='1200' />
+      <meta property='og:image:height' content='630' />
+      <meta name='twitter:card' content='summary_large_image' />
+      <meta name='twitter:title' content={title} />
+      <meta name='twitter:description' content={desc} />
+      <meta name='twitter:image' content='https://proksiabel.ee/og-image.png' />
     </Helmet>
   );
 }
@@ -85,10 +85,7 @@ export default function SEOMeta({
  * Generate BreadcrumbList JSON-LD for sub-pages.
  */
 export function BreadcrumbSchema({ items }: { items: { name: string; url: string }[] }) {
-  const fullItems = [
-    { name: 'ProksiAbel OÜ', url: 'https://proksiabel.ee/' },
-    ...items,
-  ];
+  const fullItems = [{ name: 'ProksiAbel OÜ', url: 'https://proksiabel.ee/' }, ...items];
 
   const schema = {
     '@context': 'https://schema.org',
@@ -101,9 +98,5 @@ export function BreadcrumbSchema({ items }: { items: { name: string; url: string
     })),
   };
 
-  return (
-    <script type="application/ld+json">
-      {JSON.stringify(schema)}
-    </script>
-  );
+  return <script type='application/ld+json'>{JSON.stringify(schema)}</script>;
 }

@@ -1,4 +1,4 @@
-import { Shield, Target, Fingerprint } from 'lucide-react';
+import { Fingerprint, Shield, Target } from 'lucide-react';
 
 export interface ServiceIcon {
   icon: typeof Shield;

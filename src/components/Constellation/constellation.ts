@@ -1,4 +1,4 @@
-import type { Project, Domain } from '../../data/projects';
+import type { Domain, Project } from '../../data/projects';
 
 export interface ConstellationNode {
   id: string;
@@ -33,7 +33,7 @@ const DOMAIN_COLORS: Record<Domain, [number, number, number]> = {
   systems: [0.024, 0.714, 0.831],
 };
 
-const CENTER_COLOR: [number, number, number] = [0.961, 0.620, 0.043];
+const CENTER_COLOR: [number, number, number] = [0.961, 0.62, 0.043];
 
 function lerpColor(
   a: [number, number, number],
@@ -79,7 +79,11 @@ export function initConstellation(
   config: ConstellationConfig,
 ): { nodes: ConstellationNode[]; edges: ConstellationEdge[] } {
   const items = projects.filter(
-    (p) => p.nodeType === 'project' || p.nodeType === 'domain' || p.nodeType === 'center' || p.nodeType === 'meta',
+    (p) =>
+      p.nodeType === 'project' ||
+      p.nodeType === 'domain' ||
+      p.nodeType === 'center' ||
+      p.nodeType === 'meta',
   );
   const selected = items.slice(0, config.maxNodes);
 
@@ -251,4 +255,4 @@ export function findClosestNode(
   return closest;
 }
 
-export { projectColor, nodeRadius };
+export { nodeRadius, projectColor };
