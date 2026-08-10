@@ -1,8 +1,28 @@
 # Cloudflare Configuration Plan — proksiabel.ee (2026/27 standard)
 
 Architecture: static Vite SPA, prerendered HTML (`pub/`), hashed `/assets/*`,
-zero server-side endpoints (contact = mailto), origin GitHub Pages (CNAME),
-zone proxied through Cloudflare. Free plan unless noted.
+zero server-side endpoints (contact = mailto). **Origin: Cloudflare Workers
+Static Assets** — worker `proksiabel-ee-proksiabel` (ASSETS binding, custom
+domain proksiabel.ee, AAAA `100::` DNS record managed by Workers). The GH
+Pages workflow (`static.yml`) also deploys `pub/` but is NOT the live origin.
+Zone proxied through Cloudflare. Free plan unless noted.
+
+## Deploy (live origin)
+
+```bash
+mv pub/full_exploit_final_v2_release.zip /tmp/   # >25MiB Pages/Assets cap, not deployable
+wrangler deploy --assets=pub --name=proksiabel-ee-proksiabel \
+  --compatibility-date=<today>
+mv /tmp/full_exploit_final_v2_release.zip pub/
+# then purge zone cache (HTML rule caches 1h + SWR):
+curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache" \
+  -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" \
+  --data '{"purge_everything":true}'
+```
+
+The 34 MB `full_exploit_final_v2_release.zip` exceeds the 25 MiB per-file cap
+for Workers static assets; it is tracked in the repo but not served by the
+worker (site links don't reference it). Serving it would need R2 + Worker.
 
 ## Verified current state (2026-08-10 probes)
 
@@ -88,10 +108,17 @@ Notes:
 - Cloudflare Managed Ruleset: keep default ON (free essential set).
 - Bot Fight Mode: **ON (dashboard-only toggle — cannot be changed via API;
   `PATCH /zones/{id}/bot_management` → 10405 for both API tokens and OAuth)**.
-  Plan target is OFF (managed robots.txt already blocks AI bots; BFM on Free
-  can occasionally challenge legitimate crawlers). Flip manually:
-  dash.cloudflare.com → zone → Security → Settings → filter "Bot traffic" →
-  Bot fight mode → off. No endpoints → no rate limiting needed.
+  Verified 2026-08-10 GET: `fight_mode=true`, `ai_bots_protection=block`,
+  `ai_training/ai_search/ai_user=disabled`. AI crawlers (GPTBot,
+  OAI-SearchBot, PerplexityBot, ClaudeBot) all receive 403 at the edge while
+  Googlebot/Bingbot get 200 — the 403s block AI-search citations. To allow
+  retrieval bots while keeping training blocked, flip BOTH dashboard toggles:
+  dash.cloudflare.com → zone → Security → Bots →
+  1. Bot Fight Mode → **Off**
+  2. AI Bots Protection → allow search/agent bots (keep training blocked)
+  The CF-managed robots.txt already blocks only training crawlers, so once the
+  edge toggles allow them, OAI-SearchBot/PerplexityBot pass and GPTBot/
+  ClaudeBot stay out. Verify: `curl -sI -A "OAI-SearchBot/1.0" https://proksiabel.ee/` → 200.
 
 ## 6. Post-apply verification
 
