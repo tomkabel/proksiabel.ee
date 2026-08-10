@@ -26,8 +26,8 @@ const CHROMIUM_CANDIDATES = [
 const CHROMIUM_PATH = CHROMIUM_CANDIDATES.find((p) => existsSync(p));
 
 if (!CHROMIUM_PATH) {
-  console.error('[prerender] No Chromium found — install chromium or google-chrome.');
-  process.exit(1);
+  console.warn('[prerender] No Chromium found — skipping prerender (install chromium or google-chrome for full build).');
+  process.exit(0);
 }
 
 // MIME types for static file serving
