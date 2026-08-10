@@ -4,8 +4,8 @@
  *
  * Run by `npm run build` via the "postbuild" script in package.json.
  */
-import { readFileSync, writeFileSync, cpSync, existsSync } from 'fs';
-import { join } from 'path';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 const PUB = 'pub';
 const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
@@ -46,9 +46,13 @@ if (existsSync(indexPath)) {
   } else {
     // Check if 404.html has unique title (not cloned from index)
     const notFoundHtml = readFileSync(notFoundPath, 'utf-8');
-    if (notFoundHtml.includes('ProksiAbel OÜ - Ekspert MITM kaitse') ||
-        notFoundHtml.includes('<link rel="canonical"')) {
-      console.warn('[postbuild-seo] ⚠️  404.html appears to be a clone of index.html — update it manually');
+    if (
+      notFoundHtml.includes('ProksiAbel OÜ - Ekspert MITM kaitse') ||
+      notFoundHtml.includes('<link rel="canonical"')
+    ) {
+      console.warn(
+        '[postbuild-seo] ⚠️  404.html appears to be a clone of index.html — update it manually',
+      );
     }
   }
 }

@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { PerformanceMonitor } from './renderer';
 
 interface ConstellationCanvas2DProps {
@@ -63,7 +63,7 @@ export default function ConstellationCanvas2D({
       ref={canvasRef}
       width={width}
       height={height}
-      className="block w-full h-full"
+      className='block w-full h-full'
       style={{ background: '#030407' }}
     />
   );

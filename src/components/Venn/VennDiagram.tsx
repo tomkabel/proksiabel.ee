@@ -1,9 +1,9 @@
-import { useState, useCallback, useMemo } from 'react';
-import { useTranslation } from '../../i18n';
-import { getProjectsByZone, zoneContent } from '../../data/projects';
+import { useCallback, useMemo, useState } from 'react';
 import type { VennZone } from '../../data/projects';
-import { createVennCircles, computeVennZones } from './venn-geometry';
+import { getProjectsByZone, zoneContent } from '../../data/projects';
+import { useTranslation } from '../../i18n';
 import ProjectCard from './ProjectCard';
+import { computeVennZones, createVennCircles } from './venn-geometry';
 
 const CIRCLE_COLORS: Record<string, { fill: string; stroke: string; label: string }> = {
   security: {
@@ -77,6 +77,7 @@ export default function VennDiagram() {
 
   const activeZoneContent = useMemo(() => {
     const zoneId = activeZones.size === 1 ? Array.from(activeZones)[0] : 'center';
+    // biome-ignore lint/style/noNonNullAssertion: 'center' zone is guaranteed by zoneContent data shape
     return zoneContent.find((z) => z.id === zoneId) || zoneContent.find((z) => z.id === 'center')!;
   }, [activeZones]);
 
@@ -86,14 +87,14 @@ export default function VennDiagram() {
   const viewBoxHeight = 420 * scale;
 
   return (
-    <div className="w-full">
+    <div className='w-full'>
       {/* SVG Venn */}
-      <div className="relative w-full max-w-[500px] mx-auto mb-12">
+      <div className='relative w-full max-w-[500px] mx-auto mb-12'>
         <svg
           viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
-          className="w-full h-auto"
-          aria-label="Venn diagram showing Security, AI/ML, and Systems domains"
-          role="img"
+          className='w-full h-auto'
+          aria-label='Venn diagram showing Security, AI/ML, and Systems domains'
+          role='img'
         >
           {/* Overlapping circles */}
           {CIRCLE_IDS.map((id, i) => {
@@ -109,7 +110,7 @@ export default function VennDiagram() {
                   fill={isActive ? colors.fill : 'rgba(255,255,255,0.02)'}
                   stroke={isActive ? colors.stroke : 'rgba(255,255,255,0.08)'}
                   strokeWidth={isActive ? 2 : 1}
-                  className="transition-all duration-300 cursor-pointer"
+                  className='transition-all duration-300 cursor-pointer'
                   onClick={(e) => {
                     const svg = (e.target as SVGElement).closest('svg');
                     if (!svg) return;
@@ -142,16 +143,16 @@ export default function VennDiagram() {
                   cy={zone.cy}
                   rx={zone.rx}
                   ry={zone.ry}
-                  fill="transparent"
-                  className="cursor-pointer"
+                  fill='transparent'
+                  className='cursor-pointer'
                   onClick={(e) => handleZoneClick(zone.id, e as unknown as React.MouseEvent)}
                 />
                 {/* Zone label */}
                 <text
                   x={zone.cx}
                   y={zone.cy}
-                  textAnchor="middle"
-                  dominantBaseline="central"
+                  textAnchor='middle'
+                  dominantBaseline='central'
                   className={`text-xs font-mono pointer-events-none transition-colors duration-300 ${
                     isActive ? 'fill-[--text-primary]' : 'fill-[--text-muted]'
                   }`}
@@ -173,9 +174,9 @@ export default function VennDiagram() {
                 key={`label-${id}`}
                 x={c.cx}
                 y={y}
-                textAnchor="middle"
-                dominantBaseline="central"
-                className="font-display font-bold pointer-events-none"
+                textAnchor='middle'
+                dominantBaseline='central'
+                className='font-display font-bold pointer-events-none'
                 fill={colors.label}
                 fontSize={14 * scale * 1.5}
                 opacity={0.9}
@@ -187,27 +188,29 @@ export default function VennDiagram() {
         </svg>
 
         {/* Multi-select hint */}
-        <p className="text-center text-xs text-[--text-muted] mt-2">
+        <p className='text-center text-xs text-[--text-muted] mt-2'>
           Click a zone to explore. Shift+click to select multiple.
         </p>
       </div>
 
       {/* Content panel */}
-      <div className="max-w-4xl mx-auto px-6 lg:px-8">
-        <div className="mb-10">
-          <h2 className="font-display text-2xl font-bold text-[--text-primary] mb-4">
+      <div className='max-w-4xl mx-auto px-6 lg:px-8'>
+        <div className='mb-10'>
+          <h2 className='font-display text-2xl font-bold text-[--text-primary] mb-4'>
             {activeZoneContent.title[language as 'en' | 'et'] || activeZoneContent.title.en}
           </h2>
-          <p className="text-[--text-secondary] text-base leading-relaxed max-w-3xl">
-            {activeZoneContent.description[language as 'en' | 'et'] || activeZoneContent.description.en}
+          <p className='text-[--text-secondary] text-base leading-relaxed max-w-3xl'>
+            {activeZoneContent.description[language as 'en' | 'et'] ||
+              activeZoneContent.description.en}
           </p>
 
           {activeTag && (
-            <div className="mt-4 flex items-center gap-2">
-              <span className="text-xs text-[--text-muted]">Filtered by:</span>
+            <div className='mt-4 flex items-center gap-2'>
+              <span className='text-xs text-[--text-muted]'>Filtered by:</span>
               <button
+                type='button'
                 onClick={() => setActiveTag(null)}
-                className="px-2.5 py-1 rounded-md text-xs font-mono uppercase bg-[--accent-intersection]/20 text-[--accent-intersection] hover:bg-[--accent-intersection]/30 transition-colors"
+                className='px-2.5 py-1 rounded-md text-xs font-mono uppercase bg-[--accent-intersection]/20 text-[--accent-intersection] hover:bg-[--accent-intersection]/30 transition-colors'
               >
                 {activeTag} ×
               </button>
@@ -217,7 +220,7 @@ export default function VennDiagram() {
 
         {/* Project cards */}
         {activeProjects.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
             {activeProjects.map((project) => (
               <ProjectCard
                 key={project.id}
@@ -230,7 +233,7 @@ export default function VennDiagram() {
             ))}
           </div>
         ) : (
-          <p className="text-center text-[--text-muted] text-sm py-12">
+          <p className='text-center text-[--text-muted] text-sm py-12'>
             {activeTag
               ? 'No projects with this tag in the selected zone.'
               : 'No projects in this zone yet.'}

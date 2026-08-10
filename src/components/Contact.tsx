@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { Mail, Phone, MapPin, Send, ArrowRight, CheckCircle2, Clock } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Clock, Mail, MapPin, Phone, Send } from 'lucide-react';
+import type React from 'react';
+import { useRef, useState } from 'react';
 import { contactInfo } from '../data/contact';
 import { useTranslation } from '../i18n';
 
@@ -23,25 +24,57 @@ export default function Contact() {
     const message = formData.get('message') as string;
 
     if (!EMAIL_REGEX.test(email)) {
-      setEmailError(language === 'et' ? 'Palun sisesta kehtiv e-posti aadress' : 'Please enter a valid email address');
+      setEmailError(
+        language === 'et'
+          ? 'Palun sisesta kehtiv e-posti aadress'
+          : 'Please enter a valid email address',
+      );
       return;
     }
 
     if (!message.trim()) {
-      setMessageError(language === 'et' ? 'Palun kirjuta sõnum enne saatmist' : 'Please write a message before sending');
+      setMessageError(
+        language === 'et'
+          ? 'Palun kirjuta sõnum enne saatmist'
+          : 'Please write a message before sending',
+      );
       return;
     }
 
-    const subject = language === 'et'
-      ? 'Kontaktvorm - proksiabel.ee'
-      : 'Contact Form - proksiabel.ee';
+    const subject =
+      language === 'et' ? 'Kontaktvorm - proksiabel.ee' : 'Contact Form - proksiabel.ee';
 
     const nl = '\n';
-    const body = language === 'et'
-      ? 'Nimi: ' + (name || 'Pole märgitud') + nl + 'E-post: ' + email + nl + nl + 'Sõnum:' + nl + message
-      : 'Name: ' + (name || 'Not specified') + nl + 'Email: ' + email + nl + nl + 'Message:' + nl + message;
+    const body =
+      language === 'et'
+        ? 'Nimi: ' +
+          (name || 'Pole märgitud') +
+          nl +
+          'E-post: ' +
+          email +
+          nl +
+          nl +
+          'Sõnum:' +
+          nl +
+          message
+        : 'Name: ' +
+          (name || 'Not specified') +
+          nl +
+          'Email: ' +
+          email +
+          nl +
+          nl +
+          'Message:' +
+          nl +
+          message;
 
-    const mailtoLink = 'mailto:' + contactInfo.email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    const mailtoLink =
+      'mailto:' +
+      contactInfo.email +
+      '?subject=' +
+      encodeURIComponent(subject) +
+      '&body=' +
+      encodeURIComponent(body);
 
     window.location.href = mailtoLink;
     setMessageSent(true);
@@ -73,29 +106,37 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="section-padding bg-slate-900 relative overflow-hidden">
-      <div className="absolute inset-0 bg-mesh opacity-40" aria-hidden="true" />
-      <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-sky-500/15 rounded-full blur-[120px]" aria-hidden="true" />
-      <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-teal-500/15 rounded-full blur-[120px]" aria-hidden="true" />
+    <section id='contact' className='section-padding bg-slate-900 relative overflow-hidden'>
+      <div className='absolute inset-0 bg-mesh opacity-40' aria-hidden='true' />
+      <div
+        className='absolute top-0 left-1/4 w-[400px] h-[400px] bg-sky-500/15 rounded-full blur-[120px]'
+        aria-hidden='true'
+      />
+      <div
+        className='absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-teal-500/15 rounded-full blur-[120px]'
+        aria-hidden='true'
+      />
 
-      <div className="relative z-10 container-custom">
-        <div className="text-center mb-16 animate-fade-in">
-          <div className="accent-line mx-auto mb-6" />
-          <h2 className="heading-2 mb-4">{t.contact.title}</h2>
-          <p className="body-large text-slate-400 max-w-3xl mx-auto">
-            {t.contact.description}
-          </p>
+      <div className='relative z-10 container-custom'>
+        <div className='text-center mb-16 animate-fade-in'>
+          <div className='accent-line mx-auto mb-6' />
+          <h2 className='heading-2 mb-4'>{t.contact.title}</h2>
+          <p className='body-large text-slate-400 max-w-3xl mx-auto'>{t.contact.description}</p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 mb-12">
+        <div className='grid lg:grid-cols-3 gap-8 mb-12'>
           {contactMethods.map((method, index) => {
             const content = (
               <>
-                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${method.color} flex items-center justify-center mx-auto mb-4 shadow-lg`}>
-                  <method.icon className="h-6 w-6 text-white" />
+                <div
+                  className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${method.color} flex items-center justify-center mx-auto mb-4 shadow-lg`}
+                >
+                  <method.icon className='h-6 w-6 text-white' />
                 </div>
-                <h3 className="text-lg font-semibold text-white mb-2">{method.title}</h3>
-                <p className={`text-sm ${method.href ? 'text-sky-400 group-hover:text-sky-300' : 'text-slate-400'} transition-colors`}>
+                <h3 className='text-lg font-semibold text-white mb-2'>{method.title}</h3>
+                <p
+                  className={`text-sm ${method.href ? 'text-sky-400 group-hover:text-sky-300' : 'text-slate-400'} transition-colors`}
+                >
                   {method.value}
                 </p>
               </>
@@ -104,11 +145,13 @@ export default function Contact() {
             return (
               <div
                 key={method.title}
-                className="group animate-slide-up"
+                className='group animate-slide-up'
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {method.href ? (
-                  <a href={method.href} className={cardClass}>{content}</a>
+                  <a href={method.href} className={cardClass}>
+                    {content}
+                  </a>
                 ) : (
                   <div className={cardClass}>{content}</div>
                 )}
@@ -117,64 +160,69 @@ export default function Contact() {
           })}
         </div>
 
-        <div className="max-w-2xl mx-auto animate-slide-up stagger-3">
-          <div className="glass-card p-8 md:p-10">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-teal-500 flex items-center justify-center">
-                <Send className="h-5 w-5 text-white" />
+        <div className='max-w-2xl mx-auto animate-slide-up stagger-3'>
+          <div className='glass-card p-8 md:p-10'>
+            <div className='flex items-center gap-3 mb-8'>
+              <div className='w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-teal-500 flex items-center justify-center'>
+                <Send className='h-5 w-5 text-white' />
               </div>
-              <h3 className="text-xl font-bold text-white">{t.contact.form.title}</h3>
+              <h3 className='text-xl font-bold text-white'>{t.contact.form.title}</h3>
             </div>
 
             {messageSent && (
-              <div className="mb-6 p-4 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center gap-3" role="alert">
-                <CheckCircle2 className="h-5 w-5 text-teal-400 flex-shrink-0" />
-                <p className="text-teal-300">{t.contact.form.success}</p>
+              <div
+                className='mb-6 p-4 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center gap-3'
+                role='alert'
+              >
+                <CheckCircle2 className='h-5 w-5 text-teal-400 flex-shrink-0' />
+                <p className='text-teal-300'>{t.contact.form.success}</p>
               </div>
             )}
 
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-5" noValidate>
+            <form ref={formRef} onSubmit={handleSubmit} className='space-y-5' noValidate>
               <div>
-                <label htmlFor="name" className="input-label">
+                <label htmlFor='name' className='input-label'>
                   {t.contact.form.name}
                 </label>
                 <input
-                  type="text"
-                  id="name"
-                  name="name"
+                  type='text'
+                  id='name'
+                  name='name'
                   placeholder={t.contact.form.namePlaceholder}
-                  className="input-field"
-                  autoComplete="name"
+                  className='input-field'
+                  autoComplete='name'
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="input-label">
+                <label htmlFor='email' className='input-label'>
                   {t.contact.form.email} *
                 </label>
                 <input
-                  type="email"
-                  id="email"
-                  name="email"
+                  type='email'
+                  id='email'
+                  name='email'
                   placeholder={t.contact.form.emailPlaceholder}
                   required
                   aria-invalid={!!emailError}
                   aria-describedby={emailError ? 'email-error' : undefined}
                   className={`input-field ${emailError ? 'border-red-500' : ''}`}
-                  autoComplete="email"
+                  autoComplete='email'
                 />
                 {emailError && (
-                  <p id="email-error" className="text-red-400 text-sm mt-1" role="alert">{emailError}</p>
+                  <p id='email-error' className='text-red-400 text-sm mt-1' role='alert'>
+                    {emailError}
+                  </p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="message" className="input-label">
+                <label htmlFor='message' className='input-label'>
                   {t.contact.form.message} *
                 </label>
                 <textarea
-                  id="message"
-                  name="message"
+                  id='message'
+                  name='message'
                   rows={5}
                   placeholder={t.contact.form.messagePlaceholder}
                   required
@@ -183,26 +231,28 @@ export default function Contact() {
                   className={`input-field resize-none ${messageError ? 'border-red-500' : ''}`}
                 />
                 {messageError && (
-                  <p id="message-error" className="text-red-400 text-sm mt-1" role="alert">{messageError}</p>
+                  <p id='message-error' className='text-red-400 text-sm mt-1' role='alert'>
+                    {messageError}
+                  </p>
                 )}
               </div>
 
               <button
-                type="submit"
-                className="glow-button w-full flex items-center justify-center gap-2 text-base"
+                type='submit'
+                className='glow-button w-full flex items-center justify-center gap-2 text-base'
               >
                 {t.contact.form.send}
-                <ArrowRight className="h-5 w-5" />
+                <ArrowRight className='h-5 w-5' />
               </button>
             </form>
 
-            <div className="flex items-center justify-center gap-6 mt-6 pt-6 border-t border-slate-700/50">
-              <div className="flex items-center gap-2 text-sm text-slate-400">
-                <Clock className="h-4 w-4" />
+            <div className='flex items-center justify-center gap-6 mt-6 pt-6 border-t border-slate-700/50'>
+              <div className='flex items-center gap-2 text-sm text-slate-400'>
+                <Clock className='h-4 w-4' />
                 <span>{t.contact.responseTime}</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-slate-400">
-                <CheckCircle2 className="h-4 w-4" />
+              <div className='flex items-center gap-2 text-sm text-slate-400'>
+                <CheckCircle2 className='h-4 w-4' />
                 <span>{t.contact.secureConfidential}</span>
               </div>
             </div>

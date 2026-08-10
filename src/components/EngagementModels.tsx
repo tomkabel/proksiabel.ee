@@ -1,4 +1,4 @@
-import { Zap, Users, FlaskConical } from 'lucide-react';
+import { FlaskConical, Users, Zap } from 'lucide-react';
 import { useTranslation } from '../i18n';
 
 const models = [
@@ -31,7 +31,10 @@ const models = [
   {
     icon: FlaskConical,
     title: { en: 'Research Collaboration', et: 'Teaduskoostöö' },
-    duration: { en: 'Project-defined, output-driven', et: 'Projektipõhine, tulemusele orienteeritud' },
+    duration: {
+      en: 'Project-defined, output-driven',
+      et: 'Projektipõhine, tulemusele orienteeritud',
+    },
     deliverables: {
       en: 'Joint publication, open-source tooling, shared IP where agreed',
       et: 'Ühispublikatsioon, avatud lähtekoodiga tööriistad, jagatud IP kokkuleppel',
@@ -47,53 +50,53 @@ export default function EngagementModels() {
   const { language } = useTranslation();
 
   return (
-    <section id="engagement" className="py-[--space-section] bg-[--bg-surface]">
-      <div className="max-w-content mx-auto px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="font-display text-[--text-section-title] font-bold text-[--text-primary] mb-4">
+    <section id='engagement' className='py-[--space-section] bg-[--bg-surface]'>
+      <div className='max-w-content mx-auto px-6 lg:px-8'>
+        <div className='text-center mb-16'>
+          <h2 className='font-display text-[--text-section-title] font-bold text-[--text-primary] mb-4'>
             {language === 'et' ? 'Koostöövormid' : 'Engagement Models'}
           </h2>
-          <p className="text-[--text-secondary] text-base max-w-lg mx-auto">
+          <p className='text-[--text-secondary] text-base max-w-lg mx-auto'>
             {language === 'et'
               ? 'Paindlikud formaadid sõltuvalt sinu vajadustest. Ükski hind ei ole avalik — iga koostöö on erinev.'
               : 'Flexible formats depending on your needs. No pricing is public — every engagement is different.'}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
           {models.map((model) => {
             const Icon = model.icon;
             return (
               <div
                 key={model.title.en}
-                className="p-8 rounded-card border border-white/5 bg-[--bg-void] hover:border-[--accent-intersection]/20 transition-all duration-[--duration-normal]"
+                className='p-8 rounded-card border border-white/5 bg-[--bg-void] hover:border-[--accent-intersection]/20 transition-all duration-[--duration-normal]'
               >
-                <div className="w-12 h-12 rounded-xl bg-[--bg-elevated] flex items-center justify-center mb-6">
-                  <Icon className="h-6 w-6 text-[--accent-intersection]" />
+                <div className='w-12 h-12 rounded-xl bg-[--bg-elevated] flex items-center justify-center mb-6'>
+                  <Icon className='h-6 w-6 text-[--accent-intersection]' />
                 </div>
 
-                <h3 className="font-display font-bold text-lg text-[--text-primary] mb-2">
+                <h3 className='font-display font-bold text-lg text-[--text-primary] mb-2'>
                   {model.title[language as 'en' | 'et']}
                 </h3>
 
-                <p className="text-xs font-mono uppercase tracking-wider text-[--accent-intersection] mb-4">
+                <p className='text-xs font-mono uppercase tracking-wider text-[--accent-intersection] mb-4'>
                   {model.duration[language as 'en' | 'et']}
                 </p>
 
-                <div className="mb-4">
-                  <h4 className="text-xs font-bold text-[--text-muted] uppercase tracking-wider mb-2">
+                <div className='mb-4'>
+                  <h4 className='text-xs font-bold text-[--text-muted] uppercase tracking-wider mb-2'>
                     {language === 'et' ? 'Tüüpilised tulemused' : 'Typical Deliverables'}
                   </h4>
-                  <p className="text-[--text-secondary] text-sm">
+                  <p className='text-[--text-secondary] text-sm'>
                     {model.deliverables[language as 'en' | 'et']}
                   </p>
                 </div>
 
                 <div>
-                  <h4 className="text-xs font-bold text-[--text-muted] uppercase tracking-wider mb-2">
+                  <h4 className='text-xs font-bold text-[--text-muted] uppercase tracking-wider mb-2'>
                     {language === 'et' ? 'Sobib...' : 'Best for...'}
                   </h4>
-                  <p className="text-[--text-secondary] text-sm leading-relaxed">
+                  <p className='text-[--text-secondary] text-sm leading-relaxed'>
                     {model.bestFor[language as 'en' | 'et']}
                   </p>
                 </div>

@@ -11,8 +11,10 @@ export const contactInfo = {
     full: 'Pargi tn 2 Sindi, Tori vald Pärnumaa 86705',
     display: (
       <>
-        Pargi tn 2 Sindi, Tori vald<br />
-        Pärnumaa 86705<br />
+        Pargi tn 2 Sindi, Tori vald
+        <br />
+        Pärnumaa 86705
+        <br />
         Estonia
       </>
     ),

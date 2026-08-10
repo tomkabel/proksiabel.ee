@@ -1,10 +1,11 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { translations, Language, TranslationShape } from './translations';
+import type React from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { type Language, translations } from './translations';
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: TranslationShape['et'];
+  t: (typeof translations)[Language];
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -35,11 +36,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     t: translations[language],
   };
 
-  return (
-    <LanguageContext.Provider value={value}>
-      {children}
-    </LanguageContext.Provider>
-  );
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
 export function useTranslation() {

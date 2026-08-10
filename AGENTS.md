@@ -26,7 +26,7 @@ npm run preview      # Preview production build locally
 
 ### Linting
 ```bash
-npm run lint         # Run ESLint on all files
+npm run lint         # Run oxlint + biome check on all files
 ```
 
 ### Type Checking
@@ -36,9 +36,25 @@ npx tsc -b     # Run TypeScript compiler check (project references; also runs in
 
 ### Single File Linting
 ```bash
-npx eslint src/components/Navbar.tsx    # Lint specific file
-npx eslint src/ --ext .ts,.tsx           # Lint specific directory
+npx oxlint src/components/Navbar.tsx     # Lint specific file (fast, zero-config)
+npx biome check src/components/Navbar.tsx  # Format + lint + import organization
 ```
+
+### Lint Toolchain
+The repo uses **oxlint** (fast linting, zero-config, respects .gitignore) and
+**biome** (formatting, import organization, a11y/quality rules, config in
+`biome.json`). Build artifacts in `pub/` are excluded from both.
+
+Documented biome exceptions (see `biome.json` `overrides` / rule config):
+- `a11y/useValidAnchor` off globally: in-page hash navigation (skip link,
+  `#services`, `#contact`) is a legitimate anchor use, not a JS button.
+- `public/**` has `a11y` off: static assets (favicon, og-image) are not part
+  of the rendered DOM's accessibility surface.
+- `src/index.css`: `noUnknownAtRules` off (Tailwind v3 `@tailwind` directives)
+  and `noImportantStyles` off (reduced-motion block needs `!important`).
+- `src/components/Venn/VennDiagram.tsx`: `noStaticElementInteractions` off —
+  the Venn is a pointer-explored visualization inside `role="img"`; zone
+  content is reachable without interaction.
 
 ### No Test Framework
 This project does NOT currently have a test framework (Vitest/Jest) configured. Do not write tests unless explicitly instructed.
@@ -191,7 +207,7 @@ const [isLoading, setIsLoading] = React.useState(true);
 |------|---------|
 | `vite.config.ts` | Vite build configuration (output: `pub/`) |
 | `tsconfig.app.json` | TypeScript config (strict mode) |
-| `eslint.config.js` | ESLint rules |
+| `biome.json` | Biome config (format + lint + import organization) |
 | `tailwind.config.js` | Tailwind CSS configuration |
 | `postcss.config.js` | PostCSS configuration |
 

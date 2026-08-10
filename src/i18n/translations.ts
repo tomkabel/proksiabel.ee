@@ -3,11 +3,13 @@ export const translations = {
     seo: {
       home: {
         title: 'Expert MITM Defense & Security Consulting',
-        description: 'ProksiAbel OÜ provides offensive security services: web application penetration testing, vulnerability management, and secure development practices.',
+        description:
+          'ProksiAbel OÜ provides offensive security services: web application penetration testing, vulnerability management, and secure development practices.',
       },
       privacy: {
         title: 'Privacy Policy',
-        description: 'Privacy policy for ProksiAbel OÜ — how we handle your data and protect your privacy.',
+        description:
+          'Privacy policy for ProksiAbel OÜ — how we handle your data and protect your privacy.',
       },
       terms: {
         title: 'Terms of Service',
@@ -15,11 +17,13 @@ export const translations = {
       },
       cookies: {
         title: 'Cookie Policy',
-        description: 'Cookie policy for ProksiAbel OÜ — we only use essential security cookies. No tracking.',
+        description:
+          'Cookie policy for ProksiAbel OÜ — we only use essential security cookies. No tracking.',
       },
       disclosure: {
         title: 'Responsible Disclosure',
-        description: 'Responsible disclosure policy for ProksiAbel OÜ. How to report security vulnerabilities.',
+        description:
+          'Responsible disclosure policy for ProksiAbel OÜ. How to report security vulnerabilities.',
       },
     },
     nav: {
@@ -33,10 +37,12 @@ export const translations = {
       closeMenu: 'Close menu',
     },
     hero: {
-      heading: 'Think your web apps are secure? Let\'s find out.',
+      heading: "Think your web apps are secure? Let's find out.",
       subheading: 'Real offense builds real defense.',
-      description: 'ProksiAbel OÜ runs highly specialized offensive security assessments. I don\'t just hand you a PDF of automated scanner results. We build realistic defense strategies because, frankly, we know exactly how to break in.',
-      quote: '"Standing on the defensive indicates insufficient strength; attacking, a superabundance of strength"',
+      description:
+        "ProksiAbel OÜ runs highly specialized offensive security assessments. I don't just hand you a PDF of automated scanner results. We build realistic defense strategies because, frankly, we know exactly how to break in.",
+      quote:
+        '"Standing on the defensive indicates insufficient strength; attacking, a superabundance of strength"',
       bookConsultation: 'Book Consultation',
       learnMore: 'Learn More',
       badge: 'Estonian Security Consultancy',
@@ -46,11 +52,13 @@ export const translations = {
     },
     services: {
       title: 'Our Services',
-      description: 'Forget automated slop. We do actual, hands-on penetration testing. We figure out where your architecture is weak and help you fix it before someone else exploits it.',
+      description:
+        'Forget automated slop. We do actual, hands-on penetration testing. We figure out where your architecture is weak and help you fix it before someone else exploits it.',
       learnMore: 'Learn more',
       service1: {
         title: 'Penetration Testing & Vulnerability Management',
-        description: 'Real-world web application penetration testing. We map out your authentication flows, simulate session hijacking, and show you exactly what an attacker sees. Because automated tools? They miss the logic flaws every single time.',
+        description:
+          'Real-world web application penetration testing. We map out your authentication flows, simulate session hijacking, and show you exactly what an attacker sees. Because automated tools? They miss the logic flaws every single time.',
         features: [
           'Manual Web Application Penetration Testing',
           'Authentication Flow Threat Modeling',
@@ -60,7 +68,8 @@ export const translations = {
       },
       service2: {
         title: 'Secure Development Practices',
-        description: 'Baking security into your code from day one. Honestly, trying to bolt on defenses after the fact rarely works well. We help you implement practical countermeasures against MITM attacks and client fingerprinting—stuff that actually stops real threats.',
+        description:
+          'Baking security into your code from day one. Honestly, trying to bolt on defenses after the fact rarely works well. We help you implement practical countermeasures against MITM attacks and client fingerprinting—stuff that actually stops real threats.',
         features: [
           'Tool-Specific MITM Countermeasures',
           'Securing Authentication Against Active Interception',
@@ -70,7 +79,8 @@ export const translations = {
       },
       service3: {
         title: 'Security Research & Tool Development',
-        description: 'Sometimes the tool we need doesn\'t exist yet. So we build it. Digging into the code lets us bypass modern JavaScript bot detection systems and map out how next-gen fraud networks operate.',
+        description:
+          "Sometimes the tool we need doesn't exist yet. So we build it. Digging into the code lets us bypass modern JavaScript bot detection systems and map out how next-gen fraud networks operate.",
         features: [
           'Responding to Undocumented Cyber Threats',
           'Custom Golang Tooling',
@@ -80,11 +90,11 @@ export const translations = {
       },
     },
     expertise: {
-      title: 'Meet the guy breaking your stuff (so others can\'t)',
+      title: "Meet the guy breaking your stuff (so others can't)",
       name: 'Tom Kristian Abel',
       role: 'Offensive Security Specialist',
       bio1: 'My background is deeply rooted in offensive security. I write custom tooling in Go and take complex web applications apart to understand exactly how they work — which is what gives my defensive recommendations their edge.',
-      bio2: 'I have spent over 6 years doing this. I have also authored a proof-of-concept that fully bypassed a major platform\'s client-side bot detection system. That kind of hands-on evidence is what separates a real assessment from a scanner report.',
+      bio2: "I have spent over 6 years doing this. I have also authored a proof-of-concept that fully bypassed a major platform's client-side bot detection system. That kind of hands-on evidence is what separates a real assessment from a scanner report.",
       experience: '6+ Years Breaking Stuff',
       yearsActive: 'Years Active',
       projects: 'Projects',
@@ -93,20 +103,24 @@ export const translations = {
       photoCredit: 'photo by Maido',
       technical: {
         title: 'Technical Focus',
-        description: 'Tearing apart modern web apps and writing custom security tooling from scratch in Go.',
+        description:
+          'Tearing apart modern web apps and writing custom security tooling from scratch in Go.',
       },
       offensive: {
         title: 'Offensive Mindset',
-        description: 'Authored bypasses for widespread, modern client-side bot detection mechanisms.',
+        description:
+          'Authored bypasses for widespread, modern client-side bot detection mechanisms.',
       },
       defensive: {
         title: 'Defensive Engineering',
-        description: 'Locking down web apps against sophisticated AiTM (Adversary-in-the-Middle) setups.',
+        description:
+          'Locking down web apps against sophisticated AiTM (Adversary-in-the-Middle) setups.',
       },
     },
-      about: {
+    about: {
       title: 'About',
-      subtitle: 'Professional cybersecurity consulting services specializing in MITM attack prevention',
+      subtitle:
+        'Professional cybersecurity consulting services specializing in MITM attack prevention',
       companyInfo: 'Company Details',
       businessName: 'Business Name',
       registrationCode: 'Registration Code',
@@ -114,21 +128,28 @@ export const translations = {
       email: 'Email',
       phone: 'Phone',
       mission: 'Why We Do This',
-      missionText1: 'ProksiAbel OÜ started because standard security consulting is broken. We don\'t do generic checklists. We hit your web apps hard, find the actual vulnerabilities, and show you exactly how to patch them.',
-      missionText2: 'Every client is different, so we don\'t force a one-size-fits-all model. We actively research and build our own tools because attackers are doing the exact same thing. If you aren\'t adapting, you\'re losing.',
-      missionText3: 'We also dig heavily into social engineering mechanics. You have to understand the human element. Software is just half the battle.',
+      missionText1:
+        "ProksiAbel OÜ started because standard security consulting is broken. We don't do generic checklists. We hit your web apps hard, find the actual vulnerabilities, and show you exactly how to patch them.",
+      missionText2:
+        "Every client is different, so we don't force a one-size-fits-all model. We actively research and build our own tools because attackers are doing the exact same thing. If you aren't adapting, you're losing.",
+      missionText3:
+        'We also dig heavily into social engineering mechanics. You have to understand the human element. Software is just half the battle.',
       productsTitle: 'Products & Services',
-      productsIntro: 'We build specialized offensive security tools and provide hands-on consulting services.',
+      productsIntro:
+        'We build specialized offensive security tools and provide hands-on consulting services.',
       product1Title: 'Penetration Testing',
-      product1Desc: 'Manual security assessments for web applications. We find the vulnerabilities that automated tools miss.',
+      product1Desc:
+        'Manual security assessments for web applications. We find the vulnerabilities that automated tools miss.',
       product2Title: 'Security Consulting',
-      product2Desc: 'Architecture reviews and defensive engineering. We help you build security into your code from day one.',
+      product2Desc:
+        'Architecture reviews and defensive engineering. We help you build security into your code from day one.',
       product3Title: 'Custom Tooling',
-      product3Desc: 'Gol security research and bespoke tool development for unique security challenges.',
+      product3Desc:
+        'Gol security research and bespoke tool development for unique security challenges.',
     },
     contact: {
       title: 'Get In Touch',
-      description: 'Ready to find out what\'s actually wrong with your network? Drop us a line.',
+      description: "Ready to find out what's actually wrong with your network? Drop us a line.",
       email: 'Email Us',
       call: 'Call Us',
       address: 'Business Address',
@@ -153,7 +174,7 @@ export const translations = {
       published: 'Published',
       title: 'Security Research Policy',
       subtitle: 'ProksiAbel OÜ',
-      intro: "This is exactly how we handle our own security research.",
+      intro: 'This is exactly how we handle our own security research.',
       purpose: {
         title: 'Purpose',
         text: 'This document explains the rules we follow when poking at third-party systems for security research. We want to be completely transparent with system operators about what we are doing, why we do it, and how you can tell us to stop.',
@@ -171,26 +192,26 @@ export const translations = {
         title: 'How We Operate',
         text: 'When we conduct research, we stick to these hard rules:',
         rateLimit: 'Strict Rate Limiting',
-        rateLimitDesc: 'We throttle everything. We don\'t want to accidentally DoS your systems.',
+        rateLimitDesc: "We throttle everything. We don't want to accidentally DoS your systems.",
         userAgent: 'Clear User-Agents',
         userAgentDesc: 'Our requests explicitly say what we are doing in the User-Agent header.',
         customHeaders: 'Custom Headers',
         customHeadersDesc: 'We throw in extra headers so you can easily filter us out.',
         optOut: 'How to Tell Us to Stop',
-        optOutDesc: "If you want us out of your logs, just:",
+        optOutDesc: 'If you want us out of your logs, just:',
         optOutItems: [
-          "Block our IP ranges entirely",
-          "Add Disallow: / to your robots.txt for our bot name",
+          'Block our IP ranges entirely',
+          'Add Disallow: / to your robots.txt for our bot name',
         ],
         optOutRespect: 'We respect these blocks automatically. No questions asked.',
-        noExploit: 'We Don\'t Exploit',
-        noExploitDesc: 'We look, but we don\'t touch. No unauthorized access attempts, ever.',
+        noExploit: "We Don't Exploit",
+        noExploitDesc: "We look, but we don't touch. No unauthorized access attempts, ever.",
         minimalImpact: 'Zero Footprint',
         minimalImpactDesc: 'We aim to leave absolutely no mess behind.',
       },
       ifAccessed: {
         title: 'Did you see us in your logs?',
-        text: 'If you saw our traffic and hate it, just block our IP or drop us in your robots.txt. We will stop immediately. If you\'re worried about what we found or just want to yell at us, send an email. We actually reply.',
+        text: "If you saw our traffic and hate it, just block our IP or drop us in your robots.txt. We will stop immediately. If you're worried about what we found or just want to yell at us, send an email. We actually reply.",
       },
       contact: {
         title: 'Contact',
@@ -236,9 +257,10 @@ export const translations = {
       expertise: 'Expertise',
       contact: 'Contact',
       pgp: 'PGP Key',
-      brandDescription: 'Professional cybersecurity consulting services from Estonia. Specializing in MITM attack prevention and enterprise security solutions.',
+      brandDescription:
+        'Professional cybersecurity consulting services from Estonia. Specializing in MITM attack prevention and enterprise security solutions.',
       getInTouch: 'Get in Touch',
-      ctaDescription: 'Ready to secure your infrastructure? Let\'s discuss your needs.',
+      ctaDescription: "Ready to secure your infrastructure? Let's discuss your needs.",
       ctaButton: 'Contact us',
     },
     legal: {
@@ -251,7 +273,7 @@ export const translations = {
       privacy: {
         intro: {
           title: 'The Short Version',
-          text: 'Let\'s be clear: we care about privacy. ProksiAbel OÜ runs proksiabel.ee. This policy explains what little data we actually collect when you visit. We don\'t track you across the web.',
+          text: "Let's be clear: we care about privacy. ProksiAbel OÜ runs proksiabel.ee. This policy explains what little data we actually collect when you visit. We don't track you across the web.",
           text2: 'Yes, this complies with the GDPR and Estonian data laws. We follow the rules.',
         },
         controller: {
@@ -274,7 +296,7 @@ export const translations = {
               'How long you stayed on a page',
               'Timestamps',
             ],
-            note: 'We use Cloudflare Analytics. It doesn\'t drop tracking cookies, and we cannot isolate your specific identity from it.',
+            note: "We use Cloudflare Analytics. It doesn't drop tracking cookies, and we cannot isolate your specific identity from it.",
           },
           provided: {
             title: 'What You Give Us',
@@ -322,7 +344,7 @@ export const translations = {
         },
         retention: {
           title: 'How Long We Keep It',
-          text: 'We don\'t hoard logs forever:',
+          text: "We don't hoard logs forever:",
           items: [
             'Security logs: 12 months, because Estonian cybersecurity laws require it.',
             'Emails/Forms: Until we finish doing business, or you ask us to delete them.',
@@ -347,15 +369,19 @@ export const translations = {
           restriction: 'Limit - Tell us to stop processing it for a bit.',
           portability: 'Export - Get your data in a clean format.',
           objection: 'Object - Tell us you hate our legitimate interest claim.',
-          complaint: 'Complain - Go to the Estonian Data Protection Inspectorate (AKI) if we mess up.',
+          complaint:
+            'Complain - Go to the Estonian Data Protection Inspectorate (AKI) if we mess up.',
           text: 'Email info@proksiabel.ee to make any of this happen. We have 30 days to reply by law, but we are usually much faster.',
         },
         cookies: {
           title: 'Cookies (Or Lack Thereof)',
           text: 'We hate annoying cookie banners as much as you do. So we built the site to avoid them.',
-          text2: 'We use Cloudflare Analytics. It uses exactly zero cookies to track you. Since we only use strictly technical security cookies, we do not need to spam you with a consent pop-up.',
-          essential: 'The only cookies we drop are _cf_bm and _cfuvid. They stop DDoS attacks. They do not track your shopping habits.',
-          noAnalytics: 'To be absolutely clear: We DO NOT use Google Analytics. We DO NOT run ads. We DO NOT profile you.',
+          text2:
+            'We use Cloudflare Analytics. It uses exactly zero cookies to track you. Since we only use strictly technical security cookies, we do not need to spam you with a consent pop-up.',
+          essential:
+            'The only cookies we drop are _cf_bm and _cfuvid. They stop DDoS attacks. They do not track your shopping habits.',
+          noAnalytics:
+            'To be absolutely clear: We DO NOT use Google Analytics. We DO NOT run ads. We DO NOT profile you.',
         },
         changes: {
           title: 'Updates',
@@ -377,7 +403,7 @@ export const translations = {
         intro: {
           title: 'The Rules',
           text: 'Welcome to proksiabel.ee. These are the Terms of Service. If you use the site, you agree to them.',
-          text2: 'If you don\'t like these terms, simply close the tab.',
+          text2: "If you don't like these terms, simply close the tab.",
         },
         services: {
           title: 'What We Do',
@@ -387,12 +413,14 @@ export const translations = {
             'Security architecture reviews',
             'Writing custom security tools',
           ],
-          text2: 'Any actual work we do for you gets its own formal contract. This website is just here to tell you we exist.',
+          text2:
+            'Any actual work we do for you gets its own formal contract. This website is just here to tell you we exist.',
         },
         intellectual: {
           title: 'Intellectual Property',
           text: 'We own the text, the logo, and the code on this site. It is protected by standard copyright laws.',
-          text2: 'Please do not reproduce our content without permission. If you want to use our research or reference our tools, please contact us first.',
+          text2:
+            'Please do not reproduce our content without permission. If you want to use our research or reference our tools, please contact us first.',
           text3: 'The name ProksiAbel is ours.',
         },
         userObligations: {
@@ -412,7 +440,7 @@ export const translations = {
         },
         thirdParty: {
           title: 'Other Websites',
-          text: 'If we link to an external site, we don\'t control it. We aren\'t responsible if you click a link and their site is compromised.',
+          text: "If we link to an external site, we don't control it. We aren't responsible if you click a link and their site is compromised.",
           text2: 'Use some common sense when leaving our domain.',
         },
         limitation: {
@@ -427,16 +455,14 @@ export const translations = {
         indemnification: {
           title: 'You Cover Us',
           text: 'If you do something incredibly reckless on our site and we get sued for it, you are paying our legal fees.',
-          items: [
-            'Don\'t violate the terms.',
-            'Don\'t violate other people\'s rights.',
-          ],
+          items: ["Don't violate the terms.", "Don't violate other people's rights."],
         },
         governingLaw: {
           title: 'The Law',
           text: 'We are an Estonian company. These rules are governed by Estonian law.',
           text2: 'If we end up in court, it happens in Tallinn, Estonia.',
-          text3: 'If you live somewhere else, it is your job to make sure you aren\'t breaking your local laws by reading this.',
+          text3:
+            "If you live somewhere else, it is your job to make sure you aren't breaking your local laws by reading this.",
         },
         termination: {
           title: 'We Can Ban You',
@@ -454,12 +480,14 @@ export const translations = {
         intro: {
           title: 'No Marketing Junk',
           text: 'This is our Cookie Policy. It is short because we use almost zero cookies. We follow GDPR, the ePrivacy Directive, and the upcoming EU Digital Omnibus 2026 rules.',
-          text2: 'We use Cloudflare Analytics. It respects your privacy and gives us the basic traffic stats we need without stalking you across the internet.',
+          text2:
+            'We use Cloudflare Analytics. It respects your privacy and gives us the basic traffic stats we need without stalking you across the internet.',
         },
         whatAre: {
           title: 'What Are Cookies?',
-          text: 'They are tiny text files websites drop on your browser. Most sites use them to serve you ads. We don\'t.',
-          text2: 'Under Estonian AKI guidelines, if a cookie is strictly for security and doesn\'t track your identity, we don\'t have to ask your permission to load it.',
+          text: "They are tiny text files websites drop on your browser. Most sites use them to serve you ads. We don't.",
+          text2:
+            "Under Estonian AKI guidelines, if a cookie is strictly for security and doesn't track your identity, we don't have to ask your permission to load it.",
         },
         ourApproach: {
           title: 'Our Privacy-First Stance',
@@ -502,7 +530,8 @@ export const translations = {
             'EDPB guidelines on technically necessary cookies.',
             'AKI guidelines for security tokens.',
           ],
-          text3: 'If you absolutely hate all cookies, you can disable them in your browser, but the firewall might block you.',
+          text3:
+            'If you absolutely hate all cookies, you can disable them in your browser, but the firewall might block you.',
         },
         browserSettings: {
           title: 'Kill Them Yourself',
@@ -512,7 +541,8 @@ export const translations = {
             'Firefox: Settings > Privacy & Security.',
             'Safari: Preferences > Privacy.',
           ],
-          text2: 'We highly recommend using a privacy browser like Brave or Firefox with strict tracking protection anyway.',
+          text2:
+            'We highly recommend using a privacy browser like Brave or Firefox with strict tracking protection anyway.',
           items2: [],
         },
         updates: {
@@ -532,11 +562,13 @@ export const translations = {
     seo: {
       home: {
         title: 'Ekspert MITM kaitse ja turvanõustamine',
-        description: 'ProksiAbel OÜ pakub küberturbe teenuseid: veebirakenduste penetratsioonitestimine, haavatavuste haldamine ja turvalise arenduse praktikad.',
+        description:
+          'ProksiAbel OÜ pakub küberturbe teenuseid: veebirakenduste penetratsioonitestimine, haavatavuste haldamine ja turvalise arenduse praktikad.',
       },
       privacy: {
         title: 'Privaatsuspoliitika',
-        description: 'ProksiAbel OÜ privaatsuspoliitika — kuidas me teie andmeid käsitleme ja privaatsust kaitseme.',
+        description:
+          'ProksiAbel OÜ privaatsuspoliitika — kuidas me teie andmeid käsitleme ja privaatsust kaitseme.',
       },
       terms: {
         title: 'Kasutustingimused',
@@ -544,11 +576,13 @@ export const translations = {
       },
       cookies: {
         title: 'Küpsisepoliitika',
-        description: 'ProksiAbel OÜ küpsisepoliitika — kasutame ainult hädavajalikke turvaküpsiseid. Ei mingit jälitamist.',
+        description:
+          'ProksiAbel OÜ küpsisepoliitika — kasutame ainult hädavajalikke turvaküpsiseid. Ei mingit jälitamist.',
       },
       disclosure: {
         title: 'Vastutustundlik avalikustamine',
-        description: 'ProksiAbel OÜ vastutustundliku avalikustamise poliitika. Kuidas turvanõrkustest teatada.',
+        description:
+          'ProksiAbel OÜ vastutustundliku avalikustamise poliitika. Kuidas turvanõrkustest teatada.',
       },
     },
     nav: {
@@ -564,7 +598,8 @@ export const translations = {
     hero: {
       heading: 'Arvad, et su veebirakendused on turvalised? Uurime välja.',
       subheading: 'Reaalne ründekogemus loob reaalse kaitse.',
-      description: 'ProksiAbel OÜ viib läbi väga spetsiifilisi ründeturbe hindamisi. Me ei viska sulle lihtsalt lauale skänneri genereeritud PDF-i. Me ehitame reaalseid kaitsestrateegiaid, sest, ausalt öeldes, me teame täpselt, kuidas sisse murda.',
+      description:
+        'ProksiAbel OÜ viib läbi väga spetsiifilisi ründeturbe hindamisi. Me ei viska sulle lihtsalt lauale skänneri genereeritud PDF-i. Me ehitame reaalseid kaitsestrateegiaid, sest, ausalt öeldes, me teame täpselt, kuidas sisse murda.',
       quote: '"Kaitsel seismine näitab ebapiisavat tugevust; ründamine aga ülearust tugevust"',
       bookConsultation: 'Võta ühendust',
       learnMore: 'Loe lähemalt',
@@ -575,11 +610,13 @@ export const translations = {
     },
     services: {
       title: 'Mida me teeme',
-      description: 'Unusta automatiseeritud müra. Teeme reaalset, praktilist läbistustestimist (pentestimist). Otsime üles su arhitektuuri nõrgad kohad ja aitame need ära parandada, enne kui keegi teine neid ära kasutab.',
+      description:
+        'Unusta automatiseeritud müra. Teeme reaalset, praktilist läbistustestimist (pentestimist). Otsime üles su arhitektuuri nõrgad kohad ja aitame need ära parandada, enne kui keegi teine neid ära kasutab.',
       learnMore: 'Loe lisaks',
       service1: {
         title: 'Läbistustestimine ja nõrkuste haldus',
-        description: 'Reaalne veebirakenduste ründamine. Me kaardistame sinu autentimisvood, simuleerime sessioonide kaaperdamist ja näitame sulle täpselt, mida ründaja näeb. Sest automatiseeritud tööriistad? Need magavad loogikavead iga kord maha.',
+        description:
+          'Reaalne veebirakenduste ründamine. Me kaardistame sinu autentimisvood, simuleerime sessioonide kaaperdamist ja näitame sulle täpselt, mida ründaja näeb. Sest automatiseeritud tööriistad? Need magavad loogikavead iga kord maha.',
         features: [
           'Manuaalne veebirakenduste läbistustestimine',
           'Autentimisvoogude ohumudeldamine',
@@ -589,7 +626,8 @@ export const translations = {
       },
       service2: {
         title: 'Turvaline arendus',
-        description: 'Turvalisuse sissekirjutamine koodi esimesest päevast. Ausalt, kaitsesüsteemide tagantjärele külge kleepimine ei toimi peaaegu kunagi. Aitame sul juurutada praktilisi vastumeetmeid MITM rünnakute vastu – asju, mis ka päriselt töötavad.',
+        description:
+          'Turvalisuse sissekirjutamine koodi esimesest päevast. Ausalt, kaitsesüsteemide tagantjärele külge kleepimine ei toimi peaaegu kunagi. Aitame sul juurutada praktilisi vastumeetmeid MITM rünnakute vastu – asju, mis ka päriselt töötavad.',
         features: [
           'Tööriistaspetsiifilised MITM vastumeetmed',
           'Autentimise kaitsmine aktiivse vaheltlõike eest',
@@ -599,7 +637,8 @@ export const translations = {
       },
       service3: {
         title: 'Turvauuringud ja tööriistade arendus',
-        description: 'Mõnikord ei ole meile vajalikku tööriista veel olemas. Seega me kirjutame selle ise. Koodi süüvimine võimaldab meil mööda minna modernsetest JavaScripti bot-tuvastussüsteemidest ja mõista, kuidas uue põlvkonna pettusevõrgustikud toimivad.',
+        description:
+          'Mõnikord ei ole meile vajalikku tööriista veel olemas. Seega me kirjutame selle ise. Koodi süüvimine võimaldab meil mööda minna modernsetest JavaScripti bot-tuvastussüsteemidest ja mõista, kuidas uue põlvkonna pettusevõrgustikud toimivad.',
         features: [
           'Reageerimine dokumenteerimata küberohtudele',
           'Tööriistade kirjutamine Golangis',
@@ -622,7 +661,8 @@ export const translations = {
       photoCredit: 'foto: Maido Parv',
       technical: {
         title: 'Tehniline fookus',
-        description: 'Modernsete veebirakenduste ründamine ja nullist spetsiifiliste turvatööriistade kirjutamine Golangis.',
+        description:
+          'Modernsete veebirakenduste ründamine ja nullist spetsiifiliste turvatööriistade kirjutamine Golangis.',
       },
       offensive: {
         title: 'Ründav mõtteviis',
@@ -630,12 +670,14 @@ export const translations = {
       },
       defensive: {
         title: 'Kaitsvad insenerilahendused',
-        description: 'Veebirakenduste lukustamine keerukate AiTM (Adversary-in-the-Middle) süsteemide vastu.',
+        description:
+          'Veebirakenduste lukustamine keerukate AiTM (Adversary-in-the-Middle) süsteemide vastu.',
       },
     },
     about: {
       title: 'Meist',
-      subtitle: 'Professionaalsed küberturbe konsultatsiooniteenused, spetsialiseerunud MITM-rünnakute ennetamisele',
+      subtitle:
+        'Professionaalsed küberturbe konsultatsiooniteenused, spetsialiseerunud MITM-rünnakute ennetamisele',
       companyInfo: 'Ettevõtte andmed',
       businessName: 'Ärinimi',
       registrationCode: 'Registrikood',
@@ -643,17 +685,24 @@ export const translations = {
       email: 'E-post',
       phone: 'Telefon',
       mission: 'Miks me seda teeme',
-      missionText1: 'ProksiAbel OÜ sai alguse sellest, et tavaline turvakonsultatsioon on katki. Me ei tee mingeid geneerilisi kontrollnimekirju. Me ründame su veebirakendusi päriselt, leiame reaalsed vead üles ja näitame, kuidas need ära lappida.',
-      missionText2: 'Iga klient on erinev, seega me ei suru peale ühe-vitsaga-löödud mudeleid. Me teeme aktiivselt uurimistööd ja ehitame ise oma tööriistu, sest ründajad teevad täpselt sedasama. Kui sa ei kohane, siis sa kaotad.',
-      missionText3: 'Me kaevume sügavalt ka sotsiaalse inseneeria mehhanismidesse. Inimfaktorit tuleb mõista. Tarkvara on vaid pool lahingut.',
+      missionText1:
+        'ProksiAbel OÜ sai alguse sellest, et tavaline turvakonsultatsioon on katki. Me ei tee mingeid geneerilisi kontrollnimekirju. Me ründame su veebirakendusi päriselt, leiame reaalsed vead üles ja näitame, kuidas need ära lappida.',
+      missionText2:
+        'Iga klient on erinev, seega me ei suru peale ühe-vitsaga-löödud mudeleid. Me teeme aktiivselt uurimistööd ja ehitame ise oma tööriistu, sest ründajad teevad täpselt sedasama. Kui sa ei kohane, siis sa kaotad.',
+      missionText3:
+        'Me kaevume sügavalt ka sotsiaalse inseneeria mehhanismidesse. Inimfaktorit tuleb mõista. Tarkvara on vaid pool lahingut.',
       productsTitle: 'Tooted ja teenused',
-      productsIntro: 'Ehitame spetsiaalseid ründeturbetööriistu ja pakume praktilisi konsultatsiooniteenuseid.',
+      productsIntro:
+        'Ehitame spetsiaalseid ründeturbetööriistu ja pakume praktilisi konsultatsiooniteenuseid.',
       product1Title: 'Läbistustestimine',
-      product1Desc: 'Veebirakenduste manuaalsed turvahindamised. Leiame nõrkused, mida automatiseeritud tööriistad märkavad.',
+      product1Desc:
+        'Veebirakenduste manuaalsed turvahindamised. Leiame nõrkused, mida automatiseeritud tööriistad märkavad.',
       product2Title: 'Turvakonsultatsioon',
-      product2Desc: 'Arhitektuuri ülevaatused ja kaitsv inseneritöö. Aitame sul turvalisuse koodi sisse kirjutada esimesest päevast.',
+      product2Desc:
+        'Arhitektuuri ülevaatused ja kaitsv inseneritöö. Aitame sul turvalisuse koodi sisse kirjutada esimesest päevast.',
       product3Title: 'Spetsiaalsed tööriistad',
-      product3Desc: 'Turbeuuringud ja kohandatud tööriistade arendus ainulaadsetele turvaprobleemidele.',
+      product3Desc:
+        'Turbeuuringud ja kohandatud tööriistade arendus ainulaadsetele turvaprobleemidele.',
     },
     contact: {
       title: 'Võta ühendust',
@@ -700,9 +749,11 @@ export const translations = {
         title: 'Kuidas me tegutseme',
         text: 'Uuringuid tehes peame kinni neist rangetest reeglitest:',
         rateLimit: 'Karm piiramine (Rate Limiting)',
-        rateLimitDesc: 'Me piirame kõigi päringute kiirust. Me ei taha su süsteeme kogemata maha võtta.',
+        rateLimitDesc:
+          'Me piirame kõigi päringute kiirust. Me ei taha su süsteeme kogemata maha võtta.',
         userAgent: 'Selged User-Agent päised',
-        userAgentDesc: 'Meie päringud ütlevad User-Agent päises otse välja, kes me oleme ja mida teeme.',
+        userAgentDesc:
+          'Meie päringud ütlevad User-Agent päises otse välja, kes me oleme ja mida teeme.',
         customHeaders: 'Spetsiaalsed päised',
         customHeadersDesc: 'Lisame eraldi päised, et saaksid meid lihtsalt välja filtreerida.',
         optOut: 'Kuidas meid peatada',
@@ -765,7 +816,8 @@ export const translations = {
       expertise: 'Kogemus',
       contact: 'Kontakt',
       pgp: 'PGP Võti',
-      brandDescription: 'Professionaalsed küberturbe konsultatsiooniteenused Eestist. Spetsialiseerunud MITM-rünnakute ennetamisele ja ettevõtte turvalahendustele.',
+      brandDescription:
+        'Professionaalsed küberturbe konsultatsiooniteenused Eestist. Spetsialiseerunud MITM-rünnakute ennetamisele ja ettevõtte turvalahendustele.',
       getInTouch: 'Võta ühendust',
       ctaDescription: 'Oled valmis oma taristu turvamiseks? Arutame sinu vajadusi.',
       ctaButton: 'Võta meiega ühendust',
@@ -803,7 +855,7 @@ export const translations = {
               'Kui kaua sa lehel olid',
               'Ajatemplid',
             ],
-            note: 'Me kasutame Cloudflare Analytics\'it. See ei loobi sulle jälgimisküpsiseid ja me ei saa selle kaudu sinu isikut tuvastada.',
+            note: "Me kasutame Cloudflare Analytics'it. See ei loobi sulle jälgimisküpsiseid ja me ei saa selle kaudu sinu isikut tuvastada.",
           },
           provided: {
             title: 'Mida sa ise meile annad',
@@ -847,7 +899,8 @@ export const translations = {
             'Oma hostingu- ja taristupakkujatega (nagu Cloudflare). Nad on GDPR-iga kooskõlas.',
             'Õiguskaitseorganitega, aga ainult siis, kui nad ilmuvad kohale kehtiva määrusega.',
           ],
-          transfers: 'Kõik andmed, mis liiguvad EList välja, käideldakse rangelt vastavalt GDPR-i V peatükile.',
+          transfers:
+            'Kõik andmed, mis liiguvad EList välja, käideldakse rangelt vastavalt GDPR-i V peatükile.',
         },
         retention: {
           title: 'Kui kaua me seda hoiame',
@@ -876,15 +929,19 @@ export const translations = {
           restriction: 'Piiramine - Ütle meile, et me peataks ajutiselt andmete töötlemise.',
           portability: 'Eksportimine - Saa oma andmed puhtas formaadis kätte.',
           objection: 'Vastuväide - Ütle, et sulle ei meeldi meie õigustatud huvi argument.',
-          complaint: 'Kaebamine - Mine Andmekaitse Inspektsiooni (AKI) jutule, kui me asja ära rikume.',
+          complaint:
+            'Kaebamine - Mine Andmekaitse Inspektsiooni (AKI) jutule, kui me asja ära rikume.',
           text: 'Saada e-kiri info@proksiabel.ee, et mõni neist käiku lasta. Seaduse järgi on meil vastamiseks 30 päeva, aga me teeme seda tavaliselt palju kiiremini.',
         },
         cookies: {
           title: 'Küpsised (või nende puudumine)',
           text: 'Me vihkame tüütuid küpsisebännereid sama palju kui sina. Seega tegime lehe nii, et neid poleks vaja.',
-          text2: 'Kasutame Cloudflare Analytics\'it. See ei kasuta sinu jälgimiseks mitte ainsatki küpsist. Kuna me kasutame ainult rangelt tehnilisi turvaküpsiseid, ei pea me sind nõusoleku hüpikaknaga tüütama.',
-          essential: 'Ainsad küpsised, mida me kasutame, on _cf_bm ja _cfuvid. Need peatavad DDoS rünnakud. Need ei jälgi su ostuharjumusi internetis.',
-          noAnalytics: 'Et olla täiesti selge: Me EI KASUTA Google Analytics\'it. Me EI NÄITA reklaame. Me EI TEE sinust profiili.',
+          text2:
+            "Kasutame Cloudflare Analytics'it. See ei kasuta sinu jälgimiseks mitte ainsatki küpsist. Kuna me kasutame ainult rangelt tehnilisi turvaküpsiseid, ei pea me sind nõusoleku hüpikaknaga tüütama.",
+          essential:
+            'Ainsad küpsised, mida me kasutame, on _cf_bm ja _cfuvid. Need peatavad DDoS rünnakud. Need ei jälgi su ostuharjumusi internetis.',
+          noAnalytics:
+            "Et olla täiesti selge: Me EI KASUTA Google Analytics'it. Me EI NÄITA reklaame. Me EI TEE sinust profiili.",
         },
         changes: {
           title: 'Uuendused',
@@ -916,12 +973,14 @@ export const translations = {
             'Turvaarhitektuuri ülevaatused',
             'Spetsiaalsete turvatööriistade kirjutamine',
           ],
-          text2: 'Igasugune reaalne töö, mida me sulle teeme, saab oma eraldi ametliku lepingu. See veebileht on siin lihtsalt selleks, et öelda: me oleme olemas.',
+          text2:
+            'Igasugune reaalne töö, mida me sulle teeme, saab oma eraldi ametliku lepingu. See veebileht on siin lihtsalt selleks, et öelda: me oleme olemas.',
         },
         intellectual: {
           title: 'Intellektuaalomand',
           text: 'Tekst, logod ja selle saidi kood kuuluvad meile. Need on kaitstud autoriõiguse seadustega.',
-          text2: 'Palun ära kopeeri meie sisu ilma loata. Kui soovid meie uuringuid kasutada või tööriistadele viidata, võta meiega esmalt ühendust.',
+          text2:
+            'Palun ära kopeeri meie sisu ilma loata. Kui soovid meie uuringuid kasutada või tööriistadele viidata, võta meiega esmalt ühendust.',
           text3: 'Nimi ProksiAbel on meie oma.',
         },
         userObligations: {
@@ -956,21 +1015,20 @@ export const translations = {
         indemnification: {
           title: 'Sina katad meid',
           text: 'Kui sa teed meie lehel midagi uskumatult idiootset ja meid kaevatakse selle eest kohtusse, siis sina maksad meie õigusabikulud.',
-          items: [
-            'Ära riku tingimusi.',
-            'Ära riku teiste inimeste õigusi.',
-          ],
+          items: ['Ära riku tingimusi.', 'Ära riku teiste inimeste õigusi.'],
         },
         governingLaw: {
           title: 'Seadusandlus',
           text: 'Oleme Eesti ettevõte. Neid reegleid reguleerivad Eesti seadused.',
           text2: 'Kui me lõpetame kohtus, toimub see Tallinnas, Eestis.',
-          text3: 'Kui elad kuskil mujal, on sinu ülesanne hoolitseda selle eest, et sa seda lehte lugedes oma kohalikke seadusi ei riku.',
+          text3:
+            'Kui elad kuskil mujal, on sinu ülesanne hoolitseda selle eest, et sa seda lehte lugedes oma kohalikke seadusi ei riku.',
         },
         termination: {
           title: 'Võime su blokeerida',
           text: 'Kui sa teed lollusi, paneme su IP bloki alla. Me ei pea sind enne hoiatama.',
-          text2: 'Isegi kui me sind blokeerime, kehtivad nendes tingimustes olevad juriidilised kaitsed meile edasi.',
+          text2:
+            'Isegi kui me sind blokeerime, kehtivad nendes tingimustes olevad juriidilised kaitsed meile edasi.',
         },
         contact: {
           title: 'Küsimusi?',
@@ -983,12 +1041,14 @@ export const translations = {
         intro: {
           title: 'Ei Mingit Turunduslikku Rämpsu',
           text: 'See on meie Küpsiste Poliitika. See on lühike, sest me ei kasuta peaaegu üldse küpsiseid. Me järgime GDPR-i, ePrivacy Direktiivi ja tulevasi EU Digital Omnibus 2026 reegleid.',
-          text2: 'Kasutame Cloudflare Analytics\'it. See austab su privaatsust ja annab meile vajaliku põhiliikluse statistika, ilma et me sind mööda internetti taga ajaksime.',
+          text2:
+            "Kasutame Cloudflare Analytics'it. See austab su privaatsust ja annab meile vajaliku põhiliikluse statistika, ilma et me sind mööda internetti taga ajaksime.",
         },
         whatAre: {
           title: 'Mis on Küpsised?',
           text: 'Need on väikesed tekstifailid, mida veebilehed su brauserisse sokutavad. Enamik lehti kasutab neid sulle reklaamide näitamiseks. Meie mitte.',
-          text2: 'Eesti AKI juhiste kohaselt, kui küpsis on puhtalt turvalisuse tagamiseks ja ei tuvasta sinu isikut, ei pea me selle laadimiseks sinult luba küsima.',
+          text2:
+            'Eesti AKI juhiste kohaselt, kui küpsis on puhtalt turvalisuse tagamiseks ja ei tuvasta sinu isikut, ei pea me selle laadimiseks sinult luba küsima.',
         },
         ourApproach: {
           title: 'Meie Privaatsus-Esikohal Lähenemine',
@@ -996,14 +1056,15 @@ export const translations = {
           noCookies: 'EI MINGEID jälgimisküpsiseid analüütika jaoks.',
           noTracking: 'EI MINGEID turunduslikke jälgijaid.',
           noProfiling: 'EI MINGIT kasutajate profileerimist.',
-          noThirdParty: 'EI MINGEID Facebooki või Google\'i reklaamipiksleid.',
-          securityOnly: 'AINULT hädavajalikud Cloudflare\'i turvatokenid DDoS bottide blokeerimiseks.',
+          noThirdParty: "EI MINGEID Facebooki või Google'i reklaamipiksleid.",
+          securityOnly:
+            "AINULT hädavajalikud Cloudflare'i turvatokenid DDoS bottide blokeerimiseks.",
         },
         cookiesUsed: {
           title: 'Ainsad Küpsised, mida me kasutame',
           text: 'Sõna otseses mõttes ainult need:',
           cloudflare: {
-            name: 'Cloudflare\'i Turvaküpsised',
+            name: "Cloudflare'i Turvaküpsised",
             provider: 'Cloudflare Inc.',
             purpose: 'DDoS rünnete leevendamine ja botide filtreerimine. Hoiab lehe üleval.',
             duration: 'Sessioon või maksimaalselt 30 päeva.',
@@ -1014,7 +1075,7 @@ export const translations = {
         },
         analytics: {
           title: 'Kuidas me Analüütikaga toimetame',
-          text: 'Me tugineme Cloudflare Analytics\'ile. Siin on see, mis peaks sulle korda minema:',
+          text: "Me tugineme Cloudflare Analytics'ile. Siin on see, mis peaks sulle korda minema:",
           items: [
             'See ei kasuta üldse küpsiseid.',
             'See ei tee su brauserist sõrmejälge (fingerprinti).',
@@ -1026,12 +1087,14 @@ export const translations = {
         consent: {
           title: 'Miks meil pole Küpsisebännerit',
           text: 'Kuna me kasutame ainult hädavajalikke turvaküpsiseid:',
-          text2: 'Me ei pea sulle hiiglaslikku "NÕUSTUN KÕIGEGA" bännerit näkku viskama. See lähenemine järgib:',
+          text2:
+            'Me ei pea sulle hiiglaslikku "NÕUSTUN KÕIGEGA" bännerit näkku viskama. See lähenemine järgib:',
           items: [
             'EDPB juhiseid tehniliselt vajalike küpsiste kohta.',
             'AKI juhiseid turvatokenite kohta.',
           ],
-          text3: 'Kui sa tõesti vihkad kõiki küpsiseid, võid need oma brauseris välja lülitada, aga meie tulemüür võib su selle peale blokeerida.',
+          text3:
+            'Kui sa tõesti vihkad kõiki küpsiseid, võid need oma brauseris välja lülitada, aga meie tulemüür võib su selle peale blokeerida.',
         },
         browserSettings: {
           title: 'Tapa need ise',
@@ -1041,7 +1104,8 @@ export const translations = {
             'Firefox: Seaded > Privaatsus ja turvalisus.',
             'Safari: Eelistused > Privaatsus.',
           ],
-          text2: 'Me soovitame niikuinii kasutada privaatsusele suunatud brausereid nagu Brave või tugevate piirangutega Firefox.',
+          text2:
+            'Me soovitame niikuinii kasutada privaatsusele suunatud brausereid nagu Brave või tugevate piirangutega Firefox.',
           items2: [],
         },
         updates: {
@@ -1061,8 +1125,3 @@ export const translations = {
 
 export type Language = 'en' | 'et';
 export type TranslationKeys = typeof translations;
-type DeepStrings<T> =
-  T extends string ? string
-  : T extends readonly (infer U)[] ? readonly DeepStrings<U>[]
-  : { [K in keyof T]: DeepStrings<T[K]> };
-export type TranslationShape = DeepStrings<TranslationKeys>;

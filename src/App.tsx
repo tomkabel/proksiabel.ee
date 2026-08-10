@@ -1,16 +1,16 @@
+import { HelmetProvider } from '@dr.pogodin/react-helmet';
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
-import { LanguageProvider } from './i18n';
-import SEOMeta, { BreadcrumbSchema } from './components/SEOMeta';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import Expertise from './components/Expertise';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import About from './components/About';
 import Contact from './components/Contact';
-import Pgp from './components/Pgp';
+import Expertise from './components/Expertise';
 import Footer from './components/Footer';
+import Hero from './components/Hero';
+import Navbar from './components/Navbar';
+import Pgp from './components/Pgp';
+import SEOMeta, { BreadcrumbSchema } from './components/SEOMeta';
+import Services from './components/Services';
+import { LanguageProvider } from './i18n';
 
 const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy'));
 const TermsOfService = React.lazy(() => import('./components/TermsOfService'));
@@ -23,9 +23,13 @@ const NotFound = React.lazy(() => import('./components/NotFound'));
 function HomePage() {
   return (
     <>
-      <SEOMeta titleKey="seo.home.title" defaultTitle="Expert MITM Defense & Security Consulting" descriptionKey="seo.home.description" />
+      <SEOMeta
+        titleKey='seo.home.title'
+        defaultTitle='Expert MITM Defense & Security Consulting'
+        descriptionKey='seo.home.description'
+      />
       <Navbar />
-      <main id="main-content" tabIndex={-1}>
+      <main id='main-content' tabIndex={-1}>
         <Hero />
         <Services />
         <Expertise />
@@ -38,7 +42,15 @@ function HomePage() {
   );
 }
 
-function LegalLayout({ children, titleKey, descriptionKey, defaultTitle, defaultDescription, breadcrumbTitle, breadcrumbUrl }: {
+function LegalLayout({
+  children,
+  titleKey,
+  descriptionKey,
+  defaultTitle,
+  defaultDescription,
+  breadcrumbTitle,
+  breadcrumbUrl,
+}: {
   children: React.ReactNode;
   titleKey?: string;
   descriptionKey?: string;
@@ -57,10 +69,18 @@ function LegalLayout({ children, titleKey, descriptionKey, defaultTitle, default
         path={breadcrumbUrl}
       />
       {breadcrumbTitle && breadcrumbUrl && (
-        <BreadcrumbSchema items={[{ name: breadcrumbTitle, url: `https://proksiabel.ee${breadcrumbUrl}` }]} />
+        <BreadcrumbSchema
+          items={[{ name: breadcrumbTitle, url: `https://proksiabel.ee${breadcrumbUrl}` }]}
+        />
       )}
       <Navbar />
-      <React.Suspense fallback={<div className="min-h-screen bg-slate-900 flex items-center justify-center"><div className="text-white">Loading...</div></div>}>
+      <React.Suspense
+        fallback={
+          <div className='min-h-screen bg-slate-900 flex items-center justify-center'>
+            <div className='text-white'>Loading...</div>
+          </div>
+        }
+      >
         {children}
       </React.Suspense>
       <Footer />
@@ -73,57 +93,115 @@ function App() {
     <LanguageProvider>
       <HelmetProvider>
         <BrowserRouter>
-          <div className="min-h-screen bg-slate-900">
+          <div className='min-h-screen bg-slate-900'>
             <a
-              href="#main-content"
-              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-sky-500 focus:text-white focus:rounded-md"
-              onClick={(e) => { e.preventDefault(); const el = document.getElementById('main-content'); el?.focus(); el?.scrollIntoView(); }}
+              href='#main-content'
+              className='sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-sky-500 focus:text-white focus:rounded-md'
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById('main-content');
+                el?.focus();
+                el?.scrollIntoView();
+              }}
             >
               Skip to main content
             </a>
             <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/privacy" element={
-                <LegalLayout titleKey="seo.privacy.title" descriptionKey="seo.privacy.description" defaultTitle="Privacy Policy" defaultDescription="Privacy policy for ProksiAbel OÜ." breadcrumbTitle="Privacy Policy" breadcrumbUrl="/privacy">
-                  <PrivacyPolicy />
-                </LegalLayout>
-              } />
-              <Route path="/terms" element={
-                <LegalLayout titleKey="seo.terms.title" descriptionKey="seo.terms.description" defaultTitle="Terms of Service" defaultDescription="Terms of service for ProksiAbel OÜ." breadcrumbTitle="Terms of Service" breadcrumbUrl="/terms">
-                  <TermsOfService />
-                </LegalLayout>
-              } />
-              <Route path="/cookies" element={
-                <LegalLayout titleKey="seo.cookies.title" descriptionKey="seo.cookies.description" defaultTitle="Cookie Policy" defaultDescription="Cookie policy for ProksiAbel OÜ." breadcrumbTitle="Cookie Policy" breadcrumbUrl="/cookies">
-                  <CookiePolicy />
-                </LegalLayout>
-              } />
-              <Route path="/disclosure" element={
-                <LegalLayout titleKey="seo.disclosure.title" descriptionKey="seo.disclosure.description" defaultTitle="Responsible Disclosure" defaultDescription="Responsible disclosure policy for ProksiAbel OÜ." breadcrumbTitle="Responsible Disclosure" breadcrumbUrl="/disclosure">
-                  <Disclosure />
-                </LegalLayout>
-              } />
-              <Route path="/guides/fido2-vs-passkeys" element={
-                <LegalLayout
-                  defaultTitle="FIDO2 vs Passkeys: A Technical Guide"
-                  defaultDescription="FIDO2 is a protocol family; passkeys are a product concept built on one WebAuthn feature. A practical comparison of discoverable credentials, attestation, sync, and deployment."
-                  breadcrumbTitle="FIDO2 vs Passkeys"
-                  breadcrumbUrl="/guides/fido2-vs-passkeys"
-                >
-                  <Fido2PasskeysGuide />
-                </LegalLayout>
-              } />
-              <Route path="/guides/ssrf-explained" element={
-                <LegalLayout
-                  defaultTitle="SSRF Explained: Attack Examples & Prevention"
-                  defaultDescription="Server-side request forgery (SSRF) explained: attack anatomy, cloud metadata credential theft, detection rules, and prevention patterns, with a reproducible local lab."
-                  breadcrumbTitle="SSRF Explained"
-                  breadcrumbUrl="/guides/ssrf-explained"
-                >
-                  <SsrfGuide />
-                </LegalLayout>
-              } />
-              <Route path="*" element={<LegalLayout><NotFound /></LegalLayout>} />
+              <Route path='/' element={<HomePage />} />
+              <Route
+                path='/privacy'
+                element={
+                  <LegalLayout
+                    titleKey='seo.privacy.title'
+                    descriptionKey='seo.privacy.description'
+                    defaultTitle='Privacy Policy'
+                    defaultDescription='Privacy policy for ProksiAbel OÜ.'
+                    breadcrumbTitle='Privacy Policy'
+                    breadcrumbUrl='/privacy'
+                  >
+                    <PrivacyPolicy />
+                  </LegalLayout>
+                }
+              />
+              <Route
+                path='/terms'
+                element={
+                  <LegalLayout
+                    titleKey='seo.terms.title'
+                    descriptionKey='seo.terms.description'
+                    defaultTitle='Terms of Service'
+                    defaultDescription='Terms of service for ProksiAbel OÜ.'
+                    breadcrumbTitle='Terms of Service'
+                    breadcrumbUrl='/terms'
+                  >
+                    <TermsOfService />
+                  </LegalLayout>
+                }
+              />
+              <Route
+                path='/cookies'
+                element={
+                  <LegalLayout
+                    titleKey='seo.cookies.title'
+                    descriptionKey='seo.cookies.description'
+                    defaultTitle='Cookie Policy'
+                    defaultDescription='Cookie policy for ProksiAbel OÜ.'
+                    breadcrumbTitle='Cookie Policy'
+                    breadcrumbUrl='/cookies'
+                  >
+                    <CookiePolicy />
+                  </LegalLayout>
+                }
+              />
+              <Route
+                path='/disclosure'
+                element={
+                  <LegalLayout
+                    titleKey='seo.disclosure.title'
+                    descriptionKey='seo.disclosure.description'
+                    defaultTitle='Responsible Disclosure'
+                    defaultDescription='Responsible disclosure policy for ProksiAbel OÜ.'
+                    breadcrumbTitle='Responsible Disclosure'
+                    breadcrumbUrl='/disclosure'
+                  >
+                    <Disclosure />
+                  </LegalLayout>
+                }
+              />
+              <Route
+                path='/guides/fido2-vs-passkeys'
+                element={
+                  <LegalLayout
+                    defaultTitle='FIDO2 vs Passkeys: A Technical Guide'
+                    defaultDescription='FIDO2 is a protocol family; passkeys are a product concept built on one WebAuthn feature. A practical comparison of discoverable credentials, attestation, sync, and deployment.'
+                    breadcrumbTitle='FIDO2 vs Passkeys'
+                    breadcrumbUrl='/guides/fido2-vs-passkeys'
+                  >
+                    <Fido2PasskeysGuide />
+                  </LegalLayout>
+                }
+              />
+              <Route
+                path='/guides/ssrf-explained'
+                element={
+                  <LegalLayout
+                    defaultTitle='SSRF Explained: Attack Examples & Prevention'
+                    defaultDescription='Server-side request forgery (SSRF) explained: attack anatomy, cloud metadata credential theft, detection rules, and prevention patterns, with a reproducible local lab.'
+                    breadcrumbTitle='SSRF Explained'
+                    breadcrumbUrl='/guides/ssrf-explained'
+                  >
+                    <SsrfGuide />
+                  </LegalLayout>
+                }
+              />
+              <Route
+                path='*'
+                element={
+                  <LegalLayout>
+                    <NotFound />
+                  </LegalLayout>
+                }
+              />
             </Routes>
           </div>
         </BrowserRouter>

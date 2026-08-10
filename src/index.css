@@ -128,7 +128,7 @@
   }
 
   .bg-mesh {
-    background-image: 
+    background-image:
       radial-gradient(at 40% 20%, rgba(14, 165, 233, 0.15) 0px, transparent 50%),
       radial-gradient(at 80% 0%, rgba(139, 92, 246, 0.1) 0px, transparent 50%),
       radial-gradient(at 0% 50%, rgba(20, 184, 166, 0.1) 0px, transparent 50%),
@@ -137,7 +137,7 @@
   }
 
   .bg-grid {
-    background-image: 
+    background-image:
       linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 60px 60px;
@@ -163,7 +163,8 @@
 
 /* Keyframe animations */
 @keyframes gradient {
-  0%, 100% {
+  0%,
+  100% {
     background-position: 0% 50%;
   }
   50% {
@@ -203,7 +204,8 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -212,7 +214,8 @@
 }
 
 @keyframes pulse-slow {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
