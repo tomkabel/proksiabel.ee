@@ -1,3 +1,4 @@
+import { POLICY_REVISION_DATE } from '../config/legal';
 import { useTranslation } from '../i18n';
 
 export default function PrivacyPolicy() {
@@ -209,7 +210,7 @@ export default function PrivacyPolicy() {
 
         <div className='mt-12 pt-8 border-t border-slate-800'>
           <p className='text-slate-400 text-sm'>
-            {t.legal.lastUpdated}: {new Date().toLocaleDateString(locale)}
+            {t.legal.lastUpdated}: {POLICY_REVISION_DATE.toLocaleDateString(locale)}
           </p>
         </div>
       </div>

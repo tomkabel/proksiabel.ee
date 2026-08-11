@@ -26,7 +26,7 @@ The mechanism a competitor cannot truthfully copy: Tom's offense-first credibili
 - One-person consultancy run by Tom Kristian Abel (Tallinn, Estonia); site copy mixes first-person "I" and company "we" — the brand is the person.
 - Actual engagements are governed by separate formal contracts; the website is explicitly a presence/lead layer, not the agreement.
 - Work is remote-capable; response promise is "within 24h"; security research contact is security@proksiabel.ee with PGP strongly preferred (public-key.asc + openpgpkey WKD published).
-- The site is EN-first with a full ET translation; "Estonian Security Consultancy" is a headline badge — local trust is a feature.
+- The site is ET-first: Estonian is the default language (see `src/i18n/LanguageContext.tsx`), with a full EN translation — both maintained in `src/i18n/translations.ts`; "Estonian Security Consultancy" is a headline badge — local trust is a feature.
 - Contact form exists (name optional, email, message); form errors direct users to email as fallback.
 
 ## Capabilities and Constraints
@@ -48,14 +48,14 @@ Technical constraints:
 ## Brand Commitments
 
 - Name: ProksiAbel (claimed in terms as "ours"; do not rename).
-- Voice (updated 2026-08-11 per UX audit; prior casual street-slang style retired): direct, first-person, authoritative — confident and hands-on, zero corporate boilerplate, no slang or self-deprecating asides ("Kuule", "Yeah, that was a fun weekend" removed). Mixing of "I" (Tom) and "we" (company) is incumbent behavior — keep unless explicitly changed.
+- Voice (updated 2026-08-10 per UX audit; prior casual street-slang style retired): direct, first-person, authoritative — confident and hands-on, zero corporate boilerplate, no slang or self-deprecating asides ("Kuule", "Yeah, that was a fun weekend" removed). Mixing of "I" (Tom) and "we" (company) is incumbent behavior — keep unless explicitly changed.
 - Expert photo credited "photo by Maido".
 - Privacy-first stance is a brand position, not just compliance (see Capabilities and Constraints).
 - PGP for sensitive comms is a branded expectation ("Use PGP, please").
 
 ## Evidence on Hand
 
-- Real company registration and Estonian address/contact details (see contact.tsx, legal copy).
+- Real company registration and Estonian address/contact details (see src/components/Contact.tsx, legal copy).
 - SSRF guide with a reproducible local lab; FIDO2 vs Passkeys technical guide.
 - Published security research policy (disclosure) and PGP key (public-key.asc, WKD).
 - OG image, favicon, expert.webp portrait.

@@ -33,7 +33,7 @@ Public indexing showed 112 followers and 101 connections. No impressions were ex
 
 ## Positioning to own
 
-**Category:** Security product studio and specialist security engineering practice.
+**Category:** One-person offensive-security consultancy for web applications, identity, and AI systems.
 
 **Primary buyer:** CTOs, CISOs, security architects, and public-sector technology leaders responsible for identity, authentication, and critical digital services.
 
@@ -45,9 +45,9 @@ Public indexing showed 112 followers and 101 connections. No impressions were ex
 
 ### Recommended headline
 
-Security Product Builder | Finding Architectural Failures in Authentication, AI & Zero-Trust Systems | WebAuthn/FIDO2 · Adversarial Research · Secure-by-Design
+Offensive Security Consultant | Finding Architectural Failures in Authentication, AI & Zero-Trust Systems | WebAuthn/FIDO2 · Adversarial Research · Secure-by-Design
 
-This is 181 characters and is optimized for clarity, buyer relevance, and search discovery. Do not lead with “former hacker”; it attracts curiosity but weakens trust with the exact buyers ProksiAbel needs.
+This is 164 characters and is optimized for clarity, buyer relevance, and search discovery. Do not lead with “former hacker”; it attracts curiosity but weakens trust with the exact buyers ProksiAbel needs.
 
 ### Recommended About section
 
@@ -55,7 +55,7 @@ Most security work checks whether controls exist.
 
 I look for the architectural failure that makes those controls fail together.
 
-I’m the founder of ProksiAbel OÜ, a security product studio in Estonia. We build authentication, zero-trust, and anti-bot tooling from first principles—supported by a confidential consulting practice that finds the failure modes worth fixing.
+I’m the founder of ProksiAbel OÜ, a one-person offensive-security consultancy in Estonia. I break web applications, authentication, and AI systems the way an attacker would—then show you exactly how to fix what I found.
 
 My work sits at the intersection of:
 
@@ -81,7 +81,7 @@ If you are responsible for a high-value identity system, AI platform, or public 
 **Founder & Principal Security Engineer**  
 ProksiAbel OÜ · Estonia · [use the actual start month]
 
-ProksiAbel is a security product studio building authentication, zero-trust, and anti-bot tooling from first principles.
+ProksiAbel is a one-person offensive-security consultancy for web applications, identity, and AI systems.
 
 • Lead confidential security research and architecture engagements for high-value identity, AI, and distributed systems.
 • Translate structural findings into reproducible research, defensive guidance, open tooling, and reference architectures.
@@ -91,7 +91,7 @@ ProksiAbel is a security product studio building authentication, zero-trust, and
 
 Public work: https://proksiabel.ee/
 
-Add 3–5 media attachments to this entry: fingerprintproxy, zero-trust-octagon, an authentication research write-up, and one sanitized architecture diagram.
+Add 3–5 media attachments to this entry: fingerprintproxy, zero-trust-octagon, an authentication research write-up, and one architecture diagram. Only include client-derived material (case studies, architecture diagrams, or anything inferred from confidential work) when it is backed by factual source material and written client approval.
 
 ### Recommended top skills
 
@@ -120,15 +120,15 @@ Prioritize five voices: a technical collaborator, a client/stakeholder, a public
 
 ### Tagline
 
-Security product studio for authentication, zero trust, and adversarial infrastructure.
+Offensive-security consultancy for authentication, zero trust, and adversarial infrastructure.
 
 ### About section
 
-ProksiAbel OÜ is a security product studio based in Estonia.
+ProksiAbel OÜ is a one-person offensive-security consultancy based in Estonia.
 
-We find structural security failures in authentication, AI, browser, and distributed systems—and build the smallest tools and architectures that close them.
+We find structural security failures in authentication, AI, browser, and distributed systems—and show you exactly how an attacker would exploit them and how to close them.
 
-Our work combines confidential security engineering with public product development:
+Our work combines confidential security engineering with public research and tooling:
 
 • Authentication security: phishing-resistant WebAuthn/FIDO2 components and identity threat modeling.
 • Adversarial research: hostile software, browser security, bot defenses, and AI red teaming.
@@ -159,7 +159,7 @@ proksiabel.ee
 
 Keep the text on the left/center-safe area and avoid small copy. Use the site’s dark navy base with one cyan/teal accent line.
 
-Featured section: pin the website, zero-trust-octagon, fingerprintproxy, the strongest authentication research article, and one sanitized case study or architecture diagram.
+Featured section: pin the website, zero-trust-octagon, fingerprintproxy, the strongest authentication research article, and one client-approved, sanitized case study or architecture diagram.
 
 ## Content strategy
 

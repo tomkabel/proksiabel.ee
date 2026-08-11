@@ -16,27 +16,32 @@ This document provides guidelines for AI agents working on this codebase.
 ## Build / Lint / Test Commands
 
 ### Development
+
 ```bash
 npm run dev          # Start Vite dev server
 ```
 
 ### Building
+
 ```bash
 npm run build        # tsc -b && vite build, then postbuild (updates sitemap lastmod, copies 404.html, prerenders every route from sitemap.xml into pub/ via system Chromium)
 npm run preview      # Preview production build locally
 ```
 
 ### Linting
+
 ```bash
 npm run lint         # Run oxlint + biome check on all files
 ```
 
 ### Type Checking
+
 ```bash
 npx tsc -b     # Run TypeScript compiler check (project references; also runs in npm run build)
 ```
 
 ### Single File Linting
+
 ```bash
 npx oxlint src/components/Navbar.tsx     # Lint specific file (fast, zero-config)
 npx biome check src/components/Navbar.tsx  # Format + lint + import organization
@@ -59,9 +64,11 @@ Documented biome exceptions (see `biome.json` `overrides` / rule config):
   content is reachable without interaction.
 
 ### Images / Cloudflare
+
 ```bash
 npm run optimize-images        # Optimize images (requires ImageMagick; see scripts/check-imagemagick.sh)
-scripts/cloudflare-apply.sh    # Apply Cloudflare zone config (SSL, cache rules, redirects); reads wrangler OAuth token
+scripts/cloudflare-apply.sh            # Dry run: reads zone config, prints what would change (no writes)
+scripts/cloudflare-apply.sh --apply    # Apply Cloudflare zone config (SSL, cache rules, redirects); reads wrangler OAuth token
 ```
 
 ### No Test Framework
@@ -241,8 +248,8 @@ const [isLoading, setIsLoading] = React.useState(true);
 
 ### Adding a new guide (e.g. /guides/foo)
 1. Add route in `App.tsx` + component in `src/components/` (with SEOMeta for per-route title/canonical/JSON-LD)
-2. Wire it into `Footer.tsx`, `pub/sitemap.xml`, and `pub/llms.txt`
-3. Rebuild so prerender generates the route HTML
+2. Wire it into `Footer.tsx`, `public/sitemap.xml`, and `public/llms.txt` (the source files Vite copies into `pub/`)
+3. Rebuild (`npm run build`) so prerender generates the route HTML in `pub/`
 4. Guides are English-only by design (English search cluster)
 
 ### Modifying styles

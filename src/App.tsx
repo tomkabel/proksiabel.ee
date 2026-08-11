@@ -50,6 +50,7 @@ function LegalLayout({
   defaultDescription,
   breadcrumbTitle,
   breadcrumbUrl,
+  noindex = false,
 }: {
   children: React.ReactNode;
   titleKey?: string;
@@ -58,6 +59,7 @@ function LegalLayout({
   defaultDescription?: string;
   breadcrumbTitle?: string;
   breadcrumbUrl?: string;
+  noindex?: boolean;
 }) {
   return (
     <>
@@ -67,6 +69,7 @@ function LegalLayout({
         defaultTitle={defaultTitle}
         defaultDescription={defaultDescription}
         path={breadcrumbUrl}
+        noindex={noindex}
       />
       {breadcrumbTitle && breadcrumbUrl && (
         <BreadcrumbSchema
@@ -74,15 +77,17 @@ function LegalLayout({
         />
       )}
       <Navbar />
-      <React.Suspense
-        fallback={
-          <div className='min-h-screen bg-slate-900 flex items-center justify-center'>
-            <div className='text-white'>Loading...</div>
-          </div>
-        }
-      >
-        {children}
-      </React.Suspense>
+      <main id='main-content' tabIndex={-1}>
+        <React.Suspense
+          fallback={
+            <div className='min-h-screen bg-slate-900 flex items-center justify-center'>
+              <div className='text-white'>Loading...</div>
+            </div>
+          }
+        >
+          {children}
+        </React.Suspense>
+      </main>
       <Footer />
     </>
   );
@@ -197,7 +202,7 @@ function App() {
               <Route
                 path='*'
                 element={
-                  <LegalLayout>
+                  <LegalLayout noindex>
                     <NotFound />
                   </LegalLayout>
                 }

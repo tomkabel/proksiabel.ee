@@ -36,8 +36,15 @@
     },
     "grok": {
       "model": "grok-4.20",
-      "cost_per_1k_input_tokens": 0.002,
-      "cost_per_1k_output_tokens": 0.006,
+      "cost_per_1k_input_tokens": 0.00125,
+      "cost_per_1k_cached_input_tokens": 0.0002,
+      "cost_per_1k_output_tokens": 0.0025,
+      "long_context": {
+        "min_tokens": 200000,
+        "cost_per_1k_input_tokens": 0.0025,
+        "cost_per_1k_cached_input_tokens": 0.0004,
+        "cost_per_1k_output_tokens": 0.005
+      },
       "avg_input_tokens": 50,
       "avg_output_tokens": 450
     },
@@ -50,7 +57,7 @@
       "avg_output_tokens": 500
     },
     "deepseek": {
-      "model": "deepseek-v4",
+      "model": "deepseek-v4-pro",
       "cost_per_1k_input_tokens": 0.000435,
       "cost_per_1k_cached_input_tokens": 0.000003625,
       "cost_per_1k_output_tokens": 0.00087,

@@ -88,6 +88,7 @@ alert http any any -> any any (msg:"SSRF: link-local metadata host as destinatio
   flow:established,to_server; content:"169.254.169.254"; http_host; \\
   classtype:attempted-info-leak; sid:1000002; rev:1;)`}),(0,n.jsx)(`h3`,{className:`text-lg text-sky-400 font-medium mb-3`,children:`Log signals`}),(0,n.jsxs)(`ul`,{className:`list-disc list-inside space-y-2 mb-4`,children:[(0,n.jsxs)(`li`,{children:[`Outbound HTTP from the app tier to`,` `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`169.254.169.254`}),`,`,` `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`metadata.google.internal`}),`, or any link-local/loopback address — this should never appear in access logs.`]}),(0,n.jsx)(`li`,{children:`App-tier connections to RFC 1918 destinations the application has no business calling (metadata, databases, admin panels).`}),(0,n.jsxs)(`li`,{children:[`Non-HTTP schemes in fetch parameters (`,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`gopher`}),`,`,` `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`dict`}),`,`,` `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`file`}),`).`]}),(0,n.jsx)(`li`,{children:`The redirect flavor of the attack leaves a distinctive two-hop trace: an outbound fetch to an external host followed within milliseconds by a loopback or internal request.`})]})]}),(0,n.jsxs)(`section`,{className:`mb-10`,children:[(0,n.jsx)(`h2`,{className:`text-xl text-sky-500 font-semibold mb-4`,children:`How to prevent SSRF`}),(0,n.jsx)(`p`,{className:`leading-relaxed mb-4`,children:`The OWASP cheat sheet splits prevention into two cases, and the choice of control depends on which one you are in:`}),(0,n.jsx)(`div`,{className:`overflow-x-auto mb-4`,children:(0,n.jsxs)(`table`,{className:`w-full text-sm text-left border-collapse`,children:[(0,n.jsx)(`thead`,{children:(0,n.jsxs)(`tr`,{className:`border-b border-slate-700`,children:[(0,n.jsx)(`th`,{className:`py-3 pr-4 text-slate-100 font-semibold`,children:`Situation`}),(0,n.jsx)(`th`,{className:`py-3 text-slate-100 font-semibold`,children:`Control that actually works`})]})}),(0,n.jsxs)(`tbody`,{className:`text-slate-300`,children:[(0,n.jsxs)(`tr`,{className:`border-b border-slate-800`,children:[(0,n.jsx)(`td`,{className:`py-3 pr-4 align-top`,children:`The app only ever calls identified, trusted applications (internal services, a fixed API)`}),(0,n.jsxs)(`td`,{className:`py-3 align-top`,children:[`Positive allowlist: exact hostname/IP list, scheme and port allowlist, redirects disabled. Validate with parser-safe libraries (e.g. Apache Commons Validator in Java, `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`ip-address`}),` in JS,`,` `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`ipaddress`}),` in Python).`]})]}),(0,n.jsxs)(`tr`,{className:`border-b border-slate-800`,children:[(0,n.jsx)(`td`,{className:`py-3 pr-4 align-top`,children:`The app must fetch arbitrary external URLs (webhooks, avatar uploads, link previews)`}),(0,n.jsxs)(`td`,{className:`py-3 align-top`,children:[`Deny-list as a last resort — OWASP explicitly warns it is bypass-prone. Minimum: block metadata endpoints, loopback, RFC 1918, link-local, and multicast ranges for `,(0,n.jsx)(`em`,{children:`every`}),` resolved IP (A and AAAA), pin the connection to the validated IP, disable redirects or re-validate each hop, and allow only http/https.`]})]}),(0,n.jsxs)(`tr`,{className:`border-b border-slate-800`,children:[(0,n.jsx)(`td`,{className:`py-3 pr-4 align-top`,children:`Cloud deployments`}),(0,n.jsx)(`td`,{className:`py-3 align-top`,children:`Enforce IMDSv2 on AWS (PUT-token based; disable IMDSv1), scope IAM roles on the app tier to the minimum, and put the URL-fetching service behind an egress firewall with deny-by-default rules.`})]}),(0,n.jsxs)(`tr`,{className:`border-b border-slate-800`,children:[(0,n.jsx)(`td`,{className:`py-3 pr-4 align-top`,children:`Any deployment`}),(0,n.jsx)(`td`,{className:`py-3 align-top`,children:`Network segmentation: run URL-fetching functionality in its own segment so a compromise does not reach the whole backend. Never echo raw responses to the client when the Content-Type is non-text.`})]})]})]})}),(0,n.jsx)(`h3`,{className:`text-lg text-sky-400 font-medium mb-3`,children:`Python (requests) — resolve, validate, pin, no redirects`}),(0,n.jsxs)(`p`,{className:`leading-relaxed mb-4`,children:[`The core idea: resolve the hostname once, reject the request if `,(0,n.jsx)(`em`,{children:`any`}),` `,`resolved address is non-public, then connect to the validated address — so a DNS rebinding race between validation and connection has nothing to win.`]}),(0,n.jsx)(`pre`,{className:`bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4`,children:`import ipaddress
 import socket
+import ssl
 import urllib.parse
 
 import requests
@@ -126,6 +127,10 @@ class SSRFGuardAdapter(HTTPAdapter):
     real name while the connection goes to the pinned address.
     """
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._pools = []  # custom pools bypass the pool manager; track for close()
+
     def get_connection_with_tls_context(self, request, verify, proxies=None, cert=None):
         parsed = urllib.parse.urlsplit(request.url)
         host = parsed.hostname or ""
@@ -137,24 +142,35 @@ class SSRFGuardAdapter(HTTPAdapter):
         # Prefer IPv4 when available (both families are validated above).
         ip = next((a for a in ips if ":" not in a), ips[0])
         port = parsed.port or (443 if parsed.scheme == "https" else 80)
+        pool_kwargs = dict(
+            maxsize=self._pool_maxsize,
+            block=self._pool_block,
+            retries=Retry(0, read=False),
+        )
         if parsed.scheme == "https":
-            pool = HTTPSConnectionPool(
-                ip,
-                port,
-                server_hostname=host,
-                maxsize=self._pool_maxsize,
-                block=self._pool_block,
-                retries=Retry(0, read=False),
-            )
+            # Carry the caller's TLS policy into the pool: requests passes
+            # verify (bool or CA-bundle path) and cert (path or (cert, key)).
+            if verify is False:
+                pool_kwargs["cert_reqs"] = ssl.CERT_NONE
+            else:
+                pool_kwargs["cert_reqs"] = ssl.CERT_REQUIRED
+                if verify is not True:
+                    pool_kwargs["ca_certs"] = verify
+            if cert is not None:
+                if isinstance(cert, tuple):
+                    pool_kwargs["cert_file"], pool_kwargs["key_file"] = cert
+                else:
+                    pool_kwargs["cert_file"] = cert
+            pool = HTTPSConnectionPool(ip, port, server_hostname=host, **pool_kwargs)
         else:
-            pool = HTTPConnectionPool(
-                ip,
-                port,
-                maxsize=self._pool_maxsize,
-                block=self._pool_block,
-                retries=Retry(0, read=False),
-            )
+            pool = HTTPConnectionPool(ip, port, **pool_kwargs)
+        self._pools.append(pool)  # track so Session.close() closes them too
         return pool
+
+    def close(self):
+        super().close()
+        for pool in self._pools:
+            pool.close()
 
 
 def fetch_safe(url: str, timeout: int = 5) -> requests.Response:

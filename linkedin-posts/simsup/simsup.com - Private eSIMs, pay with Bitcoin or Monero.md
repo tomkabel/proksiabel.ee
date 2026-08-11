@@ -91,7 +91,7 @@ Simsup could theoretically buy ordinary Elisa lines under a corporate account an
 
 ## eSIM provisioning: what must happen technically
 
-The QR code is not itself the mobile service. Under the GSMA consumer architecture, the phone's Local Profile Assistant contacts an SM-DP+ server; the SM-DP+ prepares and securely delivers the carrier profile to the eUICC. The profile contains the operator identity and subscriber credentials. [GSMA: eSIM Consumer Architecture](https://www.gsma.com/solutions-and-impact/technologies/esim/about/), [GSMA: eSIM Compliance](https://www.gsma.com/solutions-and-impact/technologies/esim/compliance/), [GSMA architecture guide](https://www.gsma.com/solutions-and-impact/technologies/esim/wp-content/uploads/2024/07/A-guide-to-eSIM-Architectures-Final.pdf)
+The QR code is not itself the mobile service. Under the GSMA consumer architecture, the SM-DP+ prepares and encrypts the carrier profile; the phone's Local Profile Assistant (LPA) retrieves the encrypted profile and transfers it to the eUICC for installation. The profile contains the operator identity and subscriber credentials. [GSMA: eSIM Consumer Architecture](https://www.gsma.com/solutions-and-impact/technologies/esim/about/), [GSMA: eSIM Compliance](https://www.gsma.com/solutions-and-impact/technologies/esim/compliance/), [GSMA architecture guide](https://www.gsma.com/solutions-and-impact/technologies/esim/wp-content/uploads/2024/07/A-guide-to-eSIM-Architectures-Final.pdf)
 
 For Simsup's workflow, the probable sequence is:
 

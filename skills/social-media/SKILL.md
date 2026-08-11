@@ -62,7 +62,7 @@ Example: A LinkedIn post about "prompt engineering" → `linkedin/prompt-enginee
 ### LinkedIn
 
 **Format:**
-- 1,300 character limit (show more after ~210 chars)
+- 3,000 character limit per post (the ~210-char "show more" cut is a preview heuristic, not a hard limit)
 - First line is crucial - make it hook
 - Use line breaks for readability
 - 3-5 hashtags at the end
@@ -95,7 +95,7 @@ Example: A LinkedIn post about "prompt engineering" → `linkedin/prompt-enginee
 ### Twitter/X
 
 **Format:**
-- 280 character limit per tweet
+- 280 character limit per tweet for non-Premium accounts (X Premium allows up to 25,000 characters)
 - Threads for longer content (use 1/🧵 format)
 - No more than 2 hashtags per tweet
 

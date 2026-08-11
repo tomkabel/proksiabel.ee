@@ -11,10 +11,10 @@ four legal pages. That deployment gap is the single biggest finding.
 
 Beyond deployment, two substantive 2026-era issues exist:
 
-1. **All AI crawlers get HTTP 403 at the edge** — including search/index bots
+1. **Tested AI crawler user agents get HTTP 403 at the edge** — including search/index bots
    (OAI-SearchBot, PerplexityBot) whose blocking measurably kills AI-search
    citations. The managed robots.txt only *documents* training-bot blocks; the
-   edge *enforces* 403s on everything AI, contradicting the site's own
+   edge *enforces* 403s on the tested AI user agents, contradicting the site's own
    `Content-Signal: search=yes`.
 2. **Structured data has defects**: a masked phone number in
    ProfessionalService schema, a Sitelinks SearchAction pointing at a search
@@ -49,7 +49,7 @@ Diagnosis should inspect the deployed Worker version (`wrangler deployments
 list`), its static-asset binding, and Cloudflare cache state — a stale edge
 cache can keep serving the old bundle after a correct deploy, and bare paths
 may need a targeted purge. **GSC reports on the deployed artifact**
-([seo-indexing-audit skill]); everything below assumes the new build becomes
+(per the seo-indexing-audit skill); everything below assumes the new build becomes
 live. Until then, the live surface — no canonicals, no structured data, 301'd
 sitemap URLs, 404 legal pages — is actively uncompetitive regardless of the
 repo's quality.
@@ -65,7 +65,7 @@ Googlebot/2.1     -> 200
 Bingbot/2.0       -> 200
 ```
 
-Googlebot/Bingbot pass; **every AI-flavored UA is 403'd at the edge**. The
+Googlebot/Bingbot pass; **every AI-flavored UA we tested is 403'd at the edge**. The
 served robots.txt only *documents* blocks for training crawlers (GPTBot,
 ClaudeBot, CCBot, Google-Extended, …) and its Content Signal says
 `search=yes, ai-train=no, use=reference`. The 403s on OAI-SearchBot and
@@ -78,8 +78,7 @@ BFM per the plan) is enforcing stricter than the file declares
 
 ## 2. AI-crawler policy: the 2026 decision that costs citations
 
-Research consensus across [LovedByAI], [CitationDesk], [cloro.dev], [Cloudflare
-managed robots.txt docs]:
+Research consensus across [LovedByAI], [CitationDesk], [cloro.dev], and the [Cloudflare managed robots.txt docs]:
 
 - **Training crawlers are decoupled from citations.** GPTBot (training) vs
   OAI-SearchBot (ChatGPT search index) vs ChatGPT-User (live in-chat fetch)
@@ -104,15 +103,15 @@ managed robots.txt docs]:
   — mixed-use bots must be allowed explicitly because the strictest rule wins.
 
 **Recommendation for proksiabel.ee:** this is a policy choice, not a bug. The
-current stance (403 everything AI) is defensible for a security researcher who
+current stance (403 on the tested AI crawler user agents) is defensible for a security researcher who
 opts out of training — but it also forfeits AI-search citations, and it
 contradicts the site's own `use=reference` content signal. If citations in
 ChatGPT search / Perplexity / Claude are desired, flip the dashboard controls
 to "allow search + agent, block training" — no training cost, citations
 restored. Verify after: `curl -A "OAI-SearchBot/1.0" https://proksiabel.ee/`
-should return 200. Note: the repo's committed `public/robots.txt` already
-allows everything; the edge is the only enforcement point, so this is a
-Cloudflare dashboard change, not a repo change.
+should return 200. Note: the repo's committed `public/robots.txt` allows
+everything except the `/.well-known/openpgpkey/` WKD directory; the edge is the
+only enforcement point, so this is a Cloudflare dashboard change, not a repo change.
 
 ---
 
@@ -127,7 +126,7 @@ Already correct ([ThatDevPro], [prerender.info], [Agile structured data]):
   blocks — no `unsafe-inline` needed. This is the "non-visual elements in
   static HTML" pattern AI crawlers actually read ([prerender.info]).
 - `og:image` is a real 1200×630 PNG — SVG og:image is ignored by
-  Facebook/LinkedIn/X ([static-site-seo skill]).
+  Facebook/LinkedIn/X (static-site-seo skill).
 
 Defects (verified in `index.html` / SEOMeta.tsx):
 
@@ -171,11 +170,11 @@ Defects (verified in `index.html` / SEOMeta.tsx):
   in GSC and request re-indexing of `/`, `/privacy`, `/terms`, `/cookies`,
   `/disclosure`, `/guides/fido2-vs-passkeys`, `/guides/ssrf-explained` — and
   verify `pub/sitemap.xml` includes both guide routes before publishing
-  ([seo-indexing-audit skill]).
+  (per the seo-indexing-audit skill).
 - **No-slash URL forms** (`/privacy`, not `/privacy/`) — consistent between
   sitemap, canonicals, and prerendered output; the old app's trailing-slash
-  forms now 307. Keep it that way (static-host SPA pitfall documented in
-  [static-site-seo skill]).
+  forms now 307. Keep it that way (static-host SPA pitfall documented in the
+  static-site-seo skill).
 - Repo robots.txt correctly does **not** disallow `/assets/` — critical for
   SPA rendering (Googlebot needs the JS bundle). The `/.well-known/openpgpkey/`
   disallow is fine (WKD dir, not indexable content).
@@ -271,6 +270,30 @@ Recommendation: option 1 now; revisit if EN organic demand appears.
 25. [Frontend Horizon — AEO for professional services](https://www.frontendhorizon.com/blog/answer-engine-optimization-for-professional-services-firms) — connected entity graph, not lone schema blocks
 26. [etavrian — Entity SEO B2B playbook](https://www.etavrian.com/blog/entity-seo-b2b-service-playbook) — content before schema; consistency layers
 27. [SEO Gurus — Entity SEO for service businesses](https://seo-gurus.co.za/2026/02/27/entity-seo-for-service-businesses-building-a-knowledge-graph-presence-in-2026/) — Organization/Person/Service entity layers, NAP consistency
+
+## Reference links
+
+[LovedByAI]: https://www.lovedby.ai/blog/stay-visible-chatgpt-claude-perplexity-cloudflare
+[CitationDesk]: https://citationdesk.com/guides/ai-bot-allowlist/
+[cloro.dev]: https://cloro.dev/research/ai-crawler-blocks/
+[Cloudflare managed robots.txt docs]: https://developers.cloudflare.com/bots/additional-configurations/managed-robots-txt/
+[agentcookbooks]: https://agentcookbooks.com/blog/cloudflare-ai-audit-robots-txt-trap/
+[ThatDevPro]: https://www.thatdevpro.com/insights/framework-react/
+[prerender.info]: https://prerender.info/blog/non-visual-elements-prerendering
+[Agile structured data]: https://www.agiledigitalagency.com/blog/structured-data-for-ai-search-professional-services/
+[Agile entity]: https://www.agiledigitalagency.com/blog/entity-driven-seo/
+[Frontend Horizon]: https://www.frontendhorizon.com/blog/answer-engine-optimization-for-professional-services-firms
+[Attrifast]: https://attrifast.com/blog/geo-tactics-playbook-2026
+[Frameleads]: https://frameleads.com/how-to/how-to-optimise-for-chatgpt-claude-and-perplexity-geo
+[SearchScore]: https://searchscore.io/guides/generative-engine-optimisation/
+[Google AI guide]: https://developers.google.com/search/docs/fundamentals/ai-optimization-guide
+[Google localized]: https://developers.google.com/search/docs/specialty/international/localized-versions
+[Google structured data]: https://developers.google.com/search/docs/appearance/structured-data/sitelinks-searchbox
+[Charles Jones]: https://charlesjones.dev/blog/geo-new-seo-ai-answer-engines-2026
+[SEO Gurus]: https://seo-gurus.co.za/2026/02/27/entity-seo-for-service-businesses-building-a-knowledge-graph-presence-in-2026/
+[oscom]: https://oscom.ai/blog/international-seo-hreflang-guide
+[wptranslation]: https://wptranslation.net/blog/multilingual-seo-guide.html
+[Crawlix]: https://crawlix.app/blog/hreflang-multi-region/
 
 ## Methodology
 

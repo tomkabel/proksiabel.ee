@@ -1,3 +1,4 @@
+import { POLICY_REVISION_DATE } from '../config/legal';
 import { useTranslation } from '../i18n';
 
 export default function CookiePolicy() {
@@ -76,19 +77,24 @@ export default function CookiePolicy() {
               </h3>
               <div className='space-y-2 text-slate-300'>
                 <p>
-                  <strong>Provider:</strong> {t.legal.cookies.cookiesUsed.cloudflare.provider}
+                  <strong>{t.legal.cookies.cookiesUsed.cloudflare.labels.provider}:</strong>{' '}
+                  {t.legal.cookies.cookiesUsed.cloudflare.provider}
                 </p>
                 <p>
-                  <strong>Purpose:</strong> {t.legal.cookies.cookiesUsed.cloudflare.purpose}
+                  <strong>{t.legal.cookies.cookiesUsed.cloudflare.labels.purpose}:</strong>{' '}
+                  {t.legal.cookies.cookiesUsed.cloudflare.purpose}
                 </p>
                 <p>
-                  <strong>Duration:</strong> {t.legal.cookies.cookiesUsed.cloudflare.duration}
+                  <strong>{t.legal.cookies.cookiesUsed.cloudflare.labels.duration}:</strong>{' '}
+                  {t.legal.cookies.cookiesUsed.cloudflare.duration}
                 </p>
                 <p>
-                  <strong>Type:</strong> {t.legal.cookies.cookiesUsed.cloudflare.type}
+                  <strong>{t.legal.cookies.cookiesUsed.cloudflare.labels.type}:</strong>{' '}
+                  {t.legal.cookies.cookiesUsed.cloudflare.type}
                 </p>
                 <p>
-                  <strong>Legal Basis:</strong> {t.legal.cookies.cookiesUsed.cloudflare.legalBasis}
+                  <strong>{t.legal.cookies.cookiesUsed.cloudflare.labels.legalBasis}:</strong>{' '}
+                  {t.legal.cookies.cookiesUsed.cloudflare.legalBasis}
                 </p>
               </div>
             </div>
@@ -165,7 +171,7 @@ export default function CookiePolicy() {
 
         <div className='mt-12 pt-8 border-t border-slate-800'>
           <p className='text-slate-400 text-sm'>
-            {t.legal.lastUpdated}: {new Date().toLocaleDateString(locale)}
+            {t.legal.lastUpdated}: {POLICY_REVISION_DATE.toLocaleDateString(locale)}
           </p>
         </div>
       </div>

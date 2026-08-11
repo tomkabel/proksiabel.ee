@@ -44,7 +44,8 @@ export default function Contact() {
     const subject =
       language === 'et' ? 'Kontaktvorm - proksiabel.ee' : 'Contact Form - proksiabel.ee';
 
-    const nl = '\n';
+    // CRLF per RFC 6068 so encodeURIComponent emits %0D%0A line separators.
+    const nl = '\r\n';
     const body =
       language === 'et'
         ? 'Nimi: ' +

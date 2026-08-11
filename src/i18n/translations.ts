@@ -503,6 +503,13 @@ export const translations = {
           text: 'Literally just these:',
           cloudflare: {
             name: 'Cloudflare Security Cookies',
+            labels: {
+              provider: 'Provider',
+              purpose: 'Purpose',
+              duration: 'Duration',
+              type: 'Type',
+              legalBasis: 'Legal Basis',
+            },
             provider: 'Cloudflare Inc.',
             purpose: 'DDoS mitigation and bot filtering. Keeps the site online.',
             duration: 'Session or 30 days max.',
@@ -1065,6 +1072,13 @@ export const translations = {
           text: 'Sõna otseses mõttes ainult need:',
           cloudflare: {
             name: "Cloudflare'i Turvaküpsised",
+            labels: {
+              provider: 'Pakkuja',
+              purpose: 'Eesmärk',
+              duration: 'Kestus',
+              type: 'Tüüp',
+              legalBasis: 'Õiguslik alus',
+            },
             provider: 'Cloudflare Inc.',
             purpose: 'DDoS rünnete leevendamine ja botide filtreerimine. Hoiab lehe üleval.',
             duration: 'Sessioon või maksimaalselt 30 päeva.',

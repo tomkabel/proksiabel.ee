@@ -1,4 +1,4 @@
-TURVAANALÜÜS — KOHALIK NUMBER EI TÕESTA, KES HELISTAB
+# TURVAANALÜÜS — KOHALIK NUMBER EI TÕESTA, KES HELISTAB
 
 Kohalik telefoninumber näitab, millisest numbriruumist kõne tuleb. See ei tõesta helistaja isikut.
 
@@ -30,7 +30,7 @@ Parandus on selge: telefoninumbri päritolu ei tohi olla usaldusotsuse alus.
 
 Makse muutmise, parooli taastamise, sisselogimise kinnitamise või eriligipääsu taotluse korral tuleb kõne lõpetada. Seejärel tuleb inimesele tagasi helistada ettevõtte ametlikus kataloogis oleval numbril.
 
-Jälgida tasub uusi `+372` numbreid, lühikese aja jooksul tehtud kõnede hulka, korduvaid sihtmärke, kasutajatoe pöördumisi ja neile järgnevaid sisselogimiskatseid. Salvestada tuleb täispikk telefoninumber, aeg, kõne tehnilised andmed, sõnumid ja seadusega lubatud juhul kõnesalvestis.
+Jälgida tasub uusi `+372` numbreid, lühikese aja jooksul tehtud kõnede hulka, korduvaid sihtmärke, kasutajatoe pöördumisi ja neile järgnevaid sisselogimiskatseid. Salvestada tuleb üksnes pettusejälgimise eesmärgil vajalikud andmed: telefoninumber, kõne aeg, vajalikud tehnilised metaandmed ning ainult seadusega lubatud ulatuses sõnumid ja kõnesalvestised. Selline töötlemine peab tuginema kehtivale õiguslikule alusele (nt õigustatud huvi – GDPR art 6(1)(f)), ligipääs peab olema piiratud volitatud isikutega ning numbrid, metaandmed, sõnumid ja salvestised tuleb säilitada ainult eesmärgi täitmiseks vajaliku aja jooksul ja seejärel kustutada. Need tingimused tuleb enne avaldamist kirjeldada ka privaatsuspoliitikas.
 
 Kogu Eesti suunakoodi ega Elisa n ei tohi blokeerida. Otsus peab põhinema mitmel märgil, mitte ainult numbril.
 

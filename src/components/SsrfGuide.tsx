@@ -577,6 +577,7 @@ alert http any any -> any any (msg:"SSRF: link-local metadata host as destinatio
               <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
                 {`import ipaddress
 import socket
+import ssl
 import urllib.parse
 
 import requests
@@ -615,6 +616,10 @@ class SSRFGuardAdapter(HTTPAdapter):
     real name while the connection goes to the pinned address.
     """
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._pools = []  # custom pools bypass the pool manager; track for close()
+
     def get_connection_with_tls_context(self, request, verify, proxies=None, cert=None):
         parsed = urllib.parse.urlsplit(request.url)
         host = parsed.hostname or ""
@@ -626,24 +631,35 @@ class SSRFGuardAdapter(HTTPAdapter):
         # Prefer IPv4 when available (both families are validated above).
         ip = next((a for a in ips if ":" not in a), ips[0])
         port = parsed.port or (443 if parsed.scheme == "https" else 80)
+        pool_kwargs = dict(
+            maxsize=self._pool_maxsize,
+            block=self._pool_block,
+            retries=Retry(0, read=False),
+        )
         if parsed.scheme == "https":
-            pool = HTTPSConnectionPool(
-                ip,
-                port,
-                server_hostname=host,
-                maxsize=self._pool_maxsize,
-                block=self._pool_block,
-                retries=Retry(0, read=False),
-            )
+            # Carry the caller's TLS policy into the pool: requests passes
+            # verify (bool or CA-bundle path) and cert (path or (cert, key)).
+            if verify is False:
+                pool_kwargs["cert_reqs"] = ssl.CERT_NONE
+            else:
+                pool_kwargs["cert_reqs"] = ssl.CERT_REQUIRED
+                if verify is not True:
+                    pool_kwargs["ca_certs"] = verify
+            if cert is not None:
+                if isinstance(cert, tuple):
+                    pool_kwargs["cert_file"], pool_kwargs["key_file"] = cert
+                else:
+                    pool_kwargs["cert_file"] = cert
+            pool = HTTPSConnectionPool(ip, port, server_hostname=host, **pool_kwargs)
         else:
-            pool = HTTPConnectionPool(
-                ip,
-                port,
-                maxsize=self._pool_maxsize,
-                block=self._pool_block,
-                retries=Retry(0, read=False),
-            )
+            pool = HTTPConnectionPool(ip, port, **pool_kwargs)
+        self._pools.append(pool)  # track so Session.close() closes them too
         return pool
+
+    def close(self):
+        super().close()
+        for pool in self._pools:
+            pool.close()
 
 
 def fetch_safe(url: str, timeout: int = 5) -> requests.Response:

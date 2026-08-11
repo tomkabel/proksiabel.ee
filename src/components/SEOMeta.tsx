@@ -64,8 +64,7 @@ export default function SEOMeta({
       <html lang={language === 'et' ? 'et' : 'en'} />
       <title>{title}</title>
       <meta name='description' content={desc} />
-      <link rel='canonical' href={url} />
-      {noindex && <meta name='robots' content='noindex' />}
+      {noindex ? <meta name='robots' content='noindex' /> : <link rel='canonical' href={url} />}
       <meta property='og:title' content={title} />
       <meta property='og:description' content={desc} />
       <meta property='og:url' content={url} />
