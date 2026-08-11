@@ -13,27 +13,8 @@ export default function Hero() {
   };
 
   return (
-    <div className='relative min-h-screen flex items-center overflow-hidden bg-slate-900'>
-      {/* Animated Background */}
-      <div className='absolute inset-0 bg-mesh bg-grid' aria-hidden='true' />
-
-      {/* Gradient Orbs */}
-      <div
-        className='absolute top-1/4 -left-32 w-96 h-96 bg-sky-500/20 rounded-full blur-[128px] animate-pulse-slow'
-        aria-hidden='true'
-      />
-      <div
-        className='absolute bottom-1/4 -right-32 w-96 h-96 bg-teal-500/15 rounded-full blur-[128px] animate-pulse-slow'
-        style={{ animationDelay: '2s' }}
-        aria-hidden='true'
-      />
-      <div
-        className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-sky-500/5 rounded-full blur-[100px]'
-        aria-hidden='true'
-      />
-
-      {/* Grid Pattern Overlay */}
-      <div className='absolute inset-0 bg-grid opacity-50' aria-hidden='true' />
+    <div className='relative min-h-screen flex items-center overflow-hidden'>
+      {/* Animated Background — decorative canvas is a single fixed layer in App.tsx */}
 
       <div className='relative z-10 container-custom pt-32 pb-20'>
         <div className='grid lg:grid-cols-2 gap-12 lg:gap-16 items-center'>

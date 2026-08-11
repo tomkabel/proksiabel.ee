@@ -101,17 +101,7 @@ export default function Contact() {
   ];
 
   return (
-    <section id='contact' className='section-padding bg-slate-900 relative overflow-hidden'>
-      <div className='absolute inset-0 bg-mesh opacity-40' aria-hidden='true' />
-      <div
-        className='absolute top-0 left-1/4 w-[400px] h-[400px] bg-sky-500/15 rounded-full blur-[120px]'
-        aria-hidden='true'
-      />
-      <div
-        className='absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-teal-500/15 rounded-full blur-[120px]'
-        aria-hidden='true'
-      />
-
+    <section id='contact' className='section-padding relative overflow-hidden'>
       <div className='relative z-10 container-custom'>
         <div className='text-center mb-16 animate-fade-in'>
           <div className='accent-line mx-auto mb-6' />

@@ -12,18 +12,7 @@ export default function About() {
   ];
 
   return (
-    <section id='about' className='section-padding bg-slate-900 relative overflow-hidden'>
-      {/* Background */}
-      <div className='absolute inset-0 bg-mesh bg-grid opacity-30' aria-hidden='true' />
-      <div
-        className='absolute top-0 left-0 w-96 h-96 bg-sky-500/10 rounded-full blur-[120px]'
-        aria-hidden='true'
-      />
-      <div
-        className='absolute bottom-0 right-0 w-[600px] h-[600px] bg-teal-500/10 rounded-full blur-[150px]'
-        aria-hidden='true'
-      />
-
+    <section id='about' className='section-padding relative overflow-hidden'>
       <div className='relative z-10 container-custom'>
         {/* Section Header */}
         <div className='text-center mb-16 animate-fade-in'>

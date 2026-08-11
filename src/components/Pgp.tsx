@@ -5,17 +5,7 @@ export default function Pgp() {
   const { t } = useTranslation();
 
   return (
-    <section id='pgp' className='section-padding bg-slate-900 relative overflow-hidden'>
-      <div className='absolute inset-0 bg-mesh bg-grid opacity-30' aria-hidden='true' />
-      <div
-        className='absolute top-0 left-1/4 w-96 h-96 bg-sky-500/10 rounded-full blur-[120px]'
-        aria-hidden='true'
-      />
-      <div
-        className='absolute bottom-0 right-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-[120px]'
-        aria-hidden='true'
-      />
-
+    <section id='pgp' className='section-padding relative overflow-hidden'>
       <div className='relative z-10 container-custom'>
         {/* Section Header */}
         <div className='text-center mb-12 animate-fade-in'>

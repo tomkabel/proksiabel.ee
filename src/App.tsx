@@ -20,6 +20,22 @@ const Fido2PasskeysGuide = React.lazy(() => import('./components/Fido2PasskeysGu
 const SsrfGuide = React.lazy(() => import('./components/SsrfGuide'));
 const NotFound = React.lazy(() => import('./components/NotFound'));
 
+/**
+ * One fixed, continuous background surface for the whole app. Sections are
+ * transparent, so the mesh/grid pattern never restarts at a section boundary
+ * (previously every section layered its own clipped bg-mesh/bg-grid overlay,
+ * producing visible seams between sections).
+ */
+function BackgroundCanvas() {
+  return (
+    <div className='fixed inset-0 overflow-hidden' aria-hidden='true'>
+      <div className='absolute inset-0 bg-mesh bg-grid opacity-50' />
+      <div className='absolute top-1/4 -left-32 w-96 h-96 bg-sky-500/15 rounded-full blur-[128px] animate-pulse-slow' />
+      <div className='absolute bottom-1/4 -right-32 w-96 h-96 bg-teal-500/10 rounded-full blur-[128px] animate-pulse-slow' />
+    </div>
+  );
+}
+
 function HomePage() {
   return (
     <>
@@ -117,6 +133,7 @@ function App() {
       <HelmetProvider>
         <BrowserRouter>
           <div className='min-h-screen bg-slate-900'>
+            <BackgroundCanvas />
             <a
               href='#main-content'
               className='sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-sky-500 focus:text-white focus:rounded-md'
