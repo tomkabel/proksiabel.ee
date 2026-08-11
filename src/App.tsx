@@ -18,6 +18,7 @@ const CookiePolicy = React.lazy(() => import('./components/CookiePolicy'));
 const Disclosure = React.lazy(() => import('./components/Disclosure'));
 const Fido2PasskeysGuide = React.lazy(() => import('./components/Fido2PasskeysGuide'));
 const SsrfGuide = React.lazy(() => import('./components/SsrfGuide'));
+const IdorGuide = React.lazy(() => import('./components/IdorGuide'));
 const NotFound = React.lazy(() => import('./components/NotFound'));
 
 /**
@@ -239,6 +240,19 @@ function App() {
                     breadcrumbUrl='/guides/ssrf-explained'
                   >
                     <SsrfGuide />
+                  </LegalLayout>
+                }
+              />
+              <Route
+                path='/guides/idor-explained'
+                element={
+                  <LegalLayout
+                    defaultTitle='IDOR Explained: Attack Examples & Prevention'
+                    defaultDescription="Insecure direct object reference (IDOR) explained: how missing object-level authorization lets authenticated users read, modify, or delete other users' data, with a reproducible local lab, detection rules, and fix patterns."
+                    breadcrumbTitle='IDOR Explained'
+                    breadcrumbUrl='/guides/idor-explained'
+                  >
+                    <IdorGuide />
                   </LegalLayout>
                 }
               />

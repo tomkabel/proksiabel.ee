@@ -14,6 +14,7 @@ export default function Footer() {
       { label: t.footer.pgp, href: '/#pgp' },
       { label: 'FIDO2 vs Passkeys Guide', href: '/guides/fido2-vs-passkeys' },
       { label: 'SSRF Explained Guide', href: '/guides/ssrf-explained' },
+      { label: 'IDOR Explained Guide', href: '/guides/idor-explained' },
     ],
     legal: [
       { label: t.footer.privacy, href: '/privacy' },
