@@ -1,4 +1,5 @@
 import { Key } from 'lucide-react';
+import { PGP_FINGERPRINT } from '../config/pgp';
 import { useTranslation } from '../i18n';
 
 export default function Pgp() {
@@ -36,9 +37,7 @@ export default function Pgp() {
             {/* Key fingerprint metadata — lets recipients verify the key out-of-band */}
             <div className='mt-5 text-center'>
               <p className='text-xs text-slate-400 mb-1'>{t.pgp.fingerprint}</p>
-              <p className='font-mono text-xs text-slate-300 break-all'>
-                03DA4E96 931BB2DC 095A2109 0C2A0C6F 110AABC5
-              </p>
+              <p className='font-mono text-xs text-slate-300 break-all'>{PGP_FINGERPRINT}</p>
             </div>
           </div>
         </div>

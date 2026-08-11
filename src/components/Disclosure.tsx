@@ -1,4 +1,5 @@
 import { DISCLOSURE_PUBLICATION_DATE } from '../config/legal';
+import { PGP_FINGERPRINT, PGP_KEY_ID } from '../config/pgp';
 import { useTranslation } from '../i18n';
 
 export default function Disclosure() {
@@ -150,12 +151,11 @@ export default function Disclosure() {
                 </a>
               </p>
               <p>
-                <strong className='text-sky-400'>{t.disclosure.pgp.keyId}:</strong>{' '}
-                0x0C2A0C6F110AABC5
+                <strong className='text-sky-400'>{t.disclosure.pgp.keyId}:</strong> {PGP_KEY_ID}
               </p>
               <p>
                 <strong className='text-sky-400'>{t.disclosure.pgp.fingerprint}:</strong>{' '}
-                03DA4E96931BB2DC095A21090C2A0C6F110AABC5
+                {PGP_FINGERPRINT.replace(/\s/g, '')}
               </p>
               <p>
                 <strong className='text-sky-400'>{t.disclosure.pgp.sha256}:</strong>{' '}

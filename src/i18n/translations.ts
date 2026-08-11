@@ -39,6 +39,7 @@ export const translations = {
     },
     common: {
       loading: 'Loading…',
+      skipToContent: 'Skip to main content',
     },
     hero: {
       heading: "Think your web apps are secure? Let's find out.",
@@ -634,6 +635,7 @@ export const translations = {
     },
     common: {
       loading: 'Laadimine…',
+      skipToContent: 'Liigu sisu juurde',
     },
     hero: {
       heading: 'Arvad, et su veebirakendused on turvalised? Uurime välja.',

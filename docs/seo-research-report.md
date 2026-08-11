@@ -18,8 +18,7 @@ Beyond deployment, two substantive 2026-era issues exist:
    *documents* training-bot blocks; the
    edge *enforces* 403s on the tested AI user agents, contradicting the site's own
    `Content-Signal: search=yes`.
-2. **Structured data has defects**: a masked phone number in
-   ProfessionalService schema, a Sitelinks SearchAction pointing at a search
+2. **Structured data has defects**: a Sitelinks SearchAction pointing at a search
    URL the site doesn't have, a stray `hreflang="x-default"` that does nothing
    on a same-URL bilingual site, and no Person/FAQ schema — the highest-leverage
    AI-search surfaces in 2026.
@@ -107,10 +106,13 @@ Research consensus across [LovedByAI], [CitationDesk], [cloro.dev], and the [Clo
 **Recommendation for proksiabel.ee:** this is a policy choice, not a bug. The
 current stance (403 on the tested AI crawler user agents) is defensible for a security researcher who
 opts out of training — but it also correlates with losing AI-search citations, and it
-contradicts the site's own `use=reference` content signal. If citations in
-ChatGPT search / Perplexity / Claude are desired, flip the dashboard controls
-to "allow search + agent, block training" — no training cost, citations
-restored. Verify after: `curl -A "OAI-SearchBot/1.0" https://proksiabel.ee/`
+contradicts the site's own `use=reference` content signal. Allowing the
+retrieval/agent bots can only improve retrieval eligibility; whether citations
+actually follow remains an engine-specific correlation, not a guarantee. If
+retrieval in ChatGPT search / Perplexity / Claude is desired, flip the dashboard
+controls to "allow search + agent, block training" — no training cost, and the
+retrieval bots become eligible to index the site. Verify after — HTTP-status
+check only: `curl -A "OAI-SearchBot/1.0" https://proksiabel.ee/`
 should return 200. Note: the repo's committed `public/robots.txt` allows
 everything except the `/.well-known/openpgpkey/` WKD directory; the edge is the
 only enforcement point, so this is a Cloudflare dashboard change, not a repo change.
@@ -132,31 +134,26 @@ Already correct ([ThatDevPro], [prerender.info], [Agile structured data]):
 
 Defects (verified in `index.html` / SEOMeta.tsx):
 
-1. **`"telephone": "+372****6981"`** — a masked number in schema.org data.
-   Structured data must be machine-usable; a masked value is invalid and
-   undermines trust. Either publish the real number or omit `telephone`.
-   (Also NAP consistency: live old app says `hello@proksiabel.ee`, repo schema
-   and llms.txt say `info@proksiabel.ee` — pick one email everywhere.)
-2. **WebSite SearchAction `?s={search_term_string}`** — Sitelinks Search Box
+1. **WebSite SearchAction `?s={search_term_string}`** — Sitelinks Search Box
    schema requires a real, working search URL ([Google structured data]). This
    static site has no search. Google will not render the box, and a dead
    search target is a false signal. **Remove the SearchAction block** (keep
    the WebSite entity, or drop the whole WebSite block — it adds little on a
    5-page site).
-3. **`<link rel="alternate" hreflang="x-default" href="https://proksiabel.ee/">`**
+2. **`<link rel="alternate" hreflang="x-default" href="https://proksiabel.ee/">`**
    in static index.html — persists into every prerendered page (Helmet never
    removes it). A lone x-default with no language alternates is meaningless
    on a same-URL bilingual site; hreflang requires reciprocal, self-referencing
    sets of distinct locale URLs ([Google localized], [Crawlix]). Harmless but
    noise — remove it, or commit to `/en/` subdirectories (below).
-4. **No Person schema.** For a consultancy where the founder *is* the brand
+3. **No Person schema.** For a consultancy where the founder *is* the brand
    (site copy is first-person), Person schema with `sameAs` (LinkedIn, GitHub,
    Wikidata) + `knowsAbout` is the highest-leverage AI-search entity move
    ([Agile entity], [Frontend Horizon]). Add a `Person` block referencing the
    founder with `worksFor` → the ProfessionalService entity. (GEO/entity
    research consistently rates Person-with-sameAs as the cheapest,
    most-skipped high-impact tactic.)
-5. **No FAQPage schema.** The 2026 GEO playbooks rank FAQ schema near the top
+4. **No FAQPage schema.** The 2026 GEO playbooks rank FAQ schema near the top
    for both AI-overview and Perplexity/Claude extraction ([Attrifast],
    [Frameleads]). Only worth adding where real Q&A content exists — the home
    page's service descriptions could carry a 3–5 question FAQ block. Do not

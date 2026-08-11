@@ -32,6 +32,6 @@ Makse muutmise, parooli taastamise, sisselogimise kinnitamise või eriligipääs
 
 Jälgida tasub uusi `+372` numbreid, lühikese aja jooksul tehtud kõnede hulka, korduvaid sihtmärke, kasutajatoe pöördumisi ja neile järgnevaid sisselogimiskatseid. Salvestada tuleb üksnes pettusejälgimise eesmärgil vajalikud andmed: telefoninumber, kõne aeg, vajalikud tehnilised metaandmed ning ainult seadusega lubatud ulatuses sõnumid ja kõnesalvestised. Selline töötlemine peab tuginema kehtivale õiguslikule alusele (nt õigustatud huvi – GDPR art 6(1)(f)), ligipääs peab olema piiratud volitatud isikutega ning numbrid, metaandmed, sõnumid ja salvestised tuleb säilitada ainult eesmärgi täitmiseks vajaliku aja jooksul ja seejärel kustutada. Need tingimused tuleb enne avaldamist kirjeldada ka privaatsuspoliitikas.
 
-Kogu Eesti suunakoodi ega Elisa numbreid ei tohi blokeerida. Otsus peab põhinema mitmel märgil, mitte ainult numbril.
+Laiatarbeline numbriplokkide blokeerimine (nt kogu Eesti suunakood või kõik Elisa numbrid) ei ole vaikimisi õige lahendus. Sihtotstarbelised või ajutised blokeeringud on lubatud, kui neid toetavad mitmed märgid. Otsus ei tohi siiski põhineda ainult numbril.
 
 #Küberturvalisus #Turvaarhitektuur #Telefonipettus #Identiteediturvalisus

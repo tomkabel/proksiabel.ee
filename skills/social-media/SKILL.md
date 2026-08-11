@@ -31,7 +31,8 @@ task(
 
 ## Output Structure (Required)
 
-**Every social media post MUST have both content AND an image:**
+**Every social media post MUST have content AND an image — except when
+`generate_social_image` is unavailable (see fallback below):**
 
 **LinkedIn posts:**
 ```
@@ -55,12 +56,18 @@ Example: A LinkedIn post about "prompt engineering" → `linkedin/prompt-enginee
 1. Write the content to the appropriate path
 2. Generate an image using `generate_social_image` and save alongside the post
 
-If `generate_social_image` is unavailable in the current runtime, save the
-image prompt alongside the post and flag the post as missing its image instead
-of stopping partway. If a researcher subagent is unavailable, do the research
-directly before writing.
+**Fallback when `generate_social_image` is unavailable:** do NOT stop partway.
+1. Save the full image prompt (the same prompt you would have passed to
+   `generate_social_image`) as `image-prompt.md` in the post directory.
+2. Explicitly flag the post as missing its image by adding a
+   `STATUS: image-missing` line at the top of `post.md` / `thread.md`.
+3. The post is complete for drafting purposes but must NOT be published until
+   `image.png` exists and the `STATUS: image-missing` line is removed.
 
-**A social media post is NOT complete without its image.**
+If a researcher subagent is unavailable, do the research directly before writing.
+
+**A social media post is NOT complete without its image when
+`generate_social_image` is available.**
 
 ## Platform Guidelines
 
@@ -182,7 +189,7 @@ Two overlapping translucent circles, one blue one orange, creating a glowing int
 
 Before finishing:
 - [ ] Post saved to `linkedin/<slug>/post.md` or `tweets/<slug>/thread.md`
-- [ ] Image generated alongside the post
+- [ ] Image generated alongside the post (or `image-prompt.md` + `STATUS: image-missing` recorded when `generate_social_image` is unavailable)
 - [ ] First line hooks attention
 - [ ] Content fits platform limits
 - [ ] Tone matches platform norms

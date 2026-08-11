@@ -23,13 +23,12 @@ export default function Contact() {
     const email = formData.get('email') as string;
     const message = formData.get('message') as string;
 
-    if (!EMAIL_REGEX.test(email)) {
-      setEmailError(true);
-      return;
-    }
-
-    if (!message.trim()) {
-      setMessageError(true);
+    // Evaluate both fields independently so every error is shown at once.
+    const emailValid = EMAIL_REGEX.test(email);
+    const messageValid = message.trim().length > 0;
+    setEmailError(!emailValid);
+    setMessageError(!messageValid);
+    if (!emailValid || !messageValid) {
       return;
     }
 

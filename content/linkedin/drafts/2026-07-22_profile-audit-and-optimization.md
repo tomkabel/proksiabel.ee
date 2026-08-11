@@ -79,9 +79,11 @@ If you are responsible for a high-value identity system, AI platform, or public 
 ### Experience: ProksiAbel OÜ
 
 **Founder & Principal Security Engineer**  
-ProksiAbel OÜ · Estonia · [use the actual start month]
+ProksiAbel OÜ · Estonia · June 2024
 
 ProksiAbel is a one-person offensive-security consultancy for web applications, identity, and AI systems.
+
+**Responsibilities:**
 
 • Lead confidential security research and architecture engagements for high-value identity, AI, and distributed systems.
 • Translate structural findings into reproducible research, defensive guidance, open tooling, and reference architectures.
