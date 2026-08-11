@@ -17,4 +17,4 @@ ProksiAbel OÜ (registry code 17017826) runs hands-on penetration tests of web a
 ## Optional
 
 - [Security contact](https://proksiabel.ee/.well-known/security.txt): security@proksiabel.ee
-- [PGP key](https://proksiabel.ee/public-key.asc): Key ID 0x30A8306F110AAAC5
+- [PGP key](https://proksiabel.ee/public-key.asc): Key ID 0x0C2A0C6F110AABC5
