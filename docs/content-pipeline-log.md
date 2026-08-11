@@ -30,3 +30,11 @@ Format: `YYYY-MM-DD | route | topic | strategy # | keyword target | result`
 **Not deployed:** dry-run mode — no commit/push/wrangler deploy/cache purge performed.
 
 **2026-08-11 | SHIPPED | /guides/ssrf-explained | SSRF deep-dive with local lab | Strategy 2 | commits 9a6fcb5 + 35dc7ef | live 200, canonical verified, cache purged**
+
+**2026-08-11 | SHIPPED | /guides/idor-explained | IDOR deep-dive with local lab (CWE-639 / BOLA) | Strategy 2 | commit 63a1b3d (push 7857219..63a1b3d) | live 200, canonical https://proksiabel.ee/guides/idor-explained verified, 40 keyword hits, cache purged**
+
+Files: `src/components/IdorGuide.tsx` (article: TechArticle JSON-LD, taxonomy table, First American 2019 + CVE-2025-41096 incidents, docker-compose Flask lab with read/write IDOR + scoped-query fix, Semgrep taint rule template, Python/Node/Go fix patterns, checklist, Estonian summary, sources), `src/App.tsx` (lazy route), `src/components/Footer.tsx` (guide link), `public/sitemap.xml` (monthly/0.8, lastmod 2026-08-11), `public/llms.txt`, `pub/` build artifacts.
+
+Deviations/notes: branch topology — repo's active dev line is `feat/ui-polish-and-seo-content` (pre-existing, previous runs committed there); pushed `HEAD:main` (clean fast-forward, main was an ancestor). Bare route returns 307 → trailing slash (zone redirect rule; identical for existing guides). translations.ts untouched (SSRF precedent: et default language would render non-keyword titles). Strategy 6 checked: CVE-2026-8037 (Progress LoadMaster, KEV 2026-08-07) is active but outranked by Strategy 2 and not a credible solo-consultancy post-mortem.
+
+Gates: `npx tsc -b` pass · `npm run lint` pass (oxlint 0/0, biome 61 files clean) · `npm run build` pass (8/8 pages prerendered) · built-page check pass (title "IDOR Explained: Attack Examples & Prevention — ProksiAbel OÜ", canonical, TechArticle JSON-LD) · live checks pass (route 200 via trailing slash, homepage 200, cache purged via CF API zone 4a3c68c9fe236c83c98628b224f4d94b).
