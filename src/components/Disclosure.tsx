@@ -1,7 +1,5 @@
+import { DISCLOSURE_PUBLICATION_DATE } from '../config/legal';
 import { useTranslation } from '../i18n';
-
-// Disclosure policy publication date — fixed, locale-formatted at render.
-const PUBLISHED = new Date(2026, 2, 28);
 
 export default function Disclosure() {
   const { t, language } = useTranslation();
@@ -12,7 +10,7 @@ export default function Disclosure() {
       <div className='max-w-4xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='bg-slate-800 p-4 border border-slate-700 mb-6 text-sm text-slate-400'>
           <strong>{t.disclosure.version}:</strong> 1.0 | <strong>{t.disclosure.published}:</strong>{' '}
-          {PUBLISHED.toLocaleDateString(locale)}
+          {DISCLOSURE_PUBLICATION_DATE.toLocaleDateString(locale)}
         </div>
 
         <h1 className='text-3xl md:text-4xl font-bold text-white mb-2'>{t.disclosure.title}</h1>
@@ -153,11 +151,11 @@ export default function Disclosure() {
               </p>
               <p>
                 <strong className='text-sky-400'>{t.disclosure.pgp.keyId}:</strong>{' '}
-                0x30A8306F110AAAC5
+                0x0C2A0C6F110AABC5
               </p>
               <p>
                 <strong className='text-sky-400'>{t.disclosure.pgp.fingerprint}:</strong>{' '}
-                03D8E5A59306ECB7025A21090CA0C6F110AAAC500
+                03DA4E96931BB2DC095A21090C2A0C6F110AABC5
               </p>
               <p>
                 <strong className='text-sky-400'>{t.disclosure.pgp.sha256}:</strong>{' '}

@@ -1,8 +1,7 @@
+import { POLICY_REVISION_DATE } from '../config/legal';
 import { useTranslation } from '../i18n';
 
 // Policy revision date — update when the terms text changes.
-const LAST_UPDATED = new Date(2026, 7, 11);
-
 export default function TermsOfService() {
   const { t, language } = useTranslation();
   const locale = language === 'et' ? 'et-EE' : 'en-US';
@@ -130,7 +129,7 @@ export default function TermsOfService() {
 
         <div className='mt-12 pt-8 border-t border-slate-800'>
           <p className='text-slate-400 text-sm'>
-            {t.legal.lastUpdated}: {LAST_UPDATED.toLocaleDateString(locale)}
+            {t.legal.lastUpdated}: {POLICY_REVISION_DATE.toLocaleDateString(locale)}
           </p>
         </div>
       </div>

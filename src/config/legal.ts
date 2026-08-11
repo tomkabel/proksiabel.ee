@@ -4,3 +4,8 @@
  * footer date stable instead of showing the build date.
  */
 export const POLICY_REVISION_DATE = new Date(2026, 7, 11);
+
+/**
+ * Responsible-disclosure policy publication date.
+ */
+export const DISCLOSURE_PUBLICATION_DATE = new Date(2026, 2, 28);

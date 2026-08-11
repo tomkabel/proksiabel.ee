@@ -154,7 +154,7 @@ export default function VennDiagram() {
                   textAnchor='middle'
                   dominantBaseline='central'
                   className={`text-xs font-mono pointer-events-none transition-colors duration-300 ${
-                    isActive ? 'fill-[--text-primary]' : 'fill-[--text-muted]'
+                    isActive ? 'fill-white' : 'fill-slate-400'
                   }`}
                   fontSize={10 * scale * 1.5}
                 >
@@ -188,7 +188,7 @@ export default function VennDiagram() {
         </svg>
 
         {/* Multi-select hint */}
-        <p className='text-center text-xs text-[--text-muted] mt-2'>
+        <p className='text-center text-xs text-slate-400 mt-2'>
           Click a zone to explore. Shift+click to select multiple.
         </p>
       </div>
@@ -196,21 +196,21 @@ export default function VennDiagram() {
       {/* Content panel */}
       <div className='max-w-4xl mx-auto px-6 lg:px-8'>
         <div className='mb-10'>
-          <h2 className='font-display text-2xl font-bold text-[--text-primary] mb-4'>
+          <h2 className='font-display text-2xl font-bold text-white mb-4'>
             {activeZoneContent.title[language as 'en' | 'et'] || activeZoneContent.title.en}
           </h2>
-          <p className='text-[--text-secondary] text-base leading-relaxed max-w-3xl'>
+          <p className='text-slate-300 text-base leading-relaxed max-w-3xl'>
             {activeZoneContent.description[language as 'en' | 'et'] ||
               activeZoneContent.description.en}
           </p>
 
           {activeTag && (
             <div className='mt-4 flex items-center gap-2'>
-              <span className='text-xs text-[--text-muted]'>Filtered by:</span>
+              <span className='text-xs text-slate-400'>Filtered by:</span>
               <button
                 type='button'
                 onClick={() => setActiveTag(null)}
-                className='px-2.5 py-1 rounded-md text-xs font-mono uppercase bg-[--accent-intersection]/20 text-[--accent-intersection] hover:bg-[--accent-intersection]/30 transition-colors'
+                className='px-2.5 py-1 rounded-md text-xs font-mono uppercase bg-sky-400/20 text-sky-400 hover:bg-sky-400/30 transition-colors'
               >
                 {activeTag} ×
               </button>
@@ -233,7 +233,7 @@ export default function VennDiagram() {
             ))}
           </div>
         ) : (
-          <p className='text-center text-[--text-muted] text-sm py-12'>
+          <p className='text-center text-slate-400 text-sm py-12'>
             {activeTag
               ? 'No projects with this tag in the selected zone.'
               : 'No projects in this zone yet.'}

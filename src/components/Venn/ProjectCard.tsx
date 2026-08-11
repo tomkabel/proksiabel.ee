@@ -33,7 +33,7 @@ export default function ProjectCard({
 
   return (
     <article
-      className='group p-[--space-card-padding] rounded-card border border-white/5 bg-[--bg-surface] transition-all duration-[--duration-normal] hover:-translate-y-1 hover:shadow-lg'
+      className='group p-8 rounded-2xl border border-white/5 bg-slate-900 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg'
       style={{ '--hover-accent': accent } as React.CSSProperties}
     >
       {/* Tags */}
@@ -48,8 +48,8 @@ export default function ProjectCard({
             }}
             className={`px-2 py-0.5 rounded text-[10px] font-mono uppercase tracking-wider transition-colors ${
               activeTag === tag
-                ? 'bg-[--accent-intersection]/20 text-[--accent-intersection]'
-                : 'bg-[--bg-elevated] text-[--text-muted] hover:text-[--text-secondary]'
+                ? 'bg-sky-400/20 text-sky-400'
+                : 'bg-slate-800 text-slate-400 hover:text-slate-300'
             }`}
           >
             {tag}
@@ -57,13 +57,13 @@ export default function ProjectCard({
         ))}
       </div>
 
-      <h3 className='font-display font-bold text-[--text-primary] text-lg mb-1.5 group-hover:text-white transition-colors'>
+      <h3 className='font-display font-bold text-white text-lg mb-1.5 group-hover:text-white transition-colors'>
         {project.title}
       </h3>
 
-      <p className='text-[--text-secondary] text-sm mb-3'>{tagline}</p>
+      <p className='text-slate-300 text-sm mb-3'>{tagline}</p>
 
-      <p className='text-[--text-muted] text-sm leading-relaxed line-clamp-3 mb-4'>{desc}</p>
+      <p className='text-slate-400 text-sm leading-relaxed line-clamp-3 mb-4'>{desc}</p>
 
       {project.links.length > 0 && (
         <div className='space-y-2'>
@@ -73,7 +73,7 @@ export default function ProjectCard({
               href={link.url}
               target='_blank'
               rel='noopener noreferrer'
-              className='inline-flex items-center gap-1.5 text-xs font-medium text-[--accent-intersection] hover:text-[--accent-intersection]/80 transition-colors'
+              className='inline-flex items-center gap-1.5 text-xs font-medium text-sky-400 hover:text-sky-400/80 transition-colors'
             >
               {link.label}
               <ExternalLink className='h-3 w-3' />

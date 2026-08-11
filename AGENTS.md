@@ -100,16 +100,15 @@ src/
 
 ### Imports
 
-**Order (top to bottom):**
-1. React import: `import React from 'react';`
-2. External libraries (lucide-react, etc.)
-3. Internal components/hooks/utils
-4. CSS/style imports
+**Order (top to bottom) — enforced by biome `organizeImports` (alphabetical by module specifier; `@`-scoped packages first, relative imports last):**
+1. External libraries (react, lucide-react, etc., alphabetically)
+2. Internal components/hooks/utils
+3. CSS/style imports
 
 **Example:**
 ```typescript
-import React from 'react';
 import { Shield, Menu, X } from 'lucide-react';
+import React from 'react';
 import Navbar from './components/Navbar';
 import './index.css';
 ```

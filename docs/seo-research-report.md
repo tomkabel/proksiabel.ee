@@ -85,7 +85,7 @@ Research consensus across [LovedByAI], [CitationDesk], [cloro.dev], and the [Clo
 - **Training crawlers are decoupled from citations.** GPTBot (training) vs
   OAI-SearchBot (ChatGPT search index) vs ChatGPT-User (live in-chat fetch)
   are separate UAs. Blocking GPTBot does NOT remove you from ChatGPT search
-  results, per OpenAI itself ([LovedByAI]). Same split at Anthropic (ClaudeBot
+  results, per LovedByAI's analysis of OpenAI's bot documentation. Same split at Anthropic (ClaudeBot
   = training, Claude-SearchBot / Claude-User = retrieval) and Perplexity
   (PerplexityBot = index, Perplexity-User = live).
 - **Blocking the retrieval bots correlates with far fewer citations.** [cloro.dev]'s study of

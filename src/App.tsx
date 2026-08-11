@@ -10,7 +10,7 @@ import Navbar from './components/Navbar';
 import Pgp from './components/Pgp';
 import SEOMeta, { BreadcrumbSchema } from './components/SEOMeta';
 import Services from './components/Services';
-import { LanguageProvider } from './i18n';
+import { LanguageProvider, useTranslation } from './i18n';
 
 const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy'));
 const TermsOfService = React.lazy(() => import('./components/TermsOfService'));
@@ -77,6 +77,7 @@ function LegalLayout({
   breadcrumbUrl?: string;
   noindex?: boolean;
 }) {
+  const { t } = useTranslation();
   return (
     <>
       <SEOMeta
@@ -97,7 +98,7 @@ function LegalLayout({
         <React.Suspense
           fallback={
             <div className='min-h-screen bg-slate-900 flex items-center justify-center'>
-              <div className='text-white'>Loading...</div>
+              <div className='text-white'>{t.common.loading}</div>
             </div>
           }
         >

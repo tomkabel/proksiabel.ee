@@ -35,13 +35,13 @@ export default function Capabilities() {
   const { language } = useTranslation();
 
   return (
-    <section id='capabilities' className='py-[--space-section] bg-[--bg-void]'>
+    <section id='capabilities' className='py-24 bg-slate-950'>
       <div className='max-w-content mx-auto px-6 lg:px-8'>
         <div className='text-center mb-16'>
-          <h2 className='font-display text-[--text-section-title] font-bold text-[--text-primary] mb-4'>
+          <h2 className='font-display font-bold text-white mb-4'>
             {language === 'et' ? 'Võimekused' : 'Capabilities'}
           </h2>
-          <p className='text-[--text-secondary] text-base max-w-lg mx-auto'>
+          <p className='text-slate-300 text-base max-w-lg mx-auto'>
             {language === 'et'
               ? 'Süvatehniline ekspertiis kolmes omavahel seotud valdkonnas.'
               : 'Deep technical expertise across three interconnected domains.'}
@@ -55,15 +55,15 @@ export default function Capabilities() {
               <a
                 key={cap.zoneId}
                 href={`#intersection`}
-                className='group p-8 rounded-card border border-white/5 bg-[--bg-surface] hover:bg-[--bg-elevated] transition-all duration-[--duration-normal] hover:-translate-y-1'
+                className='group p-8 rounded-2xl border border-white/5 bg-slate-900 hover:bg-slate-800 transition-all duration-300 hover:-translate-y-1'
               >
-                <div className='w-12 h-12 rounded-xl bg-[--bg-elevated] flex items-center justify-center mb-6 group-hover:bg-[--accent-intersection]/10 transition-colors'>
-                  <Icon className='h-6 w-6 text-[--accent-intersection]' />
+                <div className='w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center mb-6 group-hover:bg-sky-400/10 transition-colors'>
+                  <Icon className='h-6 w-6 text-sky-400' />
                 </div>
-                <h3 className='font-display font-bold text-lg text-[--text-primary] mb-3'>
+                <h3 className='font-display font-bold text-lg text-white mb-3'>
                   {cap.title[language as 'en' | 'et']}
                 </h3>
-                <p className='text-[--text-secondary] text-sm leading-relaxed'>
+                <p className='text-slate-300 text-sm leading-relaxed'>
                   {cap.description[language as 'en' | 'et']}
                 </p>
               </a>

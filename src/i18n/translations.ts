@@ -35,6 +35,10 @@ export const translations = {
       bookConsultation: 'Book Consultation',
       openMenu: 'Open menu',
       closeMenu: 'Close menu',
+      menuLabel: 'Mobile menu',
+    },
+    common: {
+      loading: 'Loading…',
     },
     hero: {
       heading: "Think your web apps are secure? Let's find out.",
@@ -626,6 +630,10 @@ export const translations = {
       bookConsultation: 'Broneeri konsultatsioon',
       openMenu: 'Ava menüü',
       closeMenu: 'Sulge menüü',
+      menuLabel: 'Mobiilimenüü',
+    },
+    common: {
+      loading: 'Laadimine…',
     },
     hero: {
       heading: 'Arvad, et su veebirakendused on turvalised? Uurime välja.',

@@ -150,8 +150,7 @@ export default function Navbar() {
           ref={mobileMenuRef}
           tabIndex={-1}
           role='dialog'
-          aria-modal='true'
-          aria-label={t.nav.services}
+          aria-label={t.nav.menuLabel}
           className='lg:hidden bg-slate-900/95 backdrop-blur-2xl border-t border-white/5'
         >
           <div className='container-custom py-6 space-y-2'>

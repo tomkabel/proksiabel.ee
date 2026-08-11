@@ -95,8 +95,8 @@ export default function MobileVenn() {
               onClick={() => handlePillClick(zone.id)}
               className={`px-3 py-1.5 rounded-full text-xs font-mono transition-all ${
                 activeZone === zone.id
-                  ? 'bg-[--accent-intersection]/20 text-[--accent-intersection] border border-[--accent-intersection]/40'
-                  : 'bg-[--bg-surface] text-[--text-secondary] border border-white/5'
+                  ? 'bg-sky-400/20 text-sky-400 border border-sky-400/40'
+                  : 'bg-slate-900 text-slate-300 border border-white/5'
               }`}
             >
               {zone.label}
@@ -109,18 +109,16 @@ export default function MobileVenn() {
             <button
               type='button'
               onClick={() => handleDomainToggle(domain.id)}
-              className='w-full flex items-center justify-between px-5 py-4 bg-[--bg-surface] hover:bg-[--bg-elevated] transition-colors'
+              className='w-full flex items-center justify-between px-5 py-4 bg-slate-900 hover:bg-slate-800 transition-colors'
             >
               <div className='flex items-center gap-3'>
                 <span className='w-3 h-3 rounded-full' style={{ backgroundColor: domain.accent }} />
-                <span className='font-display font-bold text-[--text-primary] text-sm'>
-                  {domain.label}
-                </span>
+                <span className='font-display font-bold text-white text-sm'>{domain.label}</span>
               </div>
               {expandedDomain === domain.id ? (
-                <ChevronDown className='h-4 w-4 text-[--text-muted]' />
+                <ChevronDown className='h-4 w-4 text-slate-400' />
               ) : (
-                <ChevronRight className='h-4 w-4 text-[--text-muted]' />
+                <ChevronRight className='h-4 w-4 text-slate-400' />
               )}
             </button>
 
@@ -132,8 +130,8 @@ export default function MobileVenn() {
                   onClick={() => handlePillClick(domain.id as VennZone)}
                   className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                     activeZone === domain.id
-                      ? 'bg-[--accent-intersection]/10 text-[--accent-intersection]'
-                      : 'text-[--text-secondary] hover:text-[--text-primary]'
+                      ? 'bg-sky-400/10 text-sky-400'
+                      : 'text-slate-300 hover:text-white'
                   }`}
                 >
                   {domain.label} (pure)
@@ -146,8 +144,8 @@ export default function MobileVenn() {
                     onClick={() => handlePillClick(ix.id)}
                     className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                       activeZone === ix.id
-                        ? 'bg-[--accent-intersection]/10 text-[--accent-intersection]'
-                        : 'text-[--text-secondary] hover:text-[--text-primary]'
+                        ? 'bg-sky-400/10 text-sky-400'
+                        : 'text-slate-300 hover:text-white'
                     }`}
                   >
                     {ix.label}
@@ -164,8 +162,8 @@ export default function MobileVenn() {
           onClick={() => handlePillClick('center')}
           className={`w-full px-5 py-4 rounded-xl border transition-all text-center ${
             activeZone === 'center'
-              ? 'bg-[--accent-intersection]/10 border-[--accent-intersection]/30 text-[--accent-intersection]'
-              : 'bg-[--bg-surface] border-white/5 text-[--text-secondary]'
+              ? 'bg-sky-400/10 border-sky-400/30 text-sky-400'
+              : 'bg-slate-900 border-white/5 text-slate-300'
           }`}
         >
           <span className='font-display font-bold text-sm'>Center (All Three)</span>
@@ -174,21 +172,21 @@ export default function MobileVenn() {
 
       {/* Content panel */}
       <div className='px-4'>
-        <h2 className='font-display text-xl font-bold text-[--text-primary] mb-3'>
+        <h2 className='font-display text-xl font-bold text-white mb-3'>
           {activeZoneContent.title[language as 'en' | 'et'] || activeZoneContent.title.en}
         </h2>
-        <p className='text-[--text-secondary] text-sm leading-relaxed mb-8'>
+        <p className='text-slate-300 text-sm leading-relaxed mb-8'>
           {activeZoneContent.description[language as 'en' | 'et'] ||
             activeZoneContent.description.en}
         </p>
 
         {activeTag && (
           <div className='mb-4 flex items-center gap-2'>
-            <span className='text-xs text-[--text-muted]'>Filtered by:</span>
+            <span className='text-xs text-slate-400'>Filtered by:</span>
             <button
               type='button'
               onClick={() => setActiveTag(null)}
-              className='px-2.5 py-1 rounded-md text-xs font-mono uppercase bg-[--accent-intersection]/20 text-[--accent-intersection]'
+              className='px-2.5 py-1 rounded-md text-xs font-mono uppercase bg-sky-400/20 text-sky-400'
             >
               {activeTag} ×
             </button>
@@ -209,9 +207,7 @@ export default function MobileVenn() {
             ))}
           </div>
         ) : (
-          <p className='text-center text-[--text-muted] text-sm py-8'>
-            No projects in this zone yet.
-          </p>
+          <p className='text-center text-slate-400 text-sm py-8'>No projects in this zone yet.</p>
         )}
       </div>
     </div>

@@ -56,6 +56,10 @@ export default function AttackTerminal({ onSelectService }: AttackTerminalProps)
 
   React.useEffect(() => {
     if (!started || reduced) return;
+    // Content (command/lines) changed since last play — restart from scratch.
+    setTyped(0);
+    setRevealed(0);
+    setDone(false);
     let cancelled = false;
     const timers: number[] = [];
     for (let i = 1; i <= command.length; i++) {

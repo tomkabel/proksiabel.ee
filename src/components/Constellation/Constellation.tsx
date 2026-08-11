@@ -282,7 +282,7 @@ export default function Constellation() {
         className='relative w-full flex items-center justify-center'
         style={{ minHeight: '70vh', background: '#030407' }}
       >
-        <p className='text-[--text-muted] text-sm'>Interactive constellation unavailable.</p>
+        <p className='text-slate-400 text-sm'>Interactive constellation unavailable.</p>
       </div>
     );
   }
@@ -295,7 +295,7 @@ export default function Constellation() {
     >
       {isLoading && (
         <div className='absolute inset-0 flex items-center justify-center z-10 pointer-events-none'>
-          <p className='text-[--text-muted] text-sm animate-pulse'>Loading constellation...</p>
+          <p className='text-slate-400 text-sm animate-pulse'>Loading constellation...</p>
         </div>
       )}
 
@@ -312,16 +312,16 @@ export default function Constellation() {
       {/* Tooltip */}
       {hoveredNode && !selectedNode && (
         <div
-          className='fixed z-20 pointer-events-none px-3 py-2 rounded-lg bg-[--bg-elevated] border border-white/10 text-sm'
+          className='fixed z-20 pointer-events-none px-3 py-2 rounded-lg bg-slate-800 border border-white/10 text-sm'
           style={{
             left: tooltipPos.x + 16,
             top: tooltipPos.y - 40,
           }}
         >
-          <div className='font-display font-bold text-[--text-primary] text-xs'>
+          <div className='font-display font-bold text-white text-xs'>
             {hoveredNode.project.title}
           </div>
-          <div className='text-[--text-muted] text-xs mt-0.5 max-w-[200px] truncate'>
+          <div className='text-slate-400 text-xs mt-0.5 max-w-[200px] truncate'>
             {hoveredNode.project.tagline.en}
           </div>
         </div>

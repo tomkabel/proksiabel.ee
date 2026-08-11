@@ -653,6 +653,9 @@ class SSRFGuardAdapter(HTTPAdapter):
                 else:
                     pool_kwargs["cert_file"] = cert
             pool = HTTPSConnectionPool(ip, port, server_hostname=host, **pool_kwargs)
+            # The socket is pinned to the validated IP, but the HTTP Host
+            # header and TLS SNI still come from the original request URL
+            # (hostname), so the server sees the real virtual-host name.
         else:
             pool = HTTPConnectionPool(ip, port, **pool_kwargs)
         self._pools.append(pool)  # track so Session.close() closes them too
@@ -665,13 +668,13 @@ class SSRFGuardAdapter(HTTPAdapter):
 
 
 def fetch_safe(url: str, timeout: int = 5) -> requests.Response:
-    session = requests.Session()
-    session.mount("http://", SSRFGuardAdapter())
-    session.mount("https://", SSRFGuardAdapter())
-    resp = session.get(url, timeout=timeout, allow_redirects=False)
-    if resp.is_redirect:
-        raise requests.exceptions.TooManyRedirects("redirects disabled (SSRF guard)")
-    return resp`}
+    with requests.Session() as session:
+        session.mount("http://", SSRFGuardAdapter())
+        session.mount("https://", SSRFGuardAdapter())
+        resp = session.get(url, timeout=timeout, allow_redirects=False)
+        if resp.is_redirect:
+            raise requests.exceptions.TooManyRedirects("redirects disabled (SSRF guard)")
+        return resp`}
               </pre>
               <p className='leading-relaxed mb-4'>
                 Against the lab, <code className='text-slate-100'>fetch_safe()</code> rejects every

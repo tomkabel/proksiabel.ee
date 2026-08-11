@@ -164,6 +164,9 @@ class SSRFGuardAdapter(HTTPAdapter):
                 else:
                     pool_kwargs["cert_file"] = cert
             pool = HTTPSConnectionPool(ip, port, server_hostname=host, **pool_kwargs)
+            # The socket is pinned to the validated IP, but the HTTP Host
+            # header and TLS SNI still come from the original request URL
+            # (hostname), so the server sees the real virtual-host name.
         else:
             pool = HTTPConnectionPool(ip, port, **pool_kwargs)
         self._pools.append(pool)  # track so Session.close() closes them too
@@ -176,13 +179,13 @@ class SSRFGuardAdapter(HTTPAdapter):
 
 
 def fetch_safe(url: str, timeout: int = 5) -> requests.Response:
-    session = requests.Session()
-    session.mount("http://", SSRFGuardAdapter())
-    session.mount("https://", SSRFGuardAdapter())
-    resp = session.get(url, timeout=timeout, allow_redirects=False)
-    if resp.is_redirect:
-        raise requests.exceptions.TooManyRedirects("redirects disabled (SSRF guard)")
-    return resp`}),(0,n.jsxs)(`p`,{className:`leading-relaxed mb-4`,children:[`Against the lab, `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`fetch_safe()`}),` rejects every payload from the walkthrough: metadata (link-local), loopback, redirects, and`,` `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`file://`}),` all raise before a socket is opened.`]}),(0,n.jsx)(`h3`,{className:`text-lg text-sky-400 font-medium mb-3`,children:`Go (net/http) — guarded DialContext`}),(0,n.jsx)(`p`,{className:`leading-relaxed mb-4`,children:`Go's transport separates the dial address from the TLS ServerName, so HTTPS keeps working with correct SNI while the connection is pinned to a validated IP:`}),(0,n.jsx)(`pre`,{className:`bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4`,children:`package main
+    with requests.Session() as session:
+        session.mount("http://", SSRFGuardAdapter())
+        session.mount("https://", SSRFGuardAdapter())
+        resp = session.get(url, timeout=timeout, allow_redirects=False)
+        if resp.is_redirect:
+            raise requests.exceptions.TooManyRedirects("redirects disabled (SSRF guard)")
+        return resp`}),(0,n.jsxs)(`p`,{className:`leading-relaxed mb-4`,children:[`Against the lab, `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`fetch_safe()`}),` rejects every payload from the walkthrough: metadata (link-local), loopback, redirects, and`,` `,(0,n.jsx)(`code`,{className:`text-slate-100`,children:`file://`}),` all raise before a socket is opened.`]}),(0,n.jsx)(`h3`,{className:`text-lg text-sky-400 font-medium mb-3`,children:`Go (net/http) — guarded DialContext`}),(0,n.jsx)(`p`,{className:`leading-relaxed mb-4`,children:`Go's transport separates the dial address from the TLS ServerName, so HTTPS keeps working with correct SNI while the connection is pinned to a validated IP:`}),(0,n.jsx)(`pre`,{className:`bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4`,children:`package main
 
 import (
     "context"

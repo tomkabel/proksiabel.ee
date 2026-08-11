@@ -50,13 +50,13 @@ export default function EngagementModels() {
   const { language } = useTranslation();
 
   return (
-    <section id='engagement' className='py-[--space-section] bg-[--bg-surface]'>
+    <section id='engagement' className='py-24 bg-slate-900'>
       <div className='max-w-content mx-auto px-6 lg:px-8'>
         <div className='text-center mb-16'>
-          <h2 className='font-display text-[--text-section-title] font-bold text-[--text-primary] mb-4'>
+          <h2 className='font-display font-bold text-white mb-4'>
             {language === 'et' ? 'Koostöövormid' : 'Engagement Models'}
           </h2>
-          <p className='text-[--text-secondary] text-base max-w-lg mx-auto'>
+          <p className='text-slate-300 text-base max-w-lg mx-auto'>
             {language === 'et'
               ? 'Paindlikud formaadid sõltuvalt sinu vajadustest. Ükski hind ei ole avalik — iga koostöö on erinev.'
               : 'Flexible formats depending on your needs. No pricing is public — every engagement is different.'}
@@ -69,34 +69,34 @@ export default function EngagementModels() {
             return (
               <div
                 key={model.title.en}
-                className='p-8 rounded-card border border-white/5 bg-[--bg-void] hover:border-[--accent-intersection]/20 transition-all duration-[--duration-normal]'
+                className='p-8 rounded-2xl border border-white/5 bg-slate-950 hover:border-sky-400/20 transition-all duration-300'
               >
-                <div className='w-12 h-12 rounded-xl bg-[--bg-elevated] flex items-center justify-center mb-6'>
-                  <Icon className='h-6 w-6 text-[--accent-intersection]' />
+                <div className='w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center mb-6'>
+                  <Icon className='h-6 w-6 text-sky-400' />
                 </div>
 
-                <h3 className='font-display font-bold text-lg text-[--text-primary] mb-2'>
+                <h3 className='font-display font-bold text-lg text-white mb-2'>
                   {model.title[language as 'en' | 'et']}
                 </h3>
 
-                <p className='text-xs font-mono uppercase tracking-wider text-[--accent-intersection] mb-4'>
+                <p className='text-xs font-mono uppercase tracking-wider text-sky-400 mb-4'>
                   {model.duration[language as 'en' | 'et']}
                 </p>
 
                 <div className='mb-4'>
-                  <h4 className='text-xs font-bold text-[--text-muted] uppercase tracking-wider mb-2'>
+                  <h4 className='text-xs font-bold text-slate-400 uppercase tracking-wider mb-2'>
                     {language === 'et' ? 'Tüüpilised tulemused' : 'Typical Deliverables'}
                   </h4>
-                  <p className='text-[--text-secondary] text-sm'>
+                  <p className='text-slate-300 text-sm'>
                     {model.deliverables[language as 'en' | 'et']}
                   </p>
                 </div>
 
                 <div>
-                  <h4 className='text-xs font-bold text-[--text-muted] uppercase tracking-wider mb-2'>
+                  <h4 className='text-xs font-bold text-slate-400 uppercase tracking-wider mb-2'>
                     {language === 'et' ? 'Sobib...' : 'Best for...'}
                   </h4>
-                  <p className='text-[--text-secondary] text-sm leading-relaxed'>
+                  <p className='text-slate-300 text-sm leading-relaxed'>
                     {model.bestFor[language as 'en' | 'et']}
                   </p>
                 </div>
