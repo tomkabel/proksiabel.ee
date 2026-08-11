@@ -268,6 +268,7 @@ export const translations = {
       title: 'PGP Public Key',
       description: 'Use this to encrypt your emails to me. Keep it secure.',
       download: 'Download Key',
+      fingerprint: 'Fingerprint',
     },
     footer: {
       rights: 'All rights reserved.',
@@ -859,6 +860,7 @@ export const translations = {
       title: 'PGP Avalik Võti',
       description: 'Kasuta seda, et mulle saadetavaid kirju krüpteerida. Hoia see turvalisena.',
       download: 'Lae Võti Alla',
+      fingerprint: 'Sõrmejälg',
     },
     footer: {
       rights: 'Kõik õigused kaitstud.',

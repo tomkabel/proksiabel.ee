@@ -29,7 +29,7 @@ export default function Services() {
                 {/* Card Background Glow */}
                 <div className='absolute -inset-px bg-gradient-to-br from-sky-500/20 to-teal-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl' />
 
-                <div className='relative glass-card-hover h-full p-8'>
+                <div className='relative glass-card-hover h-full p-8 flex flex-col'>
                   {/* Icon */}
                   <div className='relative mb-6'>
                     <div className='w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-500 to-teal-500 flex items-center justify-center shadow-lg shadow-sky-500/30 group-hover:shadow-sky-500/50 transition-shadow duration-300'>
@@ -59,7 +59,7 @@ export default function Services() {
                   {/* Learn More Link */}
                   <a
                     href='#contact'
-                    className='inline-flex items-center gap-2 text-sm font-semibold text-sky-400 hover:text-sky-300 transition-colors group/link'
+                    className='mt-auto inline-flex items-center gap-2 text-sm font-semibold text-sky-400 hover:text-sky-300 transition-colors group/link'
                   >
                     {t.services.learnMore}
                     <ArrowRight className='h-4 w-4 group-hover/link:translate-x-1 transition-transform' />

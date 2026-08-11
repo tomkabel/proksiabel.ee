@@ -138,7 +138,7 @@ export default function About() {
                 {t.about.mission}
               </h3>
 
-              <div className='grid md:grid-cols-3 gap-8'>
+              <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-8'>
                 <div className='relative pl-6'>
                   <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-gradient-to-b from-sky-500 to-teal-500 rounded-full' />
                   <p className='text-slate-300 leading-relaxed'>{t.about.missionText1}</p>
