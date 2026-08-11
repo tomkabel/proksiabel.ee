@@ -1,14 +1,18 @@
 import { useTranslation } from '../i18n';
 
+// Disclosure policy publication date — fixed, locale-formatted at render.
+const PUBLISHED = new Date(2026, 2, 28);
+
 export default function Disclosure() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
+  const locale = language === 'et' ? 'et-EE' : 'en-US';
 
   return (
     <div className='min-h-screen bg-slate-900 pt-24 pb-12'>
       <div className='max-w-4xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='bg-slate-800 p-4 border border-slate-700 mb-6 text-sm text-slate-400'>
           <strong>{t.disclosure.version}:</strong> 1.0 | <strong>{t.disclosure.published}:</strong>{' '}
-          March 28, 2026
+          {PUBLISHED.toLocaleDateString(locale)}
         </div>
 
         <h1 className='text-3xl md:text-4xl font-bold text-white mb-2'>{t.disclosure.title}</h1>

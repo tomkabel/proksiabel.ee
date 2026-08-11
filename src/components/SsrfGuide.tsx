@@ -614,6 +614,8 @@ class SSRFGuardAdapter(HTTPAdapter):
     DNS-rebinding window). HTTPS keeps the original hostname as
     server_hostname, so TLS SNI and certificate validation still use the
     real name while the connection goes to the pinned address.
+    Requires requests >= 2.32.2 (get_connection_with_tls_context) / urllib3 2.x
+    (server_hostname as a documented pool parameter).
     """
 
     def __init__(self, *args, **kwargs):
@@ -643,8 +645,8 @@ class SSRFGuardAdapter(HTTPAdapter):
                 pool_kwargs["cert_reqs"] = ssl.CERT_NONE
             else:
                 pool_kwargs["cert_reqs"] = ssl.CERT_REQUIRED
-                if verify is not True:
-                    pool_kwargs["ca_certs"] = verify
+                # requests defaults to the certifi bundle; keep the same anchors.
+                pool_kwargs["ca_certs"] = requests.certs.where() if verify is True else verify
             if cert is not None:
                 if isinstance(cert, tuple):
                     pool_kwargs["cert_file"], pool_kwargs["key_file"] = cert

@@ -55,6 +55,11 @@ Example: A LinkedIn post about "prompt engineering" → `linkedin/prompt-enginee
 1. Write the content to the appropriate path
 2. Generate an image using `generate_social_image` and save alongside the post
 
+If `generate_social_image` is unavailable in the current runtime, save the
+image prompt alongside the post and flag the post as missing its image instead
+of stopping partway. If a researcher subagent is unavailable, do the research
+directly before writing.
+
 **A social media post is NOT complete without its image.**
 
 ## Platform Guidelines

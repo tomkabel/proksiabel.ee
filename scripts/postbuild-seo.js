@@ -1,6 +1,10 @@
 /**
- * Post-build SEO script — updates built HTML files with current lastmod dates
- * and copies the custom 404.html if it doesn't already differ from index.html.
+ * Post-build SEO script — ensures 404.html exists with its own title and
+ * copies the custom 404 page if it doesn't already differ from index.html.
+ *
+ * Sitemap lastmod dates are NOT touched: per-page dates are maintained in
+ * `public/sitemap.xml` (the source Vite copies into `pub/`). A blanket
+ * build-date rewrite would clobber them.
  *
  * Run by `npm run build` via the "postbuild" script in package.json.
  */
@@ -8,16 +12,6 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const PUB = 'pub';
-const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-
-// 1. Update sitemap lastmod dates to today
-const sitemapPath = join(PUB, 'sitemap.xml');
-if (existsSync(sitemapPath)) {
-  let sitemap = readFileSync(sitemapPath, 'utf-8');
-  sitemap = sitemap.replace(/<lastmod>[\d-]+<\/lastmod>/g, `<lastmod>${today}</lastmod>`);
-  writeFileSync(sitemapPath, sitemap);
-  console.log(`[postbuild-seo] Updated sitemap dates to ${today}`);
-}
 
 // 2. Ensure 404.html exists with its own title (not index.html clone)
 const indexPath = join(PUB, 'index.html');

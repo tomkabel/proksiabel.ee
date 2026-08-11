@@ -12,8 +12,10 @@ four legal pages. That deployment gap is the single biggest finding.
 Beyond deployment, two substantive 2026-era issues exist:
 
 1. **Tested AI crawler user agents get HTTP 403 at the edge** — including search/index bots
-   (OAI-SearchBot, PerplexityBot) whose blocking measurably kills AI-search
-   citations. The managed robots.txt only *documents* training-bot blocks; the
+   (OAI-SearchBot, PerplexityBot). For the two bots the cloro.dev study measured
+   (GPTBot, PerplexityBot), blocking correlates with steep citation-propensity
+   drops in ChatGPT and Perplexity answers. The managed robots.txt only
+   *documents* training-bot blocks; the
    edge *enforces* 403s on the tested AI user agents, contradicting the site's own
    `Content-Signal: search=yes`.
 2. **Structured data has defects**: a masked phone number in
@@ -76,7 +78,7 @@ BFM per the plan) is enforcing stricter than the file declares
 
 ---
 
-## 2. AI-crawler policy: the 2026 decision that costs citations
+## 2. AI-crawler policy: the 2026 decision that can cost citations
 
 Research consensus across [LovedByAI], [CitationDesk], [cloro.dev], and the [Cloudflare managed robots.txt docs]:
 
@@ -86,11 +88,11 @@ Research consensus across [LovedByAI], [CitationDesk], [cloro.dev], and the [Clo
   results, per OpenAI itself ([LovedByAI]). Same split at Anthropic (ClaudeBot
   = training, Claude-SearchBot / Claude-User = retrieval) and Perplexity
   (PerplexityBot = index, Perplexity-User = live).
-- **Blocking the retrieval bots does cost citations.** [cloro.dev]'s study of
+- **Blocking the retrieval bots correlates with far fewer citations.** [cloro.dev]'s study of
   1,058 domains (2026-07): median ChatGPT citation propensity drops from 0.417
   to 0.003 for GPTBot-blockers, and Perplexity propensity to **0** when
   PerplexityBot is blocked. The effect tracks the crawler's owner — engine-
-  specific, not coincidental.
+  specific correlation, not proof of causation.
 - **Cloudflare defaults are moving.** From 2025, new zones default to blocking
   AI training bots; from 2026-09-15, Agent-category bots (ChatGPT-User,
   Claude-User, Perplexity-User) are blocked by default on ad-monetized pages.
@@ -104,7 +106,7 @@ Research consensus across [LovedByAI], [CitationDesk], [cloro.dev], and the [Clo
 
 **Recommendation for proksiabel.ee:** this is a policy choice, not a bug. The
 current stance (403 on the tested AI crawler user agents) is defensible for a security researcher who
-opts out of training — but it also forfeits AI-search citations, and it
+opts out of training — but it also correlates with losing AI-search citations, and it
 contradicts the site's own `use=reference` content signal. If citations in
 ChatGPT search / Perplexity / Claude are desired, flip the dashboard controls
 to "allow search + agent, block training" — no training cost, citations
@@ -119,7 +121,7 @@ only enforcement point, so this is a Cloudflare dashboard change, not a repo cha
 
 Already correct ([ThatDevPro], [prerender.info], [Agile structured data]):
 
-- `ProfessionalService` (home) with name, address, geo, openingHours,
+- `ProfessionalService` (home, `index.html` template) with name, address, geo, openingHours,
   `sameAs` → LinkedIn/GitHub — good entity anchor.
 - `BreadcrumbList` per subpage (SEOMeta.tsx) — recommended for non-home pages.
 - JSON-LD shipped in **static HTML** via prerender, and CSP hashes the inline

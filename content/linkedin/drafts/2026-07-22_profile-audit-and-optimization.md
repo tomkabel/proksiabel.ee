@@ -27,7 +27,7 @@ This is a provisional public audit. LinkedIn analytics, SSI, banner/photo qualit
 | Skills and endorsements | 10 | 5/10 | Services are visible, but the profile needs a deliberate top-10 skill order and endorsements. |
 | Recommendations | 10 | 2/10 | No public evidence of a recommendation strategy. Request 5 specific recommendations. |
 | Activity and content | 15 | 11/15 | Strong technical activity and recent posts; the mix is broad and occasionally too confrontational for enterprise buyers. |
-| **Provisional total** | **100** | **48/100** | **Needs focused repositioning; technical credibility is ahead of commercial clarity.** |
+| **Provisional total** | **100** | **48/100** | **Needs a focused repositioning; technical credibility is ahead of commercial clarity.** |
 
 Public indexing showed 112 followers and 101 connections. No impressions were exposed, so engagement rate cannot be calculated. Use `(reactions + comments + reposts) / impressions × 100` for every post with analytics. SSI cannot be verified publicly; check `linkedin.com/sales/ssi` while logged in.
 
@@ -55,7 +55,7 @@ Most security work checks whether controls exist.
 
 I look for the architectural failure that makes those controls fail together.
 
-I’m the founder of ProksiAbel OÜ, a one-person offensive-security consultancy in Estonia. I break web applications, authentication, and AI systems the way an attacker would—then show you exactly how to fix what I found.
+I’m the founder of ProksiAbel OÜ, a one-person offensive-security consultancy in Estonia—I break web applications, authentication, and AI systems the way an attacker would, then show you exactly how to fix what I found.
 
 My work sits at the intersection of:
 
@@ -72,7 +72,7 @@ The operating model is simple:
 
 Selected public work includes authentication research around phishing-resistant login flows, security tooling for browser-fingerprint testing, and the zero-trust-octagon reference framework.
 
-ProksiAbel is NDA-first, DPA-ready, and EU-based. The tools are public; clients and engagements remain confidential.
+ProksiAbel is NDA-first and EU-based. The tools are public; clients and engagements remain confidential.
 
 If you are responsible for a high-value identity system, AI platform, or public digital service and want an adversarial architecture review, message me “ARCHITECTURE”.
 
@@ -136,7 +136,7 @@ Our work combines confidential security engineering with public research and too
 
 The principle is simple: find it in the field, reduce it to a reproducible primitive, and ship the fix publicly where possible.
 
-Our tools are public. Our clients are not. Every engagement is NDA-first, DPA-ready, and EU-based.
+Our tools are public. Our clients are not. Every engagement is NDA-first and EU-based.
 
 Explore the work: https://proksiabel.ee/
 

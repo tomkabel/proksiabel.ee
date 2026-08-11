@@ -8,15 +8,15 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function Contact() {
   const { t, language } = useTranslation();
-  const [emailError, setEmailError] = useState<string | null>(null);
-  const [messageError, setMessageError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState(false);
+  const [messageError, setMessageError] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setEmailError(null);
-    setMessageError(null);
+    setEmailError(false);
+    setMessageError(false);
 
     const formData = new FormData(e.currentTarget);
     const name = formData.get('name') as string;
@@ -24,20 +24,12 @@ export default function Contact() {
     const message = formData.get('message') as string;
 
     if (!EMAIL_REGEX.test(email)) {
-      setEmailError(
-        language === 'et'
-          ? 'Palun sisesta kehtiv e-posti aadress'
-          : 'Please enter a valid email address',
-      );
+      setEmailError(true);
       return;
     }
 
     if (!message.trim()) {
-      setMessageError(
-        language === 'et'
-          ? 'Palun kirjuta sõnum enne saatmist'
-          : 'Please write a message before sending',
-      );
+      setMessageError(true);
       return;
     }
 
@@ -45,7 +37,9 @@ export default function Contact() {
       language === 'et' ? 'Kontaktvorm - proksiabel.ee' : 'Contact Form - proksiabel.ee';
 
     // CRLF per RFC 6068 so encodeURIComponent emits %0D%0A line separators.
+    // Normalize user-entered line breaks too — they may be LF.
     const nl = '\r\n';
+    const messageCrlf = message.replace(/\r\n|\r|\n/g, '\r\n');
     const body =
       language === 'et'
         ? 'Nimi: ' +
@@ -57,7 +51,7 @@ export default function Contact() {
           nl +
           'Sõnum:' +
           nl +
-          message
+          messageCrlf
         : 'Name: ' +
           (name || 'Not specified') +
           nl +
@@ -67,7 +61,7 @@ export default function Contact() {
           nl +
           'Message:' +
           nl +
-          message;
+          messageCrlf;
 
     const mailtoLink =
       'mailto:' +
@@ -212,7 +206,7 @@ export default function Contact() {
                 />
                 {emailError && (
                   <p id='email-error' className='text-red-400 text-sm mt-1' role='alert'>
-                    {emailError}
+                    {t.contact.form.errors.email}
                   </p>
                 )}
               </div>
@@ -233,7 +227,7 @@ export default function Contact() {
                 />
                 {messageError && (
                   <p id='message-error' className='text-red-400 text-sm mt-1' role='alert'>
-                    {messageError}
+                    {t.contact.form.errors.message}
                   </p>
                 )}
               </div>

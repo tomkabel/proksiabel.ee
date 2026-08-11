@@ -1,6 +1,6 @@
 import { HelmetProvider } from '@dr.pogodin/react-helmet';
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import About from './components/About';
 import Contact from './components/Contact';
 import Expertise from './components/Expertise';
@@ -90,6 +90,24 @@ function LegalLayout({
       </main>
       <Footer />
     </>
+  );
+}
+
+/**
+ * Catch-all (404) route. Uses the actual requested pathname so noindex pages
+ * never emit the home-page canonical/og:url, and keeps a proper title.
+ */
+function NotFoundRoute() {
+  const { pathname } = useLocation();
+  return (
+    <LegalLayout
+      noindex
+      breadcrumbUrl={pathname}
+      defaultTitle='Page Not Found'
+      defaultDescription='The requested page does not exist or has been moved.'
+    >
+      <NotFound />
+    </LegalLayout>
   );
 }
 
@@ -199,14 +217,7 @@ function App() {
                   </LegalLayout>
                 }
               />
-              <Route
-                path='*'
-                element={
-                  <LegalLayout noindex>
-                    <NotFound />
-                  </LegalLayout>
-                }
-              />
+              <Route path='*' element={<NotFoundRoute />} />
             </Routes>
           </div>
         </BrowserRouter>

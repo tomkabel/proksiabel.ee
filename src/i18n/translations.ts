@@ -167,6 +167,10 @@ export const translations = {
         sending: 'Sending...',
         success: 'Got it. We will get back to you shortly.',
         error: 'Something broke. Please try again or just email us directly.',
+        errors: {
+          email: 'Please enter a valid email address',
+          message: 'Please write a message before sending',
+        },
       },
     },
     disclosure: {
@@ -731,6 +735,10 @@ export const translations = {
         sending: 'Saadame...',
         success: 'Käes. Võtame sinuga peagi ühendust.',
         error: 'Midagi läks katki. Proovi uuesti või kirjuta meile otse meilile.',
+        errors: {
+          email: 'Palun sisesta kehtiv e-posti aadress',
+          message: 'Palun kirjuta sõnum enne saatmist',
+        },
       },
     },
     disclosure: {
