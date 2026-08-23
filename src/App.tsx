@@ -19,6 +19,9 @@ const Disclosure = React.lazy(() => import('./components/Disclosure'));
 const Fido2PasskeysGuide = React.lazy(() => import('./components/Fido2PasskeysGuide'));
 const SsrfGuide = React.lazy(() => import('./components/SsrfGuide'));
 const IdorGuide = React.lazy(() => import('./components/IdorGuide'));
+const JwtAlgorithmConfusionGuide = React.lazy(
+  () => import('./components/JwtAlgorithmConfusionGuide'),
+);
 const NotFound = React.lazy(() => import('./components/NotFound'));
 
 /**
@@ -253,6 +256,19 @@ function App() {
                     breadcrumbUrl='/guides/idor-explained'
                   >
                     <IdorGuide />
+                  </LegalLayout>
+                }
+              />
+              <Route
+                path='/guides/jwt-algorithm-confusion'
+                element={
+                  <LegalLayout
+                    defaultTitle='JWT Algorithm Confusion Explained: Attack Examples & Prevention'
+                    defaultDescription='JWT algorithm confusion (alg:none and RS256-to-HS256 key confusion) explained: how verifiers that trust the attacker-controlled alg header let anyone forge admin tokens, with a reproducible local lab, detection rules, and allowlist fix patterns.'
+                    breadcrumbTitle='JWT Algorithm Confusion'
+                    breadcrumbUrl='/guides/jwt-algorithm-confusion'
+                  >
+                    <JwtAlgorithmConfusionGuide />
                   </LegalLayout>
                 }
               />

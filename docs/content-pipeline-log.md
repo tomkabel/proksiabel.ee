@@ -38,3 +38,7 @@ Files: `src/components/IdorGuide.tsx` (article: TechArticle JSON-LD, taxonomy ta
 Deviations/notes: branch topology — repo's active dev line is `feat/ui-polish-and-seo-content` (pre-existing, previous runs committed there); pushed `HEAD:main` (clean fast-forward, main was an ancestor). Bare route returns 307 → trailing slash (zone redirect rule; identical for existing guides). translations.ts untouched (SSRF precedent: et default language would render non-keyword titles). Strategy 6 checked: CVE-2026-8037 (Progress LoadMaster, KEV 2026-08-07) is active but outranked by Strategy 2 and not a credible solo-consultancy post-mortem.
 
 Gates: `npx tsc -b` pass · `npm run lint` pass (oxlint 0/0, biome 61 files clean) · `npm run build` pass (8/8 pages prerendered) · built-page check pass (title "IDOR Explained: Attack Examples & Prevention — ProksiAbel OÜ", canonical, TechArticle JSON-LD) · live checks pass (route 200 via trailing slash, homepage 200, cache purged via CF API zone 4a3c68c9fe236c83c98628b224f4d94b).
+
+## 2026-08-23 | RUN | /guides/jwt-algorithm-confusion | JWT algorithm confusion deep-dive with local lab | Strategy 2 | "JWT attack / JWT alg none / JWT algorithm confusion"
+
+**Status:** PR opened for human review (branch `feat/seo-content/jwt-algorithm-confusion-20260823`). No push to main, no deploy, no cache purge.
