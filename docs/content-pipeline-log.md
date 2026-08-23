@@ -38,3 +38,13 @@ Files: `src/components/IdorGuide.tsx` (article: TechArticle JSON-LD, taxonomy ta
 Deviations/notes: branch topology — repo's active dev line is `feat/ui-polish-and-seo-content` (pre-existing, previous runs committed there); pushed `HEAD:main` (clean fast-forward, main was an ancestor). Bare route returns 307 → trailing slash (zone redirect rule; identical for existing guides). translations.ts untouched (SSRF precedent: et default language would render non-keyword titles). Strategy 6 checked: CVE-2026-8037 (Progress LoadMaster, KEV 2026-08-07) is active but outranked by Strategy 2 and not a credible solo-consultancy post-mortem.
 
 Gates: `npx tsc -b` pass · `npm run lint` pass (oxlint 0/0, biome 61 files clean) · `npm run build` pass (8/8 pages prerendered) · built-page check pass (title "IDOR Explained: Attack Examples & Prevention — ProksiAbel OÜ", canonical, TechArticle JSON-LD) · live checks pass (route 200 via trailing slash, homepage 200, cache purged via CF API zone 4a3c68c9fe236c83c98628b224f4d94b).
+
+## 2026-08-23 | RUN | /guides/jwt-algorithm-confusion | JWT algorithm confusion deep-dive with local lab | Strategy 2 | "JWT attack / JWT alg none / JWT algorithm confusion"
+
+**Status:** PR opened for human review (branch `feat/seo-content/jwt-algorithm-confusion-20260823`). No push to main, no deploy, no cache purge.
+
+**2026-08-23 | PR #19 | /guides/jwt-algorithm-confusion | JWT algorithm confusion deep-dive with local lab | Strategy 2 | "JWT attack / JWT alg none / JWT algorithm confusion" | gates passed, awaiting review**
+
+Files: `src/components/JwtAlgorithmConfusionGuide.tsx` (article: TechArticle JSON-LD, spec/taxonomy table, CVE history table — jsonwebtoken/PyJWT×2/fast-jwt×2/Java ECDSA, docker-compose Flask lab with custom-HMAC verifier + working exploit.py, Semgrep rules, Python/Node/Go/Java fix patterns, checklist, Estonian summary, sources), `src/App.tsx` (lazy route), `src/components/Footer.tsx` (guide link), `public/sitemap.xml` (monthly/0.8, lastmod 2026-08-23), `public/llms.txt`, `pub/` build artifacts (zip untouched).
+
+Deviations/notes: SSH pubkey auth failed in this session → pushed over HTTPS with gh token (repo-local `insteadOf` rewrite). translations.ts untouched (et-default precedent). Strategy 6 checked (KEV 2026-08-18: SharePoint/TrueConf/Zimbra) — vendor products, outranked by Strategy 2. Lab deliberately uses a hand-rolled HMAC verifier: modern PyJWT blocks PEM-as-HMAC-secret (CVE-2017-11424/2022-29217 fixes); the live failure mode today is app-level dispatch + custom verification (fast-jwt CVE-2026-34950). Lab outputs verified by actually running app.py + exploit.py (both forgeries → admin 200; fixed verifier → InvalidAlgorithmError).

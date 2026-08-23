@@ -15,6 +15,7 @@ export default function Footer() {
       { label: 'FIDO2 vs Passkeys Guide', href: '/guides/fido2-vs-passkeys' },
       { label: 'SSRF Explained Guide', href: '/guides/ssrf-explained' },
       { label: 'IDOR Explained Guide', href: '/guides/idor-explained' },
+      { label: 'JWT Algorithm Confusion Guide', href: '/guides/jwt-algorithm-confusion' },
     ],
     legal: [
       { label: t.footer.privacy, href: '/privacy' },
