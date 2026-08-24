@@ -1,15 +1,14 @@
 import { HelmetProvider } from '@dr.pogodin/react-helmet';
 import React from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
-import About from './components/About';
-import Contact from './components/Contact';
-import Expertise from './components/Expertise';
+import DispatchTerminal from './components/DispatchTerminal';
+import Dossier from './components/Dossier';
 import Footer from './components/Footer';
 import Hero from './components/Hero';
 import Navbar from './components/Navbar';
-import Pgp from './components/Pgp';
 import SEOMeta, { BreadcrumbSchema } from './components/SEOMeta';
 import Services from './components/Services';
+import Telemetry from './components/Telemetry';
 import { LanguageProvider, useTranslation } from './i18n';
 
 const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy'));
@@ -48,11 +47,10 @@ function HomePage() {
       <Navbar />
       <main id='main-content' tabIndex={-1}>
         <Hero />
+        <Telemetry />
         <Services />
-        <Expertise />
-        <About />
-        <Contact />
-        <Pgp />
+        <Dossier />
+        <DispatchTerminal />
       </main>
       <Footer />
     </>

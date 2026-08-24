@@ -5,11 +5,50 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* Typography — self-hosted variable fonts (see src/main.tsx). */
+  --font-sans:
+    "Inter Tight Variable", "Geist Variable", system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
+  --font-display:
+    "Geist Variable", "Inter Tight Variable", system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "SFMono-Regular", "Menlo", monospace;
+
+  /* Obsidian Spatial Depth — surface layers (elevation via luminance). */
+  --color-void: #05070b;
+  --color-surface-1: #0a0f1d;
+  --color-surface-2: #10182b;
+  --color-surface-3: #18233c;
+
+  /* Chromatic signals — cyan reserved for the 10% rule (focus/status/badges). */
+  --color-cyan-core: #00e5ff;
+  --color-signal-critical: #ff3b5c;
+  --color-signal-success: #00e5a3;
+  --color-signal-warning: #ffb020;
+
+  /* Text luminance ladder. */
+  --color-text-pure: #f8fafc;
+  --color-text-body: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-mono-dim: #38bdf8;
 
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-shimmer: shimmer 3s linear infinite;
+}
+
+/* Raw custom properties for gradients/masks/glows that @theme cannot express. */
+:root {
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-specular: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  --border-active-glow: rgba(0, 229, 255, 0.25);
+  --accent-cyan-glow: rgba(0, 229, 255, 0.15);
+  /* Spring-ish easing for micro-interactions. */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Custom component classes */
@@ -98,6 +137,53 @@
 
   .input-label {
     @apply block text-sm font-medium text-slate-300 mb-2;
+  }
+
+  /* --- Obsidian design-system primitives (Phase 1) --- */
+
+  /* Elevated container on the obsidian ladder; specular top-edge highlight. */
+  .obsidian-card {
+    @apply relative rounded-2xl overflow-hidden;
+    background-color: var(--color-surface-1);
+    border: 1px solid var(--border-subtle);
+    box-shadow:
+      0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
+      0 20px 40px -24px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Floating glass pill (nav / chips). */
+  .glass-pill {
+    background-color: rgba(10, 15, 29, 0.75);
+    border: 1px solid var(--border-subtle);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* Monospace technical badge / tag. */
+  .mono-badge {
+    @apply inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 font-mono text-xs font-medium tracking-wider;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-cyan-core);
+    background-color: color-mix(in oklab, var(--color-cyan-core) 8%, transparent);
+    border: 1px solid color-mix(in oklab, var(--color-cyan-core) 20%, transparent);
+  }
+
+  /* Floating-label input: cyan focus glow per the 10% rule. */
+  .field-glow {
+    @apply w-full rounded-xl px-4 py-3 text-white transition-all duration-200;
+    background-color: var(--color-surface-2);
+    border: 1px solid var(--border-subtle);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .field-glow::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  .field-glow:focus {
+    @apply outline-none;
+    border-color: var(--color-cyan-core);
+    box-shadow: 0 0 12px var(--accent-cyan-glow);
   }
 }
 
@@ -226,6 +312,15 @@
   }
   50% {
     opacity: 0.5;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
   }
 }
 

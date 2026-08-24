@@ -1,4 +1,4 @@
-import { ArrowRight, Mail, MapPin, Phone, Shield } from 'lucide-react';
+import { Mail, MapPin, Phone } from 'lucide-react';
 import { contactInfo } from '../data/contact';
 import { useTranslation } from '../i18n';
 
@@ -6,133 +6,111 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
   const { t } = useTranslation();
 
-  const footerLinks = {
-    services: [
-      { label: t.footer.services, href: '/#services' },
-      { label: t.footer.expertise, href: '/#expertise' },
-      { label: t.footer.contact, href: '/#contact' },
-      { label: t.footer.pgp, href: '/#pgp' },
-      { label: 'FIDO2 vs Passkeys Guide', href: '/guides/fido2-vs-passkeys' },
-      { label: 'SSRF Explained Guide', href: '/guides/ssrf-explained' },
-      { label: 'IDOR Explained Guide', href: '/guides/idor-explained' },
-    ],
-    legal: [
-      { label: t.footer.privacy, href: '/privacy' },
-      { label: t.footer.terms, href: '/terms' },
-      { label: t.footer.cookies, href: '/cookies' },
-      { label: t.footer.disclosure, href: '/disclosure' },
-    ],
-  };
+  const columns = [
+    {
+      title: t.footer.services,
+      links: [
+        { label: t.footer.services, href: '/#services' },
+        { label: t.footer.expertise, href: '/#about' },
+        { label: t.footer.contact, href: '/#contact' },
+      ],
+    },
+    {
+      title: t.footer.resources,
+      links: [
+        { label: t.footer.pgp, href: '/#contact' },
+        { label: 'FIDO2 vs Passkeys', href: '/guides/fido2-vs-passkeys' },
+        { label: 'SSRF Explained', href: '/guides/ssrf-explained' },
+        { label: 'IDOR Explained', href: '/guides/idor-explained' },
+      ],
+    },
+    {
+      title: t.footer.legal,
+      links: [
+        { label: t.footer.privacy, href: '/privacy' },
+        { label: t.footer.terms, href: '/terms' },
+        { label: t.footer.cookies, href: '/cookies' },
+        { label: t.footer.disclosure, href: '/disclosure' },
+      ],
+    },
+  ];
 
   return (
-    <footer className='bg-slate-950 relative overflow-hidden'>
-      {/* Top Border Gradient */}
+    <footer className='relative overflow-hidden' style={{ backgroundColor: 'var(--color-void)' }}>
       <div
-        className='h-px bg-gradient-to-r from-transparent via-sky-500/50 to-transparent'
+        className='h-px'
+        style={{
+          background:
+            'linear-gradient(to right, transparent, var(--border-active-glow), transparent)',
+        }}
         aria-hidden='true'
       />
 
-      <div className='container-custom py-16'>
-        <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8'>
-          {/* Brand Column */}
-          <div className='lg:col-span-1'>
-            <a href='/' className='flex items-center gap-3 group mb-6'>
-              <div className='w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-teal-500 flex items-center justify-center shadow-lg shadow-sky-500/20 group-hover:shadow-sky-500/40 transition-shadow duration-300'>
-                <Shield className='h-5 w-5 text-white' />
-              </div>
-              <div>
-                <span className='text-white font-bold text-lg'>ProksiAbel</span>
-                <p className='text-xs text-slate-400'>{t.hero.securityConsultancy}</p>
-              </div>
+      <div className='container-custom py-14'>
+        <div className='grid gap-10 md:grid-cols-2 lg:grid-cols-4'>
+          {/* Brand + company column */}
+          <div>
+            <a href='/' className='font-mono text-sm tracking-tight text-white'>
+              ProksiAbel
+              <span className='text-[var(--color-mono-dim)]'>{' // '}</span>
+              <span className='text-[var(--color-text-muted)]'>SEC_OPS</span>
             </a>
-            <p className='text-slate-400 text-sm leading-relaxed mb-6'>
+            <p className='mt-4 text-sm leading-relaxed text-[var(--color-text-muted)]'>
               {t.footer.brandDescription}
             </p>
-
-            {/* Contact Quick Links */}
-            <div className='space-y-3'>
+            <div className='mt-5 space-y-2'>
               <a
                 href={`mailto:${contactInfo.email}`}
-                className='flex items-center gap-2 text-sm text-slate-400 hover:text-sky-400 transition-colors'
+                className='flex items-center gap-2 text-sm text-[var(--color-text-body)] transition-colors hover:text-[var(--color-mono-dim)]'
               >
-                <Mail className='h-4 w-4' />
+                <Mail className='h-4 w-4' aria-hidden='true' />
                 {contactInfo.email}
               </a>
               <a
                 href={`tel:${contactInfo.phone}`}
-                className='flex items-center gap-2 text-sm text-slate-400 hover:text-sky-400 transition-colors'
+                className='flex items-center gap-2 text-sm text-[var(--color-text-body)] transition-colors hover:text-[var(--color-mono-dim)]'
               >
-                <Phone className='h-4 w-4' />
+                <Phone className='h-4 w-4' aria-hidden='true' />
                 {contactInfo.phoneDisplay}
               </a>
-              <div className='flex items-center gap-2 text-sm text-slate-400'>
-                <MapPin className='h-4 w-4' />
-                {contactInfo.address.display}
+              <div className='flex items-start gap-2 text-sm text-[var(--color-text-muted)]'>
+                <MapPin className='mt-0.5 h-4 w-4 flex-shrink-0' aria-hidden='true' />
+                <span>{contactInfo.address.display}</span>
               </div>
             </div>
           </div>
 
-          {/* Services Links */}
-          <div>
-            <h3 className='text-white font-semibold mb-4'>{t.footer.services}</h3>
-            <ul className='space-y-3'>
-              {footerLinks.services.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className='inline-flex items-center gap-2 text-sm text-slate-400 hover:text-sky-400 transition-colors group'
-                  >
-                    <ArrowRight className='h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200' />
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal Links */}
-          <div>
-            <h3 className='text-white font-semibold mb-4'>{t.footer.legal}</h3>
-            <ul className='space-y-3'>
-              {footerLinks.legal.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className='inline-flex items-center gap-2 text-sm text-slate-400 hover:text-sky-400 transition-colors group'
-                  >
-                    <ArrowRight className='h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200' />
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Newsletter / CTA */}
-          <div>
-            <h3 className='text-white font-semibold mb-4'>{t.footer.getInTouch}</h3>
-            <p className='text-slate-400 text-sm mb-4'>{t.footer.ctaDescription}</p>
-            <a
-              href='/#contact'
-              className='inline-flex items-center gap-2 text-sm font-semibold text-sky-400 hover:text-sky-300 transition-colors'
-            >
-              {t.footer.ctaButton}
-              <ArrowRight className='h-4 w-4' />
-            </a>
-          </div>
+          {/* Link columns */}
+          {columns.map((col) => (
+            <div key={col.title}>
+              <h3 className='mb-4 font-mono text-xs uppercase tracking-wider text-[var(--color-text-muted)]'>
+                {col.title}
+              </h3>
+              <ul className='space-y-2.5'>
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      className='text-sm text-[var(--color-text-body)] transition-colors hover:text-white'
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        {/* Bottom Bar */}
-        <div className='mt-12 pt-8 border-t border-slate-800'>
-          <div className='flex flex-col md:flex-row items-center justify-between gap-4'>
-            <p className='text-slate-400 text-sm'>
-              © {currentYear} {contactInfo.company.name}. {t.footer.rights}
-            </p>
-            <p className='text-slate-400 text-xs'>
-              {contactInfo.company.name} • Reg. {contactInfo.company.registrationCode} •{' '}
-              {contactInfo.address.full}
-            </p>
-          </div>
+        {/* Bottom bar */}
+        <div className='mt-12 flex flex-col gap-3 border-t border-[var(--border-subtle)] pt-6 md:flex-row md:items-center md:justify-between'>
+          <p className='font-mono text-xs text-[var(--color-text-muted)]'>
+            © {currentYear} {contactInfo.company.name} · {t.footer.registrationLabel}{' '}
+            {contactInfo.company.registrationCode} · {contactInfo.address.full}
+          </p>
+          <p className='font-mono text-[11px] uppercase tracking-wider text-[var(--color-text-muted)]'>
+            {t.footer.signedNote}
+          </p>
         </div>
       </div>
     </footer>

@@ -1,6 +1,6 @@
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { useTranslation } from '../i18n';
-import AttackTerminal from './AttackTerminal';
+import AttackVectorGraph from './AttackVectorGraph';
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -72,16 +72,16 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right Content - Live Attack Surface Scan */}
+          {/* Right Content - Interactive AiTM Attack Vector Graph */}
           <div className='animate-slide-up stagger-2'>
             <div className='relative'>
               {/* Background Glow */}
               <div
-                className='absolute inset-0 bg-gradient-to-br from-sky-500/20 to-teal-500/20 rounded-3xl blur-2xl'
+                className='absolute inset-0 bg-gradient-to-br from-sky-500/15 to-rose-500/10 rounded-3xl blur-2xl'
                 aria-hidden='true'
               />
 
-              <AttackTerminal onSelectService={() => scrollToSection('services')} />
+              <AttackVectorGraph onSelectVector={() => scrollToSection('services')} />
             </div>
           </div>
         </div>

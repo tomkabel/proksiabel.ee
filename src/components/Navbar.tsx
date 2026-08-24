@@ -1,4 +1,4 @@
-import { ChevronRight, Globe, Menu, Shield, X } from 'lucide-react';
+import { ChevronRight, Globe, Menu, X } from 'lucide-react';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from '../i18n';
 
@@ -20,8 +20,6 @@ export default function Navbar() {
   useEffect(() => {
     if (isMenuOpen) {
       mobileMenuRef.current?.focus();
-      document.body.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
       const handleEscape = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
@@ -51,79 +49,88 @@ export default function Navbar() {
 
   const navLinks = [
     { href: '/#services', label: t.nav.services },
-    { href: '/#expertise', label: t.nav.expertise },
-    { href: '/#about', label: t.nav.about },
+    { href: '/#about', label: t.nav.dossier },
     { href: '/#contact', label: t.nav.contact },
   ];
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'bg-slate-900/90 backdrop-blur-2xl border-b border-white/5 shadow-2xl shadow-sky-500/5'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className='container-custom'>
-        <div className='flex items-center justify-between h-20'>
-          {/* Logo */}
-          <a href='/' className='flex items-center gap-3 group'>
-            <div className='relative'>
-              <div className='w-11 h-11 rounded-xl bg-gradient-to-br from-sky-500 to-teal-500 flex items-center justify-center shadow-lg shadow-sky-500/30 group-hover:shadow-sky-500/50 transition-shadow duration-300'>
-                <Shield className='h-6 w-6 text-white' />
-              </div>
-              <div
-                className='absolute inset-0 rounded-xl bg-gradient-to-br from-sky-500 to-teal-500 opacity-0 group-hover:opacity-50 blur-lg transition-opacity duration-300'
-                aria-hidden='true'
+    <div className='fixed top-0 left-0 right-0 z-50 flex justify-center px-4'>
+      <nav
+        aria-label='Primary'
+        className={`glass-pill mt-4 w-full max-w-5xl rounded-2xl transition-all duration-500 ${
+          scrolled ? 'shadow-2xl shadow-black/40' : 'shadow-lg shadow-black/20'
+        }`}
+      >
+        <div
+          className={`flex items-center justify-between px-4 sm:px-5 transition-all duration-500 ${
+            scrolled ? 'h-14' : 'h-16'
+          }`}
+        >
+          {/* Brand — monospace tag + breathing status dot */}
+          <a href='/' className='group flex items-center gap-2.5' title={t.nav.statusOperational}>
+            <span className='relative flex h-2 w-2' aria-hidden='true'>
+              <span
+                className='absolute inline-flex h-full w-full animate-ping rounded-full opacity-75'
+                style={{ backgroundColor: 'var(--color-signal-success)' }}
               />
-            </div>
-            <div className='flex flex-col'>
-              <span className='text-white font-bold text-xl tracking-tight'>ProksiAbel</span>
-              <span className='text-xs text-slate-400 -mt-0.5'>{t.hero.securityConsultancy}</span>
-            </div>
+              <span
+                className='relative inline-flex h-2 w-2 rounded-full'
+                style={{ backgroundColor: 'var(--color-signal-success)' }}
+              />
+            </span>
+            <span className='font-mono text-sm tracking-tight text-white'>
+              ProksiAbel
+              <span className='text-[var(--color-mono-dim)]'>{' // '}</span>
+              <span className='text-[var(--color-text-muted)] group-hover:text-[var(--color-mono-dim)] transition-colors'>
+                SEC_OPS
+              </span>
+            </span>
           </a>
 
-          {/* Desktop Navigation */}
+          {/* Desktop nav links */}
           <div className='hidden lg:flex items-center gap-1'>
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className='relative px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200 group'
+                className='group relative rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-text-body)] transition-colors duration-200 hover:text-white'
               >
                 {link.label}
                 <span
-                  className='absolute inset-x-4 -bottom-px h-px bg-gradient-to-r from-sky-500 to-teal-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left'
+                  className='absolute inset-x-3 -bottom-px h-px origin-left scale-x-0 bg-[var(--color-cyan-core)] transition-transform duration-300 group-hover:scale-x-100'
                   aria-hidden='true'
                 />
               </a>
             ))}
           </div>
 
-          {/* Right Side */}
-          <div className='hidden lg:flex items-center gap-4'>
+          {/* Right side — language + CTA */}
+          <div className='hidden lg:flex items-center gap-2'>
             <button
               type='button'
               onClick={toggleLanguage}
-              className='flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-200'
+              className='flex items-center gap-1.5 rounded-lg px-2.5 py-2 font-mono text-xs font-medium uppercase text-[var(--color-text-muted)] transition-all duration-200 hover:bg-[var(--color-surface-3)] hover:text-white'
               aria-label={language === 'et' ? 'Switch to English' : 'Switch to Estonian'}
             >
               <Globe className='h-4 w-4' aria-hidden='true' />
-              <span className='uppercase'>{language}</span>
+              <span>{language}</span>
             </button>
 
-            <a href='/#contact' className='glow-button flex items-center gap-2 text-sm'>
-              {t.nav.bookConsultation}
+            <a
+              href='/#contact'
+              className='inline-flex items-center gap-1.5 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-[var(--color-void)] shadow-[0_1px_0_0_rgba(255,255,255,0.6)_inset] transition-transform duration-200 ease-[var(--ease-spring)] hover:scale-[1.03]'
+            >
+              {t.nav.bookAudit}
               <ChevronRight className='h-4 w-4' aria-hidden='true' />
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className='lg:hidden flex items-center gap-2'>
+          {/* Mobile controls */}
+          <div className='flex items-center gap-1 lg:hidden'>
             <button
               type='button'
               onClick={toggleLanguage}
-              className='p-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-200'
+              className='rounded-lg p-2 text-[var(--color-text-muted)] transition-all duration-200 hover:bg-[var(--color-surface-3)] hover:text-white'
               aria-label={language === 'et' ? 'Switch to English' : 'Switch to Estonian'}
             >
               <Globe className='h-5 w-5' aria-hidden='true' />
@@ -135,49 +142,52 @@ export default function Navbar() {
               aria-label={isMenuOpen ? t.nav.closeMenu : t.nav.openMenu}
               aria-expanded={isMenuOpen}
               aria-controls='mobile-menu'
-              className='p-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-200'
+              className='rounded-lg p-2 text-[var(--color-text-muted)] transition-all duration-200 hover:bg-[var(--color-surface-3)] hover:text-white'
             >
               {isMenuOpen ? <X className='h-6 w-6' /> : <Menu className='h-6 w-6' />}
             </button>
           </div>
         </div>
-      </div>
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div
-          id='mobile-menu'
-          ref={mobileMenuRef}
-          tabIndex={-1}
-          role='dialog'
-          aria-label={t.nav.menuLabel}
-          className='lg:hidden bg-slate-900/95 backdrop-blur-2xl border-t border-white/5'
-        >
-          <div className='container-custom py-6 space-y-2'>
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={closeMenu}
-                className='flex items-center gap-3 px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition-all duration-200'
-              >
-                <ChevronRight className='h-4 w-4 text-sky-500' aria-hidden='true' />
-                {link.label}
-              </a>
-            ))}
-            <div className='pt-4'>
-              <a
-                href='/#contact'
-                onClick={closeMenu}
-                className='glow-button w-full flex items-center justify-center gap-2'
-              >
-                {t.nav.bookConsultation}
-                <ChevronRight className='h-4 w-4' aria-hidden='true' />
-              </a>
+        {/* Mobile menu */}
+        {isMenuOpen && (
+          <div
+            id='mobile-menu'
+            ref={mobileMenuRef}
+            tabIndex={-1}
+            role='dialog'
+            aria-label={t.nav.menuLabel}
+            className='border-t border-[var(--border-subtle)] px-3 pb-4 pt-2 lg:hidden'
+          >
+            <div className='space-y-1'>
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={closeMenu}
+                  className='flex items-center gap-3 rounded-xl px-4 py-3 text-[var(--color-text-body)] transition-all duration-200 hover:bg-[var(--color-surface-3)] hover:text-white'
+                >
+                  <ChevronRight
+                    className='h-4 w-4 text-[var(--color-cyan-core)]'
+                    aria-hidden='true'
+                  />
+                  {link.label}
+                </a>
+              ))}
+              <div className='pt-3'>
+                <a
+                  href='/#contact'
+                  onClick={closeMenu}
+                  className='flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 font-semibold text-[var(--color-void)]'
+                >
+                  {t.nav.bookAudit}
+                  <ChevronRight className='h-4 w-4' aria-hidden='true' />
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </nav>
+        )}
+      </nav>
+    </div>
   );
 }
