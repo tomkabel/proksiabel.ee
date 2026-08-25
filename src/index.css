@@ -147,7 +147,7 @@
     background-color: var(--color-surface-1);
     border: 1px solid var(--border-subtle);
     box-shadow:
-      0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
+      0 1px 0 0 rgba(255, 255, 255, 0.08) inset,
       0 20px 40px -24px rgba(0, 0, 0, 0.8);
   }
 
@@ -183,7 +183,9 @@
   .field-glow:focus {
     @apply outline-none;
     border-color: var(--color-cyan-core);
-    box-shadow: 0 0 12px var(--accent-cyan-glow);
+    box-shadow:
+      0 0 0 1px rgba(0, 229, 255, 0.4),
+      0 0 16px rgba(0, 229, 255, 0.1);
   }
 }
 

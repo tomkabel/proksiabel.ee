@@ -1,4 +1,5 @@
 import { CheckCircle2 } from 'lucide-react';
+import { useState } from 'react';
 import { useTranslation } from '../i18n';
 import SpotlightCard from './ui/SpotlightCard';
 
@@ -16,6 +17,7 @@ func BypassSession(c *Client) (*Token, error) {
 
 export default function Services() {
   const { t } = useTranslation();
+  const [activePill, setActivePill] = useState(0);
   const s = t.services;
   const b = s.bento;
   const pentest = s.service1;
@@ -97,9 +99,9 @@ export default function Services() {
             </pre>
           </SpotlightCard>
 
-          {/* Item 3 — Secure development (full-width banner) */}
+          {/* Item 3 — Secure development (full-width, interactive hardening matrix) */}
           <SpotlightCard className='lg:col-span-12'>
-            <div className='flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between'>
+            <div className='flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between'>
               <div className='max-w-2xl'>
                 <h3 className='text-xl font-semibold tracking-tight text-white'>
                   {secureDev.title}
@@ -108,16 +110,54 @@ export default function Services() {
                   “{b.bannerQuote}”
                 </p>
               </div>
-              <div className='flex flex-wrap gap-2'>
-                {HARDENING_PILLS.map((pill) => (
-                  <span
-                    key={pill}
-                    className='rounded-full border border-[var(--border-subtle)] px-3 py-1.5 font-mono text-xs text-[var(--color-text-body)]'
-                  >
-                    {pill}
-                  </span>
-                ))}
+              <div className='lg:text-right'>
+                <span className='mb-3 block font-mono text-[11px] uppercase tracking-wider text-[var(--color-text-muted)]'>
+                  {b.hardeningTag}
+                </span>
+                <div className='flex flex-wrap gap-2 lg:justify-end'>
+                  {HARDENING_PILLS.map((pill, i) => {
+                    const active = i === activePill;
+                    return (
+                      <button
+                        key={pill}
+                        type='button'
+                        onClick={() => setActivePill(i)}
+                        aria-pressed={active}
+                        className={`rounded-full border px-3 py-1.5 font-mono text-xs transition-colors ${
+                          active
+                            ? 'text-[var(--color-mono-dim)]'
+                            : 'border-[var(--border-subtle)] text-[var(--color-text-body)] hover:text-white'
+                        }`}
+                        style={
+                          active
+                            ? {
+                                borderColor:
+                                  'color-mix(in oklab, var(--color-cyan-core) 22%, transparent)',
+                                backgroundColor:
+                                  'color-mix(in oklab, var(--color-cyan-core) 4%, transparent)',
+                              }
+                            : undefined
+                        }
+                      >
+                        {pill}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
+            </div>
+            {/* Swapped architectural defense principle */}
+            <div
+              className='mt-6 flex items-start gap-3 rounded-xl border border-[var(--border-subtle)] p-4'
+              style={{ backgroundColor: 'var(--color-surface-2)' }}
+            >
+              <CheckCircle2
+                className='mt-0.5 h-4 w-4 flex-shrink-0'
+                style={{ color: 'var(--color-signal-success)' }}
+              />
+              <p className='text-sm leading-relaxed text-[var(--color-text-body)]'>
+                {b.principles[activePill]}
+              </p>
             </div>
           </SpotlightCard>
         </div>

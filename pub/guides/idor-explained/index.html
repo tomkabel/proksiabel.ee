@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="et" data-rh="lang"><head>
+    <meta charset="UTF-8">
+    <!-- Fonts are self-hosted (bundled via @fontsource, imported in src/main.tsx).
+         No fonts.googleapis.com / fonts.gstatic.com — visitor IPs never leave the origin. -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+    <meta property="og:type" content="website">
+    
+    
+    
+    <meta property="og:image" content="https://proksiabel.ee/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    
+    
+    <meta name="twitter:image" content="https://proksiabel.ee/og-image.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "ProksiAbel OÜ",
+      "description": "Cybersecurity consultancy specializing in MITM attack prevention, web application penetration testing, and secure development practices.",
+      "url": "https://proksiabel.ee/",
+      "telephone": "+372 56666981",
+      "email": "info@proksiabel.ee",
+      "founder": {
+        "@type": "Person",
+        "name": "Tom Kristian Abel",
+        "jobTitle": "Offensive Security Specialist"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Pargi tn 2 Sindi",
+        "addressLocality": "Tori vald",
+        "postalCode": "86705",
+        "addressRegion": "Pärnumaa",
+        "addressCountry": "EE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "58.4419",
+        "longitude": "24.4019"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "17:00"
+      },
+      "priceRange": "€€€",
+      "image": "https://proksiabel.ee/og-image.png",
+      "sameAs": [
+        "https://www.linkedin.com/company/proksiabel",
+        "https://github.com/proksiabel"
+      ]
+    }
+    </script>
+    <!-- Person Schema: founder entity for knowledge-graph disambiguation -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Tom Kristian Abel",
+      "jobTitle": "Offensive Security Specialist",
+      "description": "Offensive security specialist and founder of ProksiAbel OÜ, focused on web application penetration testing, MITM attack prevention, and security research.",
+      "worksFor": {
+        "@type": "ProfessionalService",
+        "name": "ProksiAbel OÜ",
+        "url": "https://proksiabel.ee/"
+      },
+      "knowsAbout": [
+        "Web application penetration testing",
+        "Adversary-in-the-Middle (AiTM) attack prevention",
+        "Authentication security",
+        "TLS client fingerprinting",
+        "JavaScript bot detection"
+      ],
+      "award": "Ukrainian-Estonian AI/GovTech Hackathon 2026 — RedSWAT (AMEDIA team), AI-assisted discovery and remediation of vulnerabilities in government code",
+      "sameAs": [
+        "https://github.com/tkabel",
+        "https://www.gtaua.org/en-blogs/gta-ua-member-companies-win-awards-at-the-ukrainian-estonian-ai-govtech-hackathon"
+      ]
+    }
+    </script>
+    <title>IDOR Explained: Attack Examples &amp; Prevention — ProksiAbel OÜ</title>
+    <script type="module" crossorigin="" src="/assets/index-lHD_yyUU.js"></script>
+    <link rel="modulepreload" crossorigin="" href="/assets/rolldown-runtime-CbXtAM7H.js">
+    <link rel="modulepreload" crossorigin="" href="/assets/ui-BrRB4Vln.js">
+    <link rel="modulepreload" crossorigin="" href="/assets/vendor-BfEjvabK.js">
+    <link rel="stylesheet" crossorigin="" href="/assets/index-CSA7HoPa.css">
+  <meta property="og:type" content="website" data-rh="true"><meta property="og:image" content="https://proksiabel.ee/og-image.png" data-rh="true"><meta property="og:image:width" content="1200" data-rh="true"><meta property="og:image:height" content="630" data-rh="true"><meta name="twitter:card" content="summary_large_image" data-rh="true"><meta name="twitter:image" content="https://proksiabel.ee/og-image.png" data-rh="true"><link rel="modulepreload" as="script" crossorigin="" href="/assets/IdorGuide-DjAia38t.js"><link rel="canonical" href="https://proksiabel.ee/guides/idor-explained" data-rh="true"><meta name="description" content="Insecure direct object reference (IDOR) explained: how missing object-level authorization lets authenticated users read, modify, or delete other users' data, with a reproducible local lab, detection rules, and fix patterns." data-rh="true"><meta property="og:title" content="IDOR Explained: Attack Examples &amp; Prevention — ProksiAbel OÜ" data-rh="true"><meta property="og:description" content="Insecure direct object reference (IDOR) explained: how missing object-level authorization lets authenticated users read, modify, or delete other users' data, with a reproducible local lab, detection rules, and fix patterns." data-rh="true"><meta property="og:url" content="https://proksiabel.ee/guides/idor-explained" data-rh="true"><meta name="twitter:title" content="IDOR Explained: Attack Examples &amp; Prevention — ProksiAbel OÜ" data-rh="true"><meta name="twitter:description" content="Insecure direct object reference (IDOR) explained: how missing object-level authorization lets authenticated users read, modify, or delete other users' data, with a reproducible local lab, detection rules, and fix patterns." data-rh="true"><script type="application/ld+json" data-rh="true">{"@context":"https://schema.org","@type":"TechArticle","headline":"IDOR Explained: Insecure Direct Object Reference Attacks and Prevention","description":"Insecure direct object reference (IDOR) explained: how missing object-level authorization lets authenticated users read, modify, or delete other users' data, with a reproducible local lab, detection rules, and ownership-check fix patterns.","datePublished":"2026-08-11","dateModified":"2026-08-11","inLanguage":"en","mainEntityOfPage":"https://proksiabel.ee/guides/idor-explained","author":{"@type":"Organization","name":"ProksiAbel OÜ","url":"https://proksiabel.ee/"},"publisher":{"@type":"Organization","name":"ProksiAbel OÜ","url":"https://proksiabel.ee/"}}</script></head>
+  <body>
+    <div id="root"><div class="min-h-screen bg-slate-900"><div class="pointer-events-none fixed inset-0 overflow-hidden" aria-hidden="true"><div class="absolute inset-0 bg-mesh bg-grid opacity-50"></div><div class="absolute top-1/4 -left-32 w-96 h-96 bg-sky-500/15 rounded-full blur-[128px] animate-pulse-slow"></div><div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-teal-500/10 rounded-full blur-[128px] animate-pulse-slow"></div></div><a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-sky-500 focus:text-white focus:rounded-md">Liigu sisu juurde</a><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ProksiAbel OÜ","item":"https://proksiabel.ee/"},{"@type":"ListItem","position":2,"name":"IDOR Explained","item":"https://proksiabel.ee/guides/idor-explained"}]}</script><div class="fixed top-0 left-0 right-0 z-50 flex justify-center px-4"><nav aria-label="Primary" class="glass-pill mt-4 w-full max-w-5xl rounded-2xl transition-all duration-500 shadow-lg shadow-black/20"><div class="flex items-center justify-between px-4 sm:px-5 transition-all duration-500 h-16"><a href="/" class="group flex items-center gap-2.5" title="Saadaval audititeks"><span class="relative flex h-2 w-2" aria-hidden="true"><span class="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" style="background-color: var(--color-signal-success);"></span><span class="relative inline-flex h-2 w-2 rounded-full" style="background-color: var(--color-signal-success);"></span></span><span class="font-mono text-sm tracking-tight text-white">ProksiAbel<span class="text-[var(--color-mono-dim)]"> // </span><span class="text-[var(--color-text-muted)] group-hover:text-[var(--color-mono-dim)] transition-colors">SEC_OPS</span></span></a><div class="hidden lg:flex items-center gap-1"><a href="/#services" class="group relative rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-text-body)] transition-colors duration-200 hover:text-white">Teenused<span class="absolute inset-x-3 -bottom-px h-px origin-left scale-x-0 bg-[var(--color-cyan-core)] transition-transform duration-300 group-hover:scale-x-100" aria-hidden="true"></span></a><a href="/#about" class="group relative rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-text-body)] transition-colors duration-200 hover:text-white">Dossier<span class="absolute inset-x-3 -bottom-px h-px origin-left scale-x-0 bg-[var(--color-cyan-core)] transition-transform duration-300 group-hover:scale-x-100" aria-hidden="true"></span></a><a href="/#contact" class="group relative rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-text-body)] transition-colors duration-200 hover:text-white">Kontakt<span class="absolute inset-x-3 -bottom-px h-px origin-left scale-x-0 bg-[var(--color-cyan-core)] transition-transform duration-300 group-hover:scale-x-100" aria-hidden="true"></span></a></div><div class="hidden lg:flex items-center gap-2"><button type="button" class="flex items-center gap-1.5 rounded-lg px-2.5 py-2 font-mono text-xs font-medium uppercase text-[var(--color-text-muted)] transition-all duration-200 hover:bg-[var(--color-surface-3)] hover:text-white" aria-label="Switch to English"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe h-4 w-4" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg><span>et</span></button><a href="/#contact" class="inline-flex items-center gap-1.5 rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-[0_1px_0_0_rgba(255,255,255,0.2)_inset,0_10px_20px_-10px_rgba(2,132,199,0.5)] transition-all duration-200 ease-[var(--ease-spring)] hover:bg-sky-500 active:scale-[0.98]">Broneeri audit<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right h-4 w-4" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></a></div><div class="flex items-center gap-1 lg:hidden"><button type="button" class="rounded-lg p-2 text-[var(--color-text-muted)] transition-all duration-200 hover:bg-[var(--color-surface-3)] hover:text-white" aria-label="Switch to English"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe h-5 w-5" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg></button><button type="button" aria-label="Ava menüü" aria-expanded="false" aria-controls="mobile-menu" class="rounded-lg p-2 text-[var(--color-text-muted)] transition-all duration-200 hover:bg-[var(--color-surface-3)] hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu h-6 w-6" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></div></nav></div><main id="main-content" tabindex="-1"><div class="min-h-screen bg-slate-900 pt-24 pb-12"><div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"><p class="text-sm uppercase tracking-wide text-sky-400 font-semibold mb-4">Technical Guide</p><h1 class="text-3xl md:text-4xl font-bold text-white mb-6">IDOR Explained: Insecure Direct Object Reference Attacks and Prevention</h1><p class="text-slate-400 text-lg leading-relaxed mb-10">An insecure direct object reference (IDOR) lets an authenticated user read, modify, or delete another user's data by changing an object identifier in the request. It is CWE-639 (Authorization Bypass Through User-Controlled Key), the top category in the OWASP Top 10 since 2021 (A01 Broken Access Control), and the #1 API risk as API1:2023 Broken Object Level Authorization (BOLA). This guide covers the mechanics, a reproducible local lab, detection, and ownership-check fix patterns.</p><div class="max-w-none text-slate-300"><section class="mb-10"><h2 class="text-xl text-sky-500 font-semibold mb-4">What IDOR is and why it keeps mattering</h2><p class="leading-relaxed mb-4">IDOR is an <em>authorization</em> failure, not an input-validation failure. The application authenticates the user, then trusts a client-supplied object reference (a database key, a filename, an invoice number) to decide which record to load — without ever checking whether the requester is allowed to touch <em>that</em> record. Authentication answers "who are you?"; the missing check is "what may you touch?". That gap is CWE-639, which MITRE describes as a system whose authorization functionality "does not prevent one user from gaining access to another user's data or record by modifying the key value identifying the data."</p><p class="leading-relaxed mb-4">The taxonomy has shifted over the years, which confuses reporting. IDOR was a standalone entry (A4) in the OWASP Top 10 from 2007 to 2013, then was folded into Broken Access Control, which became A01:2021 with 318,487 recorded occurrences and 19,013 mapped CVEs across 34 CWEs — the most occurrences in the contributed dataset. The 2025 edition keeps Broken Access Control at #1: 100% of the applications tested were found to have some form of it, with the highest number of occurrences in the contributed data. In the API world the same flaw is called Broken Object Level Authorization (BOLA) and has held the #1 spot in the OWASP API Security Top 10 since 2019, rated Easy exploitability, Widespread prevalence, and Easy detectability in the 2023 edition.</p><div class="overflow-x-auto mb-4"><table class="w-full text-sm text-left border-collapse"><thead><tr class="border-b border-slate-700"><th class="py-3 pr-4 text-slate-100 font-semibold">Framework</th><th class="py-3 pr-4 text-slate-100 font-semibold">Entry</th><th class="py-3 text-slate-100 font-semibold">Name</th></tr></thead><tbody class="text-slate-300"><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">OWASP Top 10:2021 / 2025</td><td class="py-3 pr-4 align-top">A01</td><td class="py-3 align-top">Broken Access Control — "permitting viewing or editing someone else's account, by providing its unique identifier (insecure direct object references)"</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">OWASP API Security Top 10:2023</td><td class="py-3 pr-4 align-top">API1</td><td class="py-3 align-top">Broken Object Level Authorization (BOLA) — the API-specific framing of IDOR</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">MITRE CWE</td><td class="py-3 pr-4 align-top">CWE-639</td><td class="py-3 align-top">Authorization Bypass Through User-Controlled Key (in the CWE Top 25); parent CWE-284, child CWE-566 for SQL-key variants</td></tr></tbody></table></div><p class="leading-relaxed mb-4">Two real-world data points show the blast radius:</p><div class="overflow-x-auto mb-4"><table class="w-full text-sm text-left border-collapse"><thead><tr class="border-b border-slate-700"><th class="py-3 pr-4 text-slate-100 font-semibold">Incident</th><th class="py-3 pr-4 text-slate-100 font-semibold">IDOR role</th><th class="py-3 text-slate-100 font-semibold">Outcome</th></tr></thead><tbody class="text-slate-300"><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">First American Financial, 2019</td><td class="py-3 pr-4 align-top">Document-sharing URLs exposed sequential internal identifiers; changing a number in the URL returned documents belonging to other customers.</td><td class="py-3 align-top">More than 800 million documents exposed, including Social Security numbers and bank account details.</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">CVE-2025-41096, BOLD Workplanner</td><td class="py-3 pr-4 align-top">"Insecure Direct Object Reference (IDOR) vulnerability ... consisting of a lack of adequate validation of user input, allowing an authenticated user to access ... contract details using unauthorised internal identifiers."</td><td class="py-3 align-top">CWE-639, CVSS-B 7.1 (HIGH) as assessed by INCIBE; fixed in version 2.5.25. Proof that plain IDOR findings still ship in commercial products.</td></tr></tbody></table></div><p class="leading-relaxed">In MITRE ATT&amp;CK terms, IDOR exploitation is the mechanism behind T1213 (Data from Information Repositories) and, when credentials or tokens are exposed through it, feeds T1078 (Valid Accounts). The horizontal variant (one user reading a peer's data) is the most common; the vertical variant (reaching an admin-controlled object) escalates into privilege escalation.</p></section><section class="mb-10"><h2 class="text-xl text-sky-500 font-semibold mb-4">Attack anatomy: the request is valid, the authorization is missing</h2><p class="leading-relaxed mb-4">The OWASP Top 10's canonical example is the account lookup: the application uses an unverified parameter directly in a query, and the attacker simply changes the value.</p><pre class="bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4">GET /app/accountInfo?acct=notmyacct HTTP/1.1
+Cookie: session=&lt;alice's session&gt;</pre><p class="leading-relaxed mb-4">The request is fully legitimate: authenticated, well-formed, and routed to the right endpoint. The flaw is that the endpoint resolves <em>whatever</em> object the<code class="text-slate-100"> acct</code> parameter names instead of an object the caller is allowed to see. The same primitive appears in every place an object reference crosses the trust boundary:</p><div class="overflow-x-auto mb-4"><table class="w-full text-sm text-left border-collapse"><thead><tr class="border-b border-slate-700"><th class="py-3 pr-4 text-slate-100 font-semibold">Attack surface</th><th class="py-3 pr-4 text-slate-100 font-semibold">Example</th><th class="py-3 text-slate-100 font-semibold">Reference type</th></tr></thead><tbody class="text-slate-300"><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">URL path parameter</td><td class="py-3 pr-4 align-top"><code class="text-slate-100">/api/invoices/1042</code> changed to <code class="text-slate-100">/api/invoices/1043</code></td><td class="py-3 align-top">Sequential database key</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">Query string parameter</td><td class="py-3 pr-4 align-top"><code class="text-slate-100">?order_id=7001</code> changed to <code class="text-slate-100">?order_id=7002</code></td><td class="py-3 align-top">Sequential database key</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">Static file reference</td><td class="py-3 pr-4 align-top"><code class="text-slate-100">/static/12144.txt</code> — chat transcripts stored with incrementing filenames</td><td class="py-3 align-top">Filename</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">POST body / hidden field</td><td class="py-3 pr-4 align-top"><code class="text-slate-100">user_id</code> in a form submission changed to another user's ID</td><td class="py-3 align-top">Primary key or UUID</td></tr></tbody></table></div><p class="leading-relaxed mb-4">OWASP's API Top 10 is explicit that the identifier's data type does not matter: "Object IDs can be anything from sequential integers, UUIDs, or generic strings. Regardless of the data type, they are easy to identify in the request target (path or query string parameters), request headers, or even as part of the request payload." Once one reference is confirmed controllable, exploitation scales by enumeration — a script iterating candidate IDs turns a single missing check into a mass exfiltration, which is exactly what happened at First American.</p><p class="leading-relaxed">IDOR is not the same as Broken Function Level Authorization (BFLA, API5:2023). In BOLA the user is <em>allowed</em> to call the endpoint; the violation is at the object level. In BFLA the user calls a function (an admin endpoint) they should not be able to reach at all.</p></section><section class="mb-10"><h2 class="text-xl text-sky-500 font-semibold mb-4">Reproducible local lab</h2><p class="leading-relaxed mb-4">Everything below runs against a single local container on your machine — no live targets, no weaponized payloads. The lab is a Flask document API with two users (alice, bob) and four documents, deliberately missing the ownership check in the read and delete handlers.</p><h3 class="text-lg text-sky-400 font-medium mb-3">docker-compose.yml</h3><pre class="bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4">services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"</pre><h3 class="text-lg text-sky-400 font-medium mb-3">Dockerfile</h3><pre class="bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4">FROM python:3.12-slim
+WORKDIR /app
+RUN pip install --no-cache-dir flask
+COPY app.py .
+EXPOSE 8080
+CMD ["python", "app.py"]</pre><h3 class="text-lg text-sky-400 font-medium mb-3">app.py — document API with missing object-level authorization</h3><pre class="bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4">from functools import wraps
+
+from flask import Flask, jsonify, request, session
+
+app = Flask(__name__)
+app.secret_key = "lab-secret-key"
+
+# Deterministic seed data. owner is the username.
+USERS = {
+    "alice": {"password": "alice-pass"},
+    "bob": {"password": "bob-pass"},
+}
+
+DOCS = [
+    {"id": 1, "owner": "alice", "title": "alice-vacation-plan", "body": "alice-private-1"},
+    {"id": 2, "owner": "alice", "title": "alice-tax-notes", "body": "alice-private-2"},
+    {"id": 3, "owner": "bob", "title": "bob-bank-export", "body": "bob-private-3"},
+    {"id": 4, "owner": "bob", "title": "bob-contract-draft", "body": "bob-private-4"},
+]
+
+
+def login_required(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        if "username" not in session:
+            return jsonify({"error": "authentication required"}), 401
+        return f(*args, **kwargs)
+
+    return wrapper
+
+
+@app.post("/login")
+def login():
+    data = request.get_json(force=True)
+    user = USERS.get(data.get("username", ""))
+    if not user or user["password"] != data.get("password"):
+        return jsonify({"error": "bad credentials"}), 401
+    session["username"] = data["username"]
+    return jsonify({"logged_in_as": data["username"]})
+
+
+@app.get("/api/documents")
+@login_required
+def list_documents():
+    mine = [d for d in DOCS if d["owner"] == session["username"]]
+    return jsonify(mine)
+
+
+# --- VULNERABLE: no ownership check (CWE-639) -------------------------------
+@app.get("/api/documents/&lt;int:doc_id&gt;")
+@login_required
+def get_document(doc_id):
+    doc = next((d for d in DOCS if d["id"] == doc_id), None)
+    if doc is None:
+        return jsonify({"error": "not found"}), 404
+    return jsonify(doc)
+
+
+@app.delete("/api/documents/&lt;int:doc_id&gt;")
+@login_required
+def delete_document(doc_id):
+    for i, d in enumerate(DOCS):
+        if d["id"] == doc_id:
+            DOCS.pop(i)
+            return jsonify({"deleted": doc_id})
+    return jsonify({"error": "not found"}), 404
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080)</pre><h3 class="text-lg text-sky-400 font-medium mb-3">Run it and exploit it</h3><pre class="bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4">docker compose up --build</pre><p class="leading-relaxed mb-4">Log in as alice, then ask for document 3 — which belongs to bob:</p><pre class="bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4">$ curl -s -c jar.txt -H 'Content-Type: application/json' \
+    -d '{"username":"alice","password":"alice-pass"}' http://localhost:8080/login
+{"logged_in_as":"alice"}
+
+$ curl -s -b jar.txt http://localhost:8080/api/documents/3
+{"body":"bob-private-3","id":3,"owner":"bob","title":"bob-bank-export"}</pre><p class="leading-relaxed mb-4">Alice just read Bob's bank export. The read variant is the classic information-disclosure IDOR. The write variant is worse — the same missing check lets alice <em>delete</em> Bob's documents:</p><pre class="bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4">$ curl -s -b jar.txt -X DELETE http://localhost:8080/api/documents/3
+{"deleted":3}</pre><p class="leading-relaxed mb-4">And because the IDs are sequential, a three-line loop converts the single finding into full enumeration — the First American pattern in miniature:</p><pre class="bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4">$ for i in 1 2 3 4; do curl -s -b jar.txt http://localhost:8080/api/documents/$i; echo; done
+{"body":"alice-private-1","id":1,"owner":"alice","title":"alice-vacation-plan"}
+{"body":"alice-private-2","id":2,"owner":"alice","title":"alice-tax-notes"}
+{"body":"bob-private-3","id":3,"owner":"bob","title":"bob-bank-export"}
+{"body":"bob-private-4","id":4,"owner":"bob","title":"bob-contract-draft"}</pre><h3 class="text-lg text-sky-400 font-medium mb-3">The fix: scope the query to the authenticated user</h3><p class="leading-relaxed mb-4">The same two handlers, fixed by adding the session owner to the lookup predicate — the "unscoped query vs scoped query" pattern from the OWASP reference material ( <code class="text-slate-100">Document.find(id)</code> becomes <code class="text-slate-100">current_user.documents.find(id)</code>):</p><pre class="bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4">def owned_doc(doc_id):
+    """Return the doc only if it belongs to the session user.
+
+    Missing and not-owned both return None, so callers respond 404 either
+    way — no existence oracle for the enumerator.
+    """
+    return next(
+        (d for d in DOCS if d["id"] == doc_id and d["owner"] == session["username"]),
+        None,
+    )
+
+
+@app.get("/api/documents/&lt;int:doc_id&gt;")
+@login_required
+def get_document(doc_id):
+    doc = owned_doc(doc_id)
+    if doc is None:
+        return jsonify({"error": "not found"}), 404
+    return jsonify(doc)
+
+
+@app.delete("/api/documents/&lt;int:doc_id&gt;")
+@login_required
+def delete_document(doc_id):
+    doc = owned_doc(doc_id)
+    if doc is None:
+        return jsonify({"error": "not found"}), 404
+    DOCS.remove(doc)
+    return jsonify({"deleted": doc_id})</pre><p class="leading-relaxed mb-4">Re-running the walkthrough now returns 404 for document 3 while alice is logged in — the same status code a missing document returns, so the attacker cannot even distinguish "exists but not yours" from "does not exist":</p><pre class="bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4">$ curl -s -b jar.txt http://localhost:8080/api/documents/3
+{"error":"not found"}</pre><h3 class="text-lg text-sky-400 font-medium mb-3">What does not work (and why that teaches you more)</h3><ul class="list-disc list-inside space-y-2 mb-4"><li><strong class="text-sky-400">Comparing the session user id with the ID parameter.</strong> OWASP's API Top 10 is blunt: "Comparing the user ID of the current session (e.g. by extracting it from the JWT token) with the vulnerable ID parameter isn't a sufficient solution to solve Broken Object Level Authorization." The object's <em>owner</em> is the thing to check, not whether the client says the IDs match — a check comparing two client-influenced values proves nothing.</li><li><strong class="text-sky-400">Switching to UUIDs.</strong> OWASP recommends random GUIDs for record IDs, but as a mitigation, not a control: an unpredictable identifier raises the enumeration bar, yet the reference still travels in every request and leaks through shared links, caches, and logs. Possession of the ID must never be treated as authorization. The lab's vulnerability survives a UUID swap unchanged — only the loop's range changes.</li><li><strong class="text-sky-400">Hiding the check client-side.</strong> ASVS 4.0.3 V4.1.1 requires access-control rules to be enforced "on a trusted service layer" — JavaScript can hide an admin button, but the API behind it is one curl away.</li><li><strong class="text-sky-400">Rate limiting alone.</strong> OWASP lists rate limits as a way to "minimize the harm from automated attack tooling" — they slow enumeration, they do not fix the missing check. Rate limiting an unauthenticated-by-design data endpoint just caps the bleed rate.</li></ul></section><section class="mb-10"><h2 class="text-xl text-sky-500 font-semibold mb-4">Detecting IDOR</h2><p class="leading-relaxed mb-4">Unlike SQL injection or SSRF, IDOR has <em>no network signature</em>: every request is individually valid and well-formed; the failure is in the authorization decision behind it. Detection is therefore testing-first (dynamic + static), with log analytics as the runtime backstop.</p><h3 class="text-lg text-sky-400 font-medium mb-3">Dynamic: the two-account replay (Autorize-style)</h3><p class="leading-relaxed mb-4">The reference method (PortSwigger's authorization-testing methodology) needs two accounts. Register users A and B. Configure an interception tool (Burp Autorize, AuthMatrix, or a simple proxy script) to replay every request made as A with B's session cookie; any response that is not the baseline denial (401/403) is a candidate. Then do the reverse direction, and then the manual variant: as A, request B's objects directly by swapping the identifier in the path, query string, body, and headers. Test every verb — GET, PUT, PATCH, DELETE — because the read check and the write check are often implemented separately (the lab above shows a read-only tester would miss the destructive delete).</p><h3 class="text-lg text-sky-400 font-medium mb-3">Static: a Semgrep taint rule as a starting point</h3><p class="leading-relaxed mb-4">SAST catches the mechanical variant: request-derived values flowing into primary-key lookups with no ownership filter. This is a template — adjust the model and route conventions to your codebase, and treat its findings as review candidates, not proof:</p><pre class="bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4"># semgrep --config bola.yml  (template — adapt to your ORM/routes)
+rules:
+  - id: flask-bola-unscoped-lookup
+    mode: taint
+    pattern-sources:
+      - pattern: request.args
+      - pattern: request.view_args
+    pattern-sinks:
+      - pattern: $MODEL.query.get($ARG)
+      - pattern: $MODEL.query.get_or_404($ARG)
+      - pattern: $MODEL.query.first()
+    message: &gt;-
+      Object lookup keyed on request input without an ownership filter —
+      likely BOLA/IDOR (CWE-639). Scope the query to the current user.
+    languages: [python]
+    severity: WARNING</pre><h3 class="text-lg text-sky-400 font-medium mb-3">Runtime: enumeration analytics</h3><p class="leading-relaxed mb-4">OWASP's A01 prevention guidance includes "log access control failures, alert admins when appropriate (e.g., repeated failures)". In practice, look for the enumeration pattern in access logs: a single session issuing many distinct object IDs in a short window, especially with a mix of 200 and 404 responses on the same endpoint, or a sudden rise in 403/404 volume per user. This catches the post-exploitation sweep; it cannot catch the single-ID probe.</p></section><section class="mb-10"><h2 class="text-xl text-sky-500 font-semibold mb-4">How to prevent IDOR</h2><p class="leading-relaxed mb-4">Prevention is an architecture rule, not a per-endpoint scramble: object-level authorization on the trusted service layer, scoped queries everywhere, and tests that prove cross-user access fails. The OWASP API Top 10's prevention list is short and exact — implement a proper authorization mechanism that relies on user policies and hierarchy; check, in every function that uses client input to access a record, that the logged-in user may perform the requested action on that record; prefer random unpredictable GUIDs; and write tests that fail on any change breaking the authorization mechanism.</p><div class="overflow-x-auto mb-4"><table class="w-full text-sm text-left border-collapse"><thead><tr class="border-b border-slate-700"><th class="py-3 pr-4 text-slate-100 font-semibold">Layer</th><th class="py-3 pr-4 text-slate-100 font-semibold">Control</th><th class="py-3 text-slate-100 font-semibold">Reference</th></tr></thead><tbody class="text-slate-300"><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">Design</td><td class="py-3 pr-4 align-top">Deny by default; authorization on a trusted service layer, never client-side</td><td class="py-3 align-top">OWASP A01:2021/2025; ASVS 4.0.3 V4.1.1</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">Data</td><td class="py-3 pr-4 align-top">Attributes used by access controls cannot be manipulated by end users</td><td class="py-3 align-top">ASVS 4.0.3 V4.1.2 (CWE-639)</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">Query layer</td><td class="py-3 pr-4 align-top">Scope every lookup to the current user (ownership predicate in the query, not a post-fetch comparison)</td><td class="py-3 align-top">OWASP IDOR reference; this lab</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">Response</td><td class="py-3 pr-4 align-top">Identical response for missing and not-owned objects (no existence oracle)</td><td class="py-3 align-top">Common testing methodology</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">Identifiers</td><td class="py-3 pr-4 align-top">Random unpredictable IDs (GUIDs) as defense-in-depth — never as the control</td><td class="py-3 align-top">OWASP API1:2023</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">CI</td><td class="py-3 pr-4 align-top">Functional authorization tests (two-account, all verbs) that fail the build</td><td class="py-3 align-top">OWASP API1:2023; OWASP A01:2021</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">Runtime</td><td class="py-3 pr-4 align-top">Log access-control failures; alert on enumeration patterns; rate limits to slow automated tooling</td><td class="py-3 align-top">OWASP A01:2021</td></tr></tbody></table></div><h3 class="text-lg text-sky-400 font-medium mb-3">Node.js (Express + MongoDB) — scoped findOne</h3><pre class="bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4">// insecure: unscoped lookup
+const doc = await db.collection('documents').findOne({
+  _id: ObjectId(req.params.id),
+});
+
+// fixed: ownership predicate in the query, same 404 for both outcomes
+const doc = await db.collection('documents').findOne({
+  _id: ObjectId(req.params.id),
+  ownerId: req.user.id, // from the verified session, never from the request
+});
+if (!doc) return res.status(404).json({ error: 'not found' });</pre><h3 class="text-lg text-sky-400 font-medium mb-3">Go (GORM-style) — where clause with the caller's id</h3><pre class="bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4">// insecure
+var doc Document
+db.First(&amp;doc, "id = ?", c.Param("id"))
+
+// fixed: scope to the authenticated user (currentUser from the session)
+var doc Document
+err := db.Where("id = ? AND owner_id = ?", c.Param("id"), currentUser.ID).First(&amp;doc).Error
+if errors.Is(err, gorm.ErrRecordNotFound) {
+    c.JSON(http.StatusNotFound, gin.H{"error": "not found"})
+    return
+}</pre><h3 class="text-lg text-sky-400 font-medium mb-3">A test that would have caught the lab bug</h3><pre class="bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4">def test_cross_user_read_is_denied(client):
+    client.post("/login", json={"username": "alice", "password": "alice-pass"})
+    # document 3 belongs to bob — alice must never receive it
+    resp = client.get("/api/documents/3")
+    assert resp.status_code == 404
+
+
+def test_cross_user_delete_is_denied(client):
+    client.post("/login", json={"username": "alice", "password": "alice-pass"})
+    resp = client.delete("/api/documents/3")
+    assert resp.status_code == 404</pre><p class="leading-relaxed">The two tests encode the two most-missed directions: reads (information disclosure) and destructive writes. Run them as a normal authenticated user — a suite that only tests the admin role, or only tests with a user who owns everything, will pass on a broken authorization mechanism.</p></section><section class="mb-10"><h2 class="text-xl text-sky-500 font-semibold mb-4">Prevention checklist</h2><div class="overflow-x-auto mb-4"><table class="w-full text-sm text-left border-collapse"><thead><tr class="border-b border-slate-700"><th class="py-3 pr-4 text-slate-100 font-semibold">Check</th><th class="py-3 text-slate-100 font-semibold">How to verify</th></tr></thead><tbody class="text-slate-300"><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">Every handler taking an object reference enforces ownership on the trusted service layer</td><td class="py-3 align-top">Code review: enumerate handlers with path/query IDs; confirm each scopes to the session principal</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">No unscoped lookups in the codebase</td><td class="py-3 align-top">Semgrep taint rule in CI; grep for bare <code class="text-slate-100">.get(</code>/<code class="text-slate-100">findOne(</code> calls fed from request data</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">Cross-user read and write denied, same response for missing vs not-owned</td><td class="py-3 align-top">Two-account integration test on every authenticated endpoint, all verbs</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">Object references not attacker-influenceable beyond the object id</td><td class="py-3 align-top">Review request bodies and headers for owner/role fields the client can set (ASVS 4.1.2)</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">Random unpredictable IDs where feasible, never relied on as the control</td><td class="py-3 align-top">Schema review: sequential PKs exposed in URLs/APIs replaced by GUIDs</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">Access-control failures logged, enumeration alerting configured</td><td class="py-3 align-top">Trigger a probe in staging; confirm the log line and alert fire</td></tr><tr class="border-b border-slate-800"><td class="py-3 pr-4 align-top">Rate limits on authenticated API endpoints</td><td class="py-3 align-top">Load-test an endpoint; confirm the 429 threshold</td></tr></tbody></table></div></section><section class="mb-10"><h2 class="text-xl text-sky-500 font-semibold mb-4">Key takeaways</h2><ul class="list-disc list-inside space-y-2 mb-4"><li>IDOR is missing <em>object-level authorization</em> — the request is valid, authenticated, and well-formed; the object it names is simply not checked against the caller's rights (CWE-639).</li><li>It is the top OWASP category (A01 since 2021, 2025 included) and the #1 API risk (API1:2023 BOLA), and it ships in real products today (CVE-2025-41096).</li><li>The fix is one line per handler — scope the query to the session principal — but only counts when applied to <em>every</em> endpoint, on the trusted service layer, for reads and writes alike.</li><li>UUIDs slow enumeration; they do not authorize. The check is the control.</li><li>IDOR has no network signature: detect it with two-account dynamic testing, SAST taint rules, and enumeration-aware log monitoring.</li></ul></section><section class="mb-10 border-t border-slate-800 pt-8"><h2 class="text-xl text-sky-500 font-semibold mb-4">Kokkuvõte eesti keeles</h2><p class="leading-relaxed mb-4">IDOR (ingl k <em>Insecure Direct Object Reference</em>) on juurdepääsukontrolli nõrkus, kus rakendus laeb objekti (näiteks dokumendi või arve) kasutaja antud identifikaatori järgi, kontrollimata, kas see objekt kuulub just sellele kasutajale. Nii saab sisselogitud kasutaja teise kasutaja andmeid lugeda, muuta või kustutada — piisab numbri muutmisest URL-is. See on CWE-639, OWASP Top 10 esimene kategooria (A01 Broken Access Control) alates 2021. aastast ja API-de puhul API1:2023 Broken Object Level Authorization (BOLA). Parandus: iga päring, mis kasutab kliendi sisendit objekti otsimiseks, peab otsingu kitsendama sisselogitud kasutajaga (näiteks <code class="text-slate-100">owner == session.user</code>), ning puuduva ja võõra objekti puhul tuleb vastata ühtemoodi (404). UUID-d muudavad loendamise raskemaks, kuid ei asenda kontrolli. Täielik laborikäik ja koodinäited on ülal inglise keeles.</p></section><section class="mb-10 border-t border-slate-800 pt-8"><h2 class="text-xl text-sky-500 font-semibold mb-4">Sources</h2><ul class="list-disc list-inside space-y-1 text-sm"><li><a class="text-sky-400 hover:text-sky-300" href="https://owasp.org/Top10/2021/A01_2021-Broken_Access_Control/">OWASP Top 10:2021 — A01 Broken Access Control</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/">OWASP Top 10:2025 — A01 Broken Access Control</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/">OWASP API Security Top 10:2023 — API1 Broken Object Level Authorization</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://cwe.mitre.org/data/definitions/639.html">CWE-639 — Authorization Bypass Through User-Controlled Key</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://owasp.org/www-community/attacks/insecure_direct_object_reference">OWASP — Insecure Direct Object Reference (attack description)</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://portswigger.net/web-security/access-control/idor">PortSwigger Web Security Academy — Insecure direct object references (IDOR)</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://portswigger.net/web-security/access-control">PortSwigger Web Security Academy — Access control (authorization testing methodology)</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://raw.githubusercontent.com/OWASP/ASVS/v4.0.3/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.3-en.pdf">OWASP ASVS 4.0.3 — V4.1 Access Control (4.1.1, 4.1.2)</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://nvd.nist.gov/vuln/detail/CVE-2025-41096">NVD — CVE-2025-41096 (BOLD Workplanner IDOR)</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://www.sentinelone.com/cybersecurity-101/cybersecurity/insecure-direct-object-reference/">SentinelOne — What Is Insecure Direct Object Reference (IDOR)? (First American 2019)</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://attack.mitre.org/techniques/T1213/">MITRE ATT&amp;CK T1213 — Data from Information Repositories</a></li></ul></section></div></div></div></main><footer class="relative overflow-hidden" style="background-color: var(--color-void);"><div class="h-px" aria-hidden="true" style="background: linear-gradient(to right, transparent, var(--border-active-glow), transparent);"></div><div class="container-custom py-14"><div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4"><div><a href="/" class="font-mono text-sm tracking-tight text-white">ProksiAbel<span class="text-[var(--color-mono-dim)]"> // </span><span class="text-[var(--color-text-muted)]">SEC_OPS</span></a><p class="mt-4 text-sm leading-relaxed text-[var(--color-text-muted)]">Professionaalsed küberturbe konsultatsiooniteenused Eestist. Spetsialiseerunud MITM-rünnakute ennetamisele ja ettevõtte turvalahendustele.</p><div class="mt-5 space-y-2"><a href="mailto:info@proksiabel.ee" class="flex items-center gap-2 text-sm text-[var(--color-text-body)] transition-colors hover:text-[var(--color-mono-dim)]"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail h-4 w-4" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg>info@proksiabel.ee</a><a href="tel:+37256666981" class="flex items-center gap-2 text-sm text-[var(--color-text-body)] transition-colors hover:text-[var(--color-mono-dim)]"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone h-4 w-4" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg>+372 56666981</a><div class="flex items-start gap-2 text-sm text-[var(--color-text-muted)]"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin mt-0.5 h-4 w-4 flex-shrink-0" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg><span>Pargi tn 2 Sindi, Tori vald<br>Pärnumaa 86705<br>Estonia</span></div></div></div><div><h3 class="mb-4 font-mono text-xs uppercase tracking-wider text-[var(--color-text-muted)]">Teenused</h3><ul class="space-y-2.5"><li><a href="/#services" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">Teenused</a></li><li><a href="/#about" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">Kogemus</a></li><li><a href="/#contact" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">Kontakt</a></li></ul></div><div><h3 class="mb-4 font-mono text-xs uppercase tracking-wider text-[var(--color-text-muted)]">Ressursid</h3><ul class="space-y-2.5"><li><a href="/#contact" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">PGP Võti</a></li><li><a href="/guides/fido2-vs-passkeys" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">FIDO2 vs Passkeys</a></li><li><a href="/guides/ssrf-explained" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">SSRF Explained</a></li><li><a href="/guides/idor-explained" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">IDOR Explained</a></li></ul></div><div><h3 class="mb-4 font-mono text-xs uppercase tracking-wider text-[var(--color-text-muted)]">Juriidika</h3><ul class="space-y-2.5"><li><a href="/privacy" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">Privaatsuspoliitika</a></li><li><a href="/terms" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">Kasutustingimused</a></li><li><a href="/cookies" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">Küpsiste poliitika</a></li><li><a href="/disclosure" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">Uuringute Poliitika</a></li></ul></div></div><div class="mt-12 flex flex-col gap-3 border-t border-[var(--border-subtle)] pt-6 md:flex-row md:items-center md:justify-between"><p class="font-mono text-xs text-[var(--color-text-muted)]">© 2026 ProksiAbel OÜ · Reg. 17017826 · Pargi tn 2 Sindi, Tori vald Pärnumaa 86705</p><p class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-text-muted)]">Krüpteeritud ja allkirjastatud</p></div></div></footer></div></div>
+  
+
+</body></html>

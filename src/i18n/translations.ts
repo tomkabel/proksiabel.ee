@@ -131,7 +131,7 @@ export const translations = {
       telemetry: [
         { value: '0%', label: 'Automated noise' },
         { value: '100%', label: 'Manual analysis' },
-        { value: 'Go', label: 'Custom tooling' },
+        { value: '100% Go', label: 'Custom tooling' },
         { value: '6+ yrs', label: 'Offensive security' },
       ],
       bento: {
@@ -142,6 +142,12 @@ export const translations = {
         findingType: 'Auth bypass / race condition',
         toolingBadge: 'Custom Go tooling',
         bannerQuote: 'We build systems that are mathematically and logically hard to break.',
+        hardeningTag: 'Select a control',
+        principles: [
+          'Phishing-resistant auth: credentials are bound to the origin and never leave the device.',
+          'Session tokens are cryptographically bound to the TLS channel — a stolen cookie is useless off-host.',
+          'Every request is authenticated and authorized; network location grants no implicit trust.',
+        ],
       },
     },
     expertise: {
@@ -186,9 +192,21 @@ export const translations = {
         title: 'Coordinated disclosure',
         lead: "Independent AI-assisted review of Estonia's open-source eID stack. Reported to CERT-EE and since fixed upstream; findings later corroborated by AMEDIA.",
         items: [
-          'digidoc4j — deserialization RCE in the CLI signing-data path (CWE-502) and a certificate-revocation-bypass chain. Patched · v6.2.0',
-          'SiGa — proxy source-address authorization bypass (CWE-863). Patched · v2.13.1',
-          'Further findings across open-eid components (SiVa v3.10.3, GovSSO, TARA, X-Road).',
+          {
+            name: 'digidoc4j',
+            tag: 'CWE-502 · v6.2.0',
+            desc: 'Deserialization RCE in the CLI signing-data path and a certificate-revocation-bypass chain.',
+          },
+          {
+            name: 'SiGa',
+            tag: 'CWE-863 · v2.13.1',
+            desc: 'Proxy source-address authorization bypass.',
+          },
+          {
+            name: 'open-eid',
+            tag: 'SiVa v3.10.3',
+            desc: 'Further findings across GovSSO, TARA, and X-Road components.',
+          },
         ],
         note: 'Reported to CERT-EE. No CVE assigned.',
       },
@@ -791,7 +809,7 @@ export const translations = {
       telemetry: [
         { value: '0%', label: 'Automatiseeritud müra' },
         { value: '100%', label: 'Manuaalne analüüs' },
-        { value: 'Go', label: 'Rätsepatööriistad' },
+        { value: '100% Go', label: 'Rätsepatööriistad' },
         { value: '6+ a', label: 'Ründeturve' },
       ],
       bento: {
@@ -803,6 +821,12 @@ export const translations = {
         toolingBadge: 'Oma Go-tööriistad',
         bannerQuote:
           'Aitame ehitada süsteeme, mida on matemaatiliselt ja loogiliselt raske lõhkuda.',
+        hardeningTag: 'Vali meede',
+        principles: [
+          'Andmepüügikindel autentimine: võtmed on seotud päritoluga ega lahku kunagi seadmest.',
+          'Sessioonivõtmed on krüptograafiliselt seotud TLS-kanaliga — varastatud küpsis on mujal kasutu.',
+          'Iga päring autenditakse ja autoriseeritakse; võrgu asukoht ei anna vaikimisi usaldust.',
+        ],
       },
     },
     expertise: {
@@ -846,9 +870,21 @@ export const translations = {
         title: 'Koordineeritud avalikustamine',
         lead: 'Iseseisev AI-toega Eesti avatud lähtekoodiga eID-taristu ülevaatus. Teavitatud CERT-EE-d, vahepeal ülesvoolu parandatud; leiud hiljem AMEDIA poolt kinnitatud.',
         items: [
-          'digidoc4j — deserialiseerimise RCE CLI allkirjastamisteel (CWE-502) ja sertifikaadi tühistamise kõrvalehoidmise ahel. Parandatud · v6.2.0',
-          'SiGa — proksi lähteaadressi autoriseerimise möödahiilimine (CWE-863). Parandatud · v2.13.1',
-          'Lisaks leiud teistes open-eid komponentides (SiVa v3.10.3, GovSSO, TARA, X-Road).',
+          {
+            name: 'digidoc4j',
+            tag: 'CWE-502 · v6.2.0',
+            desc: 'Deserialiseerimise RCE CLI allkirjastamisteel ja sertifikaadi tühistamise kõrvalehoidmise ahel.',
+          },
+          {
+            name: 'SiGa',
+            tag: 'CWE-863 · v2.13.1',
+            desc: 'Proksi lähteaadressi autoriseerimise möödahiilimine.',
+          },
+          {
+            name: 'open-eid',
+            tag: 'SiVa v3.10.3',
+            desc: 'Lisaks leiud GovSSO, TARA ja X-Road komponentides.',
+          },
         ],
         note: 'Teavitatud CERT-EE-d. CVE-d ei määratud.',
       },

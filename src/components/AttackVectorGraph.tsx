@@ -1,11 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from '../i18n';
 
-interface AttackVectorGraphProps {
-  /** Fires when a vector is activated — used to jump to the Services section. */
-  onSelectVector?: () => void;
-}
-
 // Decoded artifacts the AiTM proxy captures for each attack vector. These are
 // illustrative header/cookie fragments, not real secrets.
 const DECODED = [
@@ -22,7 +17,7 @@ const DECODED = [
  * Packet motion is SVG SMIL, rendered only when the user has not requested
  * reduced motion; otherwise the graph is fully legible as a static diagram.
  */
-export default function AttackVectorGraph({ onSelectVector }: AttackVectorGraphProps) {
+export default function AttackVectorGraph() {
   const { t } = useTranslation();
   const g = t.hero.graph;
   const [selected, setSelected] = useState(0);
@@ -151,21 +146,19 @@ export default function AttackVectorGraph({ onSelectVector }: AttackVectorGraphP
             <button
               key={v.key}
               type='button'
-              onClick={() => {
-                setSelected(v.key);
-                onSelectVector?.();
-              }}
+              onClick={() => setSelected(v.key)}
               aria-pressed={active}
               className={`rounded-full border px-3 py-1 font-mono text-[11px] transition-colors ${
                 active
-                  ? 'border-[var(--color-cyan-core)] text-[var(--color-cyan-core)]'
+                  ? 'text-[var(--color-mono-dim)]'
                   : 'border-[var(--border-subtle)] text-[var(--color-text-muted)] hover:text-white'
               }`}
               style={
                 active
                   ? {
+                      borderColor: 'color-mix(in oklab, var(--color-cyan-core) 22%, transparent)',
                       backgroundColor:
-                        'color-mix(in oklab, var(--color-cyan-core) 8%, transparent)',
+                        'color-mix(in oklab, var(--color-cyan-core) 4%, transparent)',
                     }
                   : undefined
               }
@@ -195,7 +188,7 @@ export default function AttackVectorGraph({ onSelectVector }: AttackVectorGraphP
             {g.tokenLabel}
           </span>
         </div>
-        <code className='mt-1 block truncate font-mono text-xs text-[var(--color-text-body)]'>
+        <code className='mt-2 block truncate font-mono text-xs leading-relaxed text-[var(--color-text-body)]'>
           {DECODED[selected]}
         </code>
       </div>

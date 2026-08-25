@@ -241,7 +241,7 @@ export default function DispatchTerminal() {
 
               <button
                 type='submit'
-                className='inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 font-semibold text-[var(--color-void)] transition-transform duration-200 ease-[var(--ease-spring)] hover:scale-[1.01]'
+                className='inline-flex w-full items-center justify-center gap-2 rounded-xl bg-sky-600 px-4 py-3 font-semibold text-white shadow-[0_1px_0_0_rgba(255,255,255,0.2)_inset,0_10px_20px_-10px_rgba(2,132,199,0.5)] transition-all duration-200 ease-[var(--ease-spring)] hover:bg-sky-500 active:scale-[0.99]'
               >
                 {t.contact.form.send}
                 <ArrowRight className='h-5 w-5' aria-hidden='true' />

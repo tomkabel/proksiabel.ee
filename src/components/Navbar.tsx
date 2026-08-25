@@ -118,7 +118,7 @@ export default function Navbar() {
 
             <a
               href='/#contact'
-              className='inline-flex items-center gap-1.5 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-[var(--color-void)] shadow-[0_1px_0_0_rgba(255,255,255,0.6)_inset] transition-transform duration-200 ease-[var(--ease-spring)] hover:scale-[1.03]'
+              className='inline-flex items-center gap-1.5 rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-[0_1px_0_0_rgba(255,255,255,0.2)_inset,0_10px_20px_-10px_rgba(2,132,199,0.5)] transition-all duration-200 ease-[var(--ease-spring)] hover:bg-sky-500 active:scale-[0.98]'
             >
               {t.nav.bookAudit}
               <ChevronRight className='h-4 w-4' aria-hidden='true' />
@@ -178,7 +178,7 @@ export default function Navbar() {
                 <a
                   href='/#contact'
                   onClick={closeMenu}
-                  className='flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 font-semibold text-[var(--color-void)]'
+                  className='flex w-full items-center justify-center gap-2 rounded-xl bg-sky-600 px-4 py-3 font-semibold text-white transition-colors duration-200 hover:bg-sky-500'
                 >
                   {t.nav.bookAudit}
                   <ChevronRight className='h-4 w-4' aria-hidden='true' />

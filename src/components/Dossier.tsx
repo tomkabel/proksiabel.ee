@@ -1,4 +1,4 @@
-import { Award, Code, ExternalLink, Eye, MapPin, Shield, ShieldCheck, Trophy } from 'lucide-react';
+import { Award, ExternalLink, MapPin, Shield, ShieldCheck, Trophy } from 'lucide-react';
 import React from 'react';
 import { PGP_KEY_ID } from '../config/pgp';
 import { useTranslation } from '../i18n';
@@ -17,12 +17,6 @@ export default function Dossier() {
   const e = t.expertise;
   const [imgFailed, setImgFailed] = React.useState(false);
 
-  const focus = [
-    { icon: Code, title: e.technical.title, description: e.technical.description },
-    { icon: Eye, title: e.offensive.title, description: e.offensive.description },
-    { icon: Shield, title: e.defensive.title, description: e.defensive.description },
-  ];
-
   return (
     <section id='about' className='section-padding relative overflow-hidden'>
       {/* Anchor alias so legacy #expertise links still land here. */}
@@ -33,6 +27,27 @@ export default function Dossier() {
           <div className='lg:col-span-2'>
             <div className='obsidian-card relative aspect-[3/4] overflow-hidden p-0'>
               <div className='absolute inset-0 bg-gradient-to-br from-[var(--color-surface-2)] to-[var(--color-void)]' />
+              {/* Circuit-lattice texture so the frame never reads as a flat black void */}
+              <div
+                className='absolute inset-0 opacity-[0.35]'
+                aria-hidden='true'
+                style={{
+                  backgroundImage:
+                    'linear-gradient(var(--border-subtle) 1px, transparent 1px), linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px)',
+                  backgroundSize: '28px 28px',
+                  maskImage: 'radial-gradient(circle at 50% 35%, black, transparent 78%)',
+                  WebkitMaskImage: 'radial-gradient(circle at 50% 35%, black, transparent 78%)',
+                }}
+              />
+              {/* Cold cyan specular rim-light */}
+              <div
+                className='absolute inset-0'
+                aria-hidden='true'
+                style={{
+                  background:
+                    'radial-gradient(120% 80% at 50% 0%, color-mix(in oklab, var(--color-cyan-core) 12%, transparent), transparent 60%)',
+                }}
+              />
               {imgFailed ? (
                 <div className='absolute inset-0 flex flex-col items-center justify-center gap-3'>
                   <Shield className='h-12 w-12 text-[var(--color-mono-dim)]' aria-hidden='true' />
@@ -61,7 +76,12 @@ export default function Dossier() {
 
               {/* Cryptographic identity tag */}
               <div className='absolute inset-x-3 bottom-3'>
-                <span className='mono-badge w-full justify-center truncate'>{PGP_KEY_ID}</span>
+                <span
+                  className='glass-pill inline-flex w-full items-center justify-center gap-1.5 truncate rounded-md px-2.5 py-1.5 font-mono text-[11px] tracking-wider'
+                  style={{ color: 'var(--color-cyan-core)' }}
+                >
+                  {PGP_KEY_ID}
+                </span>
               </div>
             </div>
           </div>
@@ -160,50 +180,36 @@ export default function Dossier() {
               <p className='text-sm leading-relaxed text-[var(--color-text-body)]'>
                 {e.disclosure.lead}
               </p>
-              <ul className='mt-3 space-y-2'>
+              <ul className='mt-3 space-y-3'>
                 {e.disclosure.items.map((item) => (
-                  <li key={item} className='flex items-start gap-2.5'>
+                  <li key={item.name} className='flex items-start gap-2.5'>
                     <span
                       className='mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full'
                       style={{ backgroundColor: 'var(--color-signal-success)' }}
                       aria-hidden='true'
                     />
-                    <span className='font-mono text-xs leading-relaxed text-[var(--color-text-body)]'>
-                      {item}
-                    </span>
+                    <div className='flex flex-col gap-0.5'>
+                      <div className='flex flex-wrap items-center gap-2'>
+                        <span
+                          className='font-mono text-xs font-semibold'
+                          style={{ color: 'var(--color-signal-success)' }}
+                        >
+                          {item.name}
+                        </span>
+                        <span className='font-mono text-[10px] text-[var(--color-text-muted)]'>
+                          {item.tag}
+                        </span>
+                      </div>
+                      <p className='text-xs leading-relaxed text-[var(--color-text-body)]'>
+                        {item.desc}
+                      </p>
+                    </div>
                   </li>
                 ))}
               </ul>
               <p className='mt-3 font-mono text-[11px] uppercase tracking-wider text-[var(--color-text-muted)]'>
                 {e.disclosure.note}
               </p>
-            </div>
-
-            {/* Focus areas */}
-            <div className='grid gap-3 sm:grid-cols-1'>
-              {focus.map((item) => (
-                <div
-                  key={item.title}
-                  className='flex items-start gap-3 rounded-xl border border-[var(--border-subtle)] p-4 transition-colors hover:border-[var(--border-active-glow)]'
-                  style={{ backgroundColor: 'var(--color-surface-2)' }}
-                >
-                  <div
-                    className='flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg'
-                    style={{
-                      backgroundColor:
-                        'color-mix(in oklab, var(--color-cyan-core) 10%, transparent)',
-                    }}
-                  >
-                    <item.icon className='h-5 w-5 text-[var(--color-mono-dim)]' />
-                  </div>
-                  <div>
-                    <h3 className='font-semibold text-white'>{item.title}</h3>
-                    <p className='mt-0.5 text-sm text-[var(--color-text-body)]'>
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </div>
