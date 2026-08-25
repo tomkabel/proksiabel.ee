@@ -213,8 +213,8 @@ export default function JwtAlgorithmConfusionGuide() {
                 (PyJWT blocking PEM keys as HMAC secrets) moved the bug into application code that
                 hand-rolls verification or dispatches on the header — which is why the lab below
                 demonstrates a custom verifier. Second, library &quot;key type detection&quot; keeps
-                being bypassable (fast-jwt twice, ten years apart), which is exactly why RFC 8725
-                requires an explicit allowlist instead of detection.
+                being bypassable (fast-jwt twice, 3 years apart in 2023 and 2026), which is exactly
+                why RFC 8725 requires an explicit allowlist instead of detection.
               </p>
             </section>
 
@@ -488,7 +488,6 @@ def b64url(data: bytes) -> str:
 
 
 # --- Attack 1: unsigned token (alg: none) ---
-header_none = {"alg": "none", "typ": "JWT"}
 none_token = jwt.encode(dict(payload), None, algorithm="none")
 print("NONE_TOKEN=" + none_token)
 
@@ -590,11 +589,12 @@ $ curl -s -H "Authorization: Bearer $HS256_TOKEN" http://localhost:8080/admin
                   <strong className='text-sky-400'>
                     Trusting the library&apos;s key-type detection.
                   </strong>{' '}
-                  PyJWT now rejects PEM keys used as HMAC secrets (the CVE-2017-11424 and
-                  CVE-2022-29217 fixes), and modern Node libraries require an explicit algorithms
+                  PyJWT now rejects PEM keys used as HMAC secrets (CVE-2017-11424 fix), and uses an
+                  explicit algorithms allowlist instead of auto-detection (CVE-2022-29217 fix); modern
+                  Node libraries require an explicit algorithms
                   list — but fast-jwt&apos;s detection was bypassed twice (CVE-2023-48223,
-                  CVE-2026-34950 via a whitespace-prefixed key). Detection is a cat-and-mouse game;
-                  an explicit allowlist is not.
+                  CVE-2026-34950 via a whitespace-prefixed key). Detection is a cat-and-mouse game; an
+                  explicit allowlist is not.
                 </li>
                 <li>
                   <strong className='text-sky-400'>Denylisting &quot;none&quot;.</strong> Case
