@@ -54,10 +54,10 @@ export default function Navbar() {
   ];
 
   return (
-    <div className='fixed top-0 left-0 right-0 z-50 flex justify-center px-4'>
+    <div className='pointer-events-none fixed top-0 left-0 right-0 z-50 flex justify-center px-4'>
       <nav
         aria-label='Primary'
-        className={`glass-pill mt-4 w-full max-w-5xl rounded-2xl transition-all duration-500 ${
+        className={`glass-pill pointer-events-auto mt-4 w-full max-w-5xl rounded-2xl transition-all duration-500 ${
           scrolled ? 'shadow-2xl shadow-black/40' : 'shadow-lg shadow-black/20'
         }`}
       >
