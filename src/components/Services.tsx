@@ -1,73 +1,165 @@
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
+import { useState } from 'react';
 import { useTranslation } from '../i18n';
-import { serviceIcons } from './data';
+import SpotlightCard from './ui/SpotlightCard';
+
+// Capability pills for the full-width secure-development banner. Proper nouns —
+// intentionally not translated.
+const HARDENING_PILLS = ['FIDO2 / WebAuthn', 'Token Binding', 'Zero Trust Arch'];
+
+// Illustrative Go snippet for the tooling card (decorative, not executed).
+const GO_SNIPPET = `package main
+
+func BypassSession(c *Client) (*Token, error) {
+    tok := c.Intercept()
+    return tok.Replay()
+}`;
 
 export default function Services() {
   const { t } = useTranslation();
-  const services = [t.services.service1, t.services.service2, t.services.service3];
+  const [activePill, setActivePill] = useState(0);
+  const s = t.services;
+  const b = s.bento;
+  const pentest = s.service1;
+  const tooling = s.service3;
+  const secureDev = s.service2;
 
   return (
     <section id='services' className='section-padding relative overflow-hidden'>
       <div className='relative z-10 container-custom'>
-        {/* Section Header */}
-        <div className='text-center mb-16 animate-fade-in'>
-          <div className='accent-line mx-auto mb-6' />
-          <h2 className='heading-2 mb-4'>{t.services.title}</h2>
-          <p className='body-large text-slate-400 max-w-3xl mx-auto'>{t.services.description}</p>
+        {/* Header */}
+        <div className='mb-12 text-center'>
+          <span className='mono-badge mb-4'>{b.sectionTag}</span>
+          <h2 className='heading-2 mb-4'>{s.title}</h2>
+          <p className='body-large mx-auto max-w-3xl text-[var(--color-text-body)]'>
+            {s.description}
+          </p>
         </div>
 
-        {/* Services Grid */}
-        <div className='grid md:grid-cols-3 gap-6 md:gap-8'>
-          {services.map((service, index) => {
-            const Icon = serviceIcons[index].icon;
-            return (
-              <div
-                key={service.title}
-                className='group relative animate-slide-up'
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                {/* Card Background Glow */}
-                <div className='absolute -inset-px bg-gradient-to-br from-sky-500/20 to-teal-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl' />
+        {/* Bento matrix */}
+        <div className='grid gap-5 lg:grid-cols-12'>
+          {/* Item 1 — Pentest (65%) */}
+          <SpotlightCard className='lg:col-span-8'>
+            <h3 className='text-xl font-semibold tracking-tight text-white'>{pentest.title}</h3>
+            <p className='mt-2 max-w-lg text-sm leading-relaxed text-[var(--color-text-body)]'>
+              {pentest.description}
+            </p>
+            <ul className='mt-6 space-y-2.5'>
+              {pentest.features.map((f) => (
+                <li key={f} className='flex items-start gap-2.5'>
+                  <CheckCircle2
+                    className='mt-0.5 h-4 w-4 flex-shrink-0'
+                    style={{ color: 'var(--color-signal-success)' }}
+                  />
+                  <span className='text-sm text-[var(--color-text-body)]'>{f}</span>
+                </li>
+              ))}
+            </ul>
 
-                <div className='relative glass-card-hover h-full p-8 flex flex-col'>
-                  {/* Icon */}
-                  <div className='relative mb-6'>
-                    <div className='w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-500 to-teal-500 flex items-center justify-center shadow-lg shadow-sky-500/30 group-hover:shadow-sky-500/50 transition-shadow duration-300'>
-                      <Icon className='h-7 w-7 text-white' />
-                    </div>
-                    <div className='absolute inset-0 rounded-2xl bg-gradient-to-br from-sky-500 to-teal-500 opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-300' />
-                  </div>
+            {/* Vuln finding preview */}
+            <div
+              className='mt-6 rounded-xl border p-4'
+              style={{
+                borderColor: 'color-mix(in oklab, var(--color-signal-critical) 30%, transparent)',
+                backgroundColor:
+                  'color-mix(in oklab, var(--color-signal-critical) 6%, transparent)',
+              }}
+            >
+              <div className='flex items-center justify-between'>
+                <span className='font-mono text-[11px] uppercase tracking-wider text-[var(--color-text-muted)]'>
+                  {b.reportPreview}
+                </span>
+                <span
+                  className='rounded px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider'
+                  style={{
+                    color: 'var(--color-signal-critical)',
+                    backgroundColor:
+                      'color-mix(in oklab, var(--color-signal-critical) 14%, transparent)',
+                  }}
+                >
+                  {b.severity} · {b.cvss}
+                </span>
+              </div>
+              <code className='mt-2 block font-mono text-sm text-white'>{b.findingType}</code>
+            </div>
+          </SpotlightCard>
 
-                  {/* Title */}
-                  <h3 className='text-xl font-bold text-white mb-3 group-hover:text-sky-400 transition-colors'>
-                    {service.title}
-                  </h3>
+          {/* Item 2 — Tooling / Go (35%) */}
+          <SpotlightCard className='lg:col-span-4'>
+            <span className='mono-badge mb-3'>{b.toolingBadge}</span>
+            <h3 className='text-xl font-semibold tracking-tight text-white'>{tooling.title}</h3>
+            <p className='mt-2 text-sm leading-relaxed text-[var(--color-text-body)]'>
+              {tooling.description}
+            </p>
+            <pre
+              className='mt-5 overflow-x-auto rounded-lg border border-[var(--border-subtle)] p-3 font-mono text-[11px] leading-5'
+              style={{ backgroundColor: 'var(--color-void)' }}
+            >
+              <code className='text-[var(--color-text-body)]'>{GO_SNIPPET}</code>
+            </pre>
+          </SpotlightCard>
 
-                  {/* Description */}
-                  <p className='text-slate-400 mb-6'>{service.description}</p>
-
-                  {/* Features */}
-                  <ul className='space-y-3 mb-8'>
-                    {service.features.map((feature) => (
-                      <li key={feature} className='flex items-start gap-3'>
-                        <CheckCircle2 className='h-5 w-5 text-teal-500 flex-shrink-0 mt-0.5' />
-                        <span className='text-sm text-slate-300'>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Learn More Link */}
-                  <a
-                    href='#contact'
-                    className='mt-auto inline-flex items-center gap-2 text-sm font-semibold text-sky-400 hover:text-sky-300 transition-colors group/link'
-                  >
-                    {t.services.learnMore}
-                    <ArrowRight className='h-4 w-4 group-hover/link:translate-x-1 transition-transform' />
-                  </a>
+          {/* Item 3 — Secure development (full-width, interactive hardening matrix) */}
+          <SpotlightCard className='lg:col-span-12'>
+            <div className='flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between'>
+              <div className='max-w-2xl'>
+                <h3 className='text-xl font-semibold tracking-tight text-white'>
+                  {secureDev.title}
+                </h3>
+                <p className='mt-2 text-base italic text-[var(--color-text-body)]'>
+                  “{b.bannerQuote}”
+                </p>
+              </div>
+              <div className='lg:text-right'>
+                <span className='mb-3 block font-mono text-[11px] uppercase tracking-wider text-[var(--color-text-muted)]'>
+                  {b.hardeningTag}
+                </span>
+                <div className='flex flex-wrap gap-2 lg:justify-end'>
+                  {HARDENING_PILLS.map((pill, i) => {
+                    const active = i === activePill;
+                    return (
+                      <button
+                        key={pill}
+                        type='button'
+                        onClick={() => setActivePill(i)}
+                        aria-pressed={active}
+                        className={`rounded-full border px-3 py-1.5 font-mono text-xs transition-colors ${
+                          active
+                            ? 'text-[var(--color-mono-dim)]'
+                            : 'border-[var(--border-subtle)] text-[var(--color-text-body)] hover:text-white'
+                        }`}
+                        style={
+                          active
+                            ? {
+                                borderColor:
+                                  'color-mix(in oklab, var(--color-cyan-core) 22%, transparent)',
+                                backgroundColor:
+                                  'color-mix(in oklab, var(--color-cyan-core) 4%, transparent)',
+                              }
+                            : undefined
+                        }
+                      >
+                        {pill}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
-            );
-          })}
+            </div>
+            {/* Swapped architectural defense principle */}
+            <div
+              className='mt-6 flex items-start gap-3 rounded-xl border border-[var(--border-subtle)] p-4'
+              style={{ backgroundColor: 'var(--color-surface-2)' }}
+            >
+              <CheckCircle2
+                className='mt-0.5 h-4 w-4 flex-shrink-0'
+                style={{ color: 'var(--color-signal-success)' }}
+              />
+              <p className='text-sm leading-relaxed text-[var(--color-text-body)]'>
+                {b.principles[activePill]}
+              </p>
+            </div>
+          </SpotlightCard>
         </div>
       </div>
     </section>

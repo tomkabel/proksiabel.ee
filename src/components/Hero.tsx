@@ -1,6 +1,6 @@
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { useTranslation } from '../i18n';
-import AttackTerminal from './AttackTerminal';
+import AttackVectorGraph from './AttackVectorGraph';
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -31,19 +31,12 @@ export default function Hero() {
 
             {/* Heading */}
             <h1 className='heading-1 mb-6'>
-              <span className='text-white'>{t.hero.heading}</span>
-              <br />
-              <span className='gradient-text'>{t.hero.subheading}</span>
+              <span className='text-white'>{t.hero.heading}</span>{' '}
+              <span className='text-[var(--color-text-body)]'>{t.hero.subheading}</span>
             </h1>
 
             {/* Description */}
-            <p className='body-large text-slate-400 mb-8 max-w-xl'>{t.hero.description}</p>
-
-            {/* Quote */}
-            <blockquote className='relative pl-6 mb-10'>
-              <div className='absolute left-0 top-0 bottom-0 w-0.5 bg-gradient-to-b from-sky-500 to-teal-500 rounded-full' />
-              <p className='text-lg text-teal-400 italic font-medium'>"{t.hero.quote}"</p>
-            </blockquote>
+            <p className='body-large text-slate-400 mb-10 max-w-xl'>{t.hero.description}</p>
 
             {/* CTAs */}
             <div className='flex flex-col sm:flex-row gap-4'>
@@ -72,16 +65,16 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right Content - Live Attack Surface Scan */}
+          {/* Right Content - Interactive AiTM Attack Vector Graph */}
           <div className='animate-slide-up stagger-2'>
             <div className='relative'>
               {/* Background Glow */}
               <div
-                className='absolute inset-0 bg-gradient-to-br from-sky-500/20 to-teal-500/20 rounded-3xl blur-2xl'
+                className='absolute inset-0 bg-gradient-to-br from-sky-500/15 to-rose-500/10 rounded-3xl blur-2xl'
                 aria-hidden='true'
               />
 
-              <AttackTerminal onSelectService={() => scrollToSection('services')} />
+              <AttackVectorGraph />
             </div>
           </div>
         </div>

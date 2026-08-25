@@ -611,11 +611,13 @@ class SSRFGuardAdapter(HTTPAdapter):
 
     get_connection_with_tls_context() returns a pool whose host is the
     validated IP, so the socket never re-resolves the hostname (no
-    DNS-rebinding window). HTTPS keeps the original hostname as
-    server_hostname, so TLS SNI and certificate validation still use the
-    real name while the connection goes to the pinned address.
+    DNS-rebinding window). Because the pool is keyed by IP, two things must
+    be restored by hand: the Host header (otherwise requests derives it from
+    the pool host and sends the IP, breaking virtual-host routing), and the
+    TLS identity — server_hostname drives SNI while assert_hostname pins the
+    certificate check to the real name, both set to the original hostname.
     Requires requests >= 2.32.2 (get_connection_with_tls_context) / urllib3 2.x
-    (server_hostname as a documented pool parameter).
+    (server_hostname / assert_hostname as documented pool parameters).
     """
 
     def __init__(self, *args, **kwargs):
@@ -633,6 +635,10 @@ class SSRFGuardAdapter(HTTPAdapter):
         # Prefer IPv4 when available (both families are validated above).
         ip = next((a for a in ips if ":" not in a), ips[0])
         port = parsed.port or (443 if parsed.scheme == "https" else 80)
+        # The pool is pinned to the IP, so restore the original Host header —
+        # otherwise requests sends the IP and virtual-host routing breaks. The
+        # same PreparedRequest is sent by the adapter, so this reaches the wire.
+        request.headers["Host"] = host if port in (80, 443) else f"{host}:{port}"
         pool_kwargs = dict(
             maxsize=self._pool_maxsize,
             block=self._pool_block,
@@ -652,10 +658,12 @@ class SSRFGuardAdapter(HTTPAdapter):
                     pool_kwargs["cert_file"], pool_kwargs["key_file"] = cert
                 else:
                     pool_kwargs["cert_file"] = cert
-            pool = HTTPSConnectionPool(ip, port, server_hostname=host, **pool_kwargs)
-            # The socket is pinned to the validated IP, but the HTTP Host
-            # header and TLS SNI still come from the original request URL
-            # (hostname), so the server sees the real virtual-host name.
+            pool = HTTPSConnectionPool(
+                ip, port, server_hostname=host, assert_hostname=host, **pool_kwargs
+            )
+            # Socket pinned to the validated IP; SNI (server_hostname) and the
+            # certificate hostname check (assert_hostname) are validated against
+            # the real name, and the Host header set above carries it too.
         else:
             pool = HTTPConnectionPool(ip, port, **pool_kwargs)
         self._pools.append(pool)  # track so Session.close() closes them too

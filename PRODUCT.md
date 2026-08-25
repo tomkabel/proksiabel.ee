@@ -26,6 +26,7 @@ The mechanism a competitor cannot truthfully copy: Tom's offense-first credibili
 - One-person consultancy run by Tom Kristian Abel (Tallinn, Estonia); site copy mixes first-person "I" and company "we" — the brand is the person.
 - Actual engagements are governed by separate formal contracts; the website is explicitly a presence/lead layer, not the agreement.
 - Work is remote-capable; response promise is "within 24h"; security research contact is security@proksiabel.ee with PGP strongly preferred (public-key.asc + openpgpkey WKD published).
+- Coordinated-disclosure practice is a factual part of the work: findings are reported upstream / to CERT-EE under an embargo workflow before any public write-up. The published eID case study reflects a completed disclosure cycle, not an active embargo.
 - The site is ET-first: Estonian is the default language (see `src/i18n/LanguageContext.tsx`), with a full EN translation — both maintained in `src/i18n/translations.ts`; "Estonian Security Consultancy" is a headline badge — local trust is a feature.
 - Contact form exists (name optional, email, message); form errors direct users to email as fallback.
 
@@ -36,7 +37,7 @@ Capabilities (services):
 2. Secure development practices — MITM countermeasures, securing auth against active interception, TLS client-fingerprinting defenses.
 3. Security research & tool development — responding to undocumented threats, custom Go tooling, JS bot/fraud-system reverse engineering.
 
-Content: two technical guides (FIDO2 vs Passkeys; SSRF Explained with a reproducible local lab), responsible-disclosure/security-research policy, PGP page, privacy/terms/cookie policies, llms.txt, sitemap.xml, security.txt, robots.txt.
+Content: three technical guides (FIDO2 vs Passkeys; SSRF Explained with a reproducible local lab; IDOR Explained with a lab), responsible-disclosure/security-research policy, PGP page, privacy/terms/cookie policies, llms.txt, sitemap.xml, security.txt, robots.txt.
 
 Technical constraints:
 - Vite + React 19 + TypeScript (strict) + Tailwind + react-router + @dr.pogodin/react-helmet (react-helmet-async fork); prerendered route shells with per-route SEO; build outputs to `pub/`.
@@ -56,10 +57,12 @@ Technical constraints:
 ## Evidence on Hand
 
 - Real company registration and Estonian address/contact details (see src/components/Contact.tsx, legal copy).
-- SSRF guide with a reproducible local lab; FIDO2 vs Passkeys technical guide.
+- SSRF guide with a reproducible local lab; IDOR guide with a lab; FIDO2 vs Passkeys technical guide.
+- Coordinated-disclosure case study: Estonian eID stack (digidoc4j, SiGa, SiVa) vulnerability findings. Framing is binding — independent discovery by Tom, corroborated by AMEDIA; cite the current patched upstream versions; never inflate attribution or claim sole/first discovery. Permanent product evidence.
+- RedSWAT AI/GovTech Hackathon 2026 credential (shown in Dossier + schema.org JSON-LD). Framing is binding — team effort, no rank inflation; represent exactly as the award permits, no more.
 - Published security research policy (disclosure) and PGP key (public-key.asc, WKD).
 - OG image, favicon, expert.webp portrait.
-- Absent and must NOT be fabricated: testimonials, case studies, client logos, pricing, certifications, or breach-statistics claims. There is no pricing page and no named-client evidence anywhere in the repo.
+- Absent and must NOT be fabricated: client testimonials, client case studies, client logos, pricing, certifications, or breach-statistics claims. There is no pricing page and no named-client engagement evidence anywhere in the repo. (The eID study above is self-published research, not a client engagement — it does not license inventing client work.)
 
 ## Product Principles
 

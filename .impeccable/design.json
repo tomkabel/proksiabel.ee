@@ -1,0 +1,368 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-24T23:36:00Z",
+  "title": "Design System: ProksiAbel",
+  "extensions": {
+    "colorMeta": {
+      "void": {
+        "role": "neutral",
+        "displayName": "Void",
+        "canonical": "#05070b",
+        "tonalRamp": [
+          "#05070b",
+          "#0a0f1d",
+          "#10182b",
+          "#18233c",
+          "#243250",
+          "#3a4c72",
+          "#64748b",
+          "#94a3b8"
+        ]
+      },
+      "surface-1": {
+        "role": "neutral",
+        "displayName": "Surface One",
+        "canonical": "#0a0f1d",
+        "tonalRamp": [
+          "#05070b",
+          "#0a0f1d",
+          "#10182b",
+          "#18233c",
+          "#243250",
+          "#3a4c72",
+          "#64748b",
+          "#94a3b8"
+        ]
+      },
+      "surface-2": {
+        "role": "neutral",
+        "displayName": "Surface Two",
+        "canonical": "#10182b",
+        "tonalRamp": [
+          "#05070b",
+          "#0a0f1d",
+          "#10182b",
+          "#18233c",
+          "#243250",
+          "#3a4c72",
+          "#64748b",
+          "#94a3b8"
+        ]
+      },
+      "surface-3": {
+        "role": "neutral",
+        "displayName": "Surface Three",
+        "canonical": "#18233c",
+        "tonalRamp": [
+          "#05070b",
+          "#0a0f1d",
+          "#10182b",
+          "#18233c",
+          "#243250",
+          "#3a4c72",
+          "#64748b",
+          "#94a3b8"
+        ]
+      },
+      "cyan-core": {
+        "role": "primary",
+        "displayName": "Cyan Core",
+        "canonical": "#00e5ff",
+        "tonalRamp": [
+          "#003b44",
+          "#005966",
+          "#007d8f",
+          "#00a6bf",
+          "#00cfe6",
+          "#00e5ff",
+          "#5cf0ff",
+          "#b3f8ff"
+        ]
+      },
+      "electric-sky": {
+        "role": "secondary",
+        "displayName": "Electric Sky",
+        "canonical": "#38bdf8",
+        "tonalRamp": [
+          "#0c344a",
+          "#0e4a68",
+          "#126589",
+          "#1a7fb5",
+          "#2699d4",
+          "#38bdf8",
+          "#7dd3fc",
+          "#bae6fd"
+        ]
+      },
+      "electric-teal": {
+        "role": "secondary",
+        "displayName": "Electric Teal",
+        "canonical": "#2dd4bf",
+        "tonalRamp": [
+          "#0b3d38",
+          "#0f544c",
+          "#136b60",
+          "#188275",
+          "#22a894",
+          "#2dd4bf",
+          "#5eead4",
+          "#99f6e4"
+        ]
+      },
+      "signal-critical": {
+        "role": "error",
+        "displayName": "Signal Critical",
+        "canonical": "#ff3b5c",
+        "tonalRamp": [
+          "#4d0f1a",
+          "#701624",
+          "#951e30",
+          "#c0273d",
+          "#e5324d",
+          "#ff3b5c",
+          "#ff7a90",
+          "#ffb3c0"
+        ]
+      },
+      "signal-success": {
+        "role": "success",
+        "displayName": "Signal Success",
+        "canonical": "#00e5a3",
+        "tonalRamp": [
+          "#00402e",
+          "#005c42",
+          "#007d59",
+          "#00a375",
+          "#00cf94",
+          "#00e5a3",
+          "#5cf0c6",
+          "#b3f8e3"
+        ]
+      },
+      "signal-warning": {
+        "role": "warning",
+        "displayName": "Signal Warning",
+        "canonical": "#ffb020",
+        "tonalRamp": [
+          "#4d3305",
+          "#70490a",
+          "#956010",
+          "#c07d17",
+          "#e5951e",
+          "#ffb020",
+          "#ffca66",
+          "#ffe3b3"
+        ]
+      },
+      "text-pure": {
+        "role": "neutral",
+        "displayName": "Text Pure",
+        "canonical": "#f8fafc",
+        "tonalRamp": [
+          "#334155",
+          "#475569",
+          "#64748b",
+          "#94a3b8",
+          "#cbd5e1",
+          "#e2e8f0",
+          "#f1f5f9",
+          "#f8fafc"
+        ]
+      },
+      "text-body": {
+        "role": "neutral",
+        "displayName": "Text Body",
+        "canonical": "#94a3b8",
+        "tonalRamp": [
+          "#334155",
+          "#475569",
+          "#64748b",
+          "#94a3b8",
+          "#cbd5e1",
+          "#e2e8f0",
+          "#f1f5f9",
+          "#f8fafc"
+        ]
+      },
+      "text-muted": {
+        "role": "neutral",
+        "displayName": "Text Muted",
+        "canonical": "#64748b",
+        "tonalRamp": [
+          "#1e293b",
+          "#334155",
+          "#475569",
+          "#64748b",
+          "#94a3b8",
+          "#cbd5e1",
+          "#e2e8f0",
+          "#f1f5f9"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero and section-defining headlines (heading-1); second line often in the sky-teal gradient."
+      },
+      "headline": { "displayName": "Headline", "purpose": "Section titles (heading-2)." },
+      "title": { "displayName": "Title", "purpose": "Card and subsection titles (heading-3)." },
+      "body": { "displayName": "Body", "purpose": "Paragraph copy; measure kept under 75ch." },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Monospace machine voice: nav items, badges, status, technical values. Tabular numerals."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-seat",
+        "value": "0 1px 0 0 rgba(255,255,255,0.04) inset, 0 20px 40px -24px rgba(0,0,0,0.8)",
+        "purpose": "Obsidian-card default: inset specular top edge plus soft far contact shadow."
+      },
+      {
+        "name": "glass-drop",
+        "value": "0 8px 24px -12px rgba(0,0,0,0.6)",
+        "purpose": "Legacy glass-card lift."
+      },
+      {
+        "name": "cyan-focus-glow",
+        "value": "0 0 12px rgba(0,229,255,0.15)",
+        "purpose": "The only colored shadow; focused inputs only, per The One Signal Rule."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-spring",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Spring-ish easing for micro-interactions and the navbar CTA."
+      },
+      {
+        "name": "ease-pulse",
+        "value": "cubic-bezier(0.4, 0, 0.6, 1)",
+        "purpose": "Slow status/attention pulses."
+      },
+      {
+        "name": "float",
+        "value": "float 6s ease-in-out infinite",
+        "purpose": "Ambient floating drift on decorative elements."
+      },
+      {
+        "name": "shimmer",
+        "value": "shimmer 3s linear infinite",
+        "purpose": "Gradient sheen sweep."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" },
+      { "name": "container-max", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid sky CTA with gradient-sheen hover and lift shadow.",
+      "html": "<button class=\"ds-btn-primary\">BOOK AN AUDIT</button>",
+      "css": ".ds-btn-primary { position: relative; overflow: hidden; background: #0284c7; color: #f8fafc; font-weight: 600; padding: 0.75rem 1.5rem; border: none; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(14,165,233,0.25); transition: background 0.3s, transform 0.3s; cursor: pointer; } .ds-btn-primary:hover { background: #0ea5e9; transform: translateY(-1px); } .ds-btn-primary:focus-visible { outline: 2px solid #0ea5e9; outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Ghost button; sky border and text, faint wash on hover.",
+      "html": "<button class=\"ds-btn-secondary\">READ THE DOSSIER</button>",
+      "css": ".ds-btn-secondary { background: transparent; color: #38bdf8; font-weight: 600; padding: 0.75rem 1.5rem; border: 1px solid rgba(14,165,233,0.5); border-radius: 0.75rem; transition: all 0.3s; cursor: pointer; } .ds-btn-secondary:hover { border-color: #38bdf8; color: #f8fafc; background: rgba(14,165,233,0.1); } .ds-btn-secondary:focus-visible { outline: 2px solid #0ea5e9; outline-offset: 2px; }"
+    },
+    {
+      "name": "Glow Input",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Inset field on surface-2 with cyan focus border and glow.",
+      "html": "<input class=\"ds-field-glow\" type=\"email\" placeholder=\"you@domain.com\" />",
+      "css": ".ds-field-glow { width: 100%; background: #10182b; color: #f8fafc; padding: 0.75rem 1rem; border: 1px solid rgba(255,255,255,0.06); border-radius: 0.75rem; font-variant-numeric: tabular-nums; transition: all 0.2s; } .ds-field-glow::placeholder { color: #64748b; } .ds-field-glow:focus { outline: none; border-color: #00e5ff; box-shadow: 0 0 12px rgba(0,229,255,0.15); }"
+    },
+    {
+      "name": "Mono Badge",
+      "kind": "chip",
+      "refersTo": "mono-badge",
+      "description": "Monospace technical micro-tag; cyan on cyan tint. The machine's voice as a pill.",
+      "html": "<span class=\"ds-mono-badge\">AiTM</span>",
+      "css": ".ds-mono-badge { display: inline-flex; align-items: center; gap: 0.375rem; font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; font-variant-numeric: tabular-nums; padding: 0.25rem 0.625rem; border-radius: 0.375rem; color: #00e5ff; background: color-mix(in oklab, #00e5ff 8%, transparent); border: 1px solid color-mix(in oklab, #00e5ff 20%, transparent); }"
+    },
+    {
+      "name": "Obsidian Card",
+      "kind": "card",
+      "refersTo": "obsidian-card",
+      "description": "Elevated container on the obsidian ladder with a specular top-edge highlight.",
+      "html": "<div class=\"ds-obsidian-card\"><h3 class=\"ds-card-title\">Penetration Testing</h3><p class=\"ds-card-body\">Manual web-app pentests, auth-flow threat modeling, session-hijacking and AiTM simulations.</p></div>",
+      "css": ".ds-obsidian-card { position: relative; overflow: hidden; background: #0a0f1d; border: 1px solid rgba(255,255,255,0.06); border-radius: 1rem; padding: 2rem; box-shadow: 0 1px 0 0 rgba(255,255,255,0.04) inset, 0 20px 40px -24px rgba(0,0,0,0.8); } .ds-card-title { font-family: 'Geist Variable', system-ui, sans-serif; font-weight: 600; font-size: 1.25rem; letter-spacing: -0.01em; color: #f8fafc; margin: 0 0 0.5rem; } .ds-card-body { font-family: 'Inter Tight Variable', system-ui, sans-serif; color: #94a3b8; line-height: 1.625; margin: 0; }"
+    },
+    {
+      "name": "Glass Pill Nav",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Floating dynamic-island navbar: translucent surface, backdrop blur, mono labels, live status pulse.",
+      "html": "<nav class=\"ds-glass-pill\"><span class=\"ds-brand\"><span class=\"ds-pulse\"></span>ProksiAbel</span><a class=\"ds-nav-item\" href=\"#services\">SERVICES</a><a class=\"ds-nav-item\" href=\"#dossier\">DOSSIER</a><a class=\"ds-nav-item\" href=\"#contact\">CONTACT</a></nav>",
+      "css": ".ds-glass-pill { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; background: rgba(10,15,29,0.75); border: 1px solid rgba(255,255,255,0.06); border-radius: 9999px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); } .ds-brand { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-size: 0.875rem; letter-spacing: -0.01em; color: #f8fafc; padding-right: 0.5rem; } .ds-pulse { width: 0.5rem; height: 0.5rem; border-radius: 9999px; background: #00e5a3; box-shadow: 0 0 8px #00e5a3; } .ds-nav-item { display: inline-flex; align-items: center; font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; padding: 0.5rem 0.625rem; border-radius: 0.5rem; text-decoration: none; transition: all 0.2s; } .ds-nav-item:hover { background: #18233c; color: #f8fafc; }"
+    },
+    {
+      "name": "Spotlight Card",
+      "kind": "custom",
+      "refersTo": "obsidian-card",
+      "description": "Signature bento card: cursor-tracking radial cyan spotlight and mask-revealed cyan border stroke, fading in on hover. Pointer position drives CSS custom properties on the compositor.",
+      "html": "<div class=\"ds-spotlight-card\"><div class=\"ds-spot-fill\" aria-hidden=\"true\"></div><div class=\"ds-spot-stroke\" aria-hidden=\"true\"></div><div class=\"ds-spot-content\"><h3 class=\"ds-card-title\">Adversary-in-the-Middle</h3><p class=\"ds-card-body\">Real interception simulations against your live auth and session handling.</p></div></div>",
+      "css": ".ds-spotlight-card { position: relative; overflow: hidden; background: #0a0f1d; border: 1px solid rgba(255,255,255,0.06); border-radius: 1rem; padding: 2rem; box-shadow: 0 1px 0 0 rgba(255,255,255,0.04) inset, 0 20px 40px -24px rgba(0,0,0,0.8); --spot-x: 50%; --spot-y: 50%; } .ds-spot-fill { pointer-events: none; position: absolute; inset: -1px; border-radius: 1rem; opacity: 0; transition: opacity 0.3s; background: radial-gradient(600px circle at var(--spot-x) var(--spot-y), rgba(0,229,255,0.15), transparent 40%); } .ds-spot-stroke { pointer-events: none; position: absolute; inset: 0; border-radius: 1rem; opacity: 0; transition: opacity 0.3s; border: 1px solid rgba(0,229,255,0.4); -webkit-mask-image: radial-gradient(250px circle at var(--spot-x) var(--spot-y), black 30%, transparent 80%); mask-image: radial-gradient(250px circle at var(--spot-x) var(--spot-y), black 30%, transparent 80%); } .ds-spotlight-card:hover .ds-spot-fill, .ds-spotlight-card:hover .ds-spot-stroke { opacity: 1; } .ds-spot-content { position: relative; z-index: 10; } @media (prefers-reduced-motion: reduce) { .ds-spot-fill, .ds-spot-stroke { display: none; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Obsidian Instrument",
+    "overview": "ProksiAbel looks the way a precision offensive tool feels in the hand: dark, dense, and machined. The surface is near-black volcanic glass that layers by luminance instead of shadow, and across that darkness runs exactly one live current — a single cyan signal that marks where the system is paying attention. The reference points are Trail of Bits, Linear, Chainguard, and Vercel: technical authority carried by tactile craftsmanship and surgical clarity, never by decoration. This world deliberately rejects the script-kiddie terminal mockup — no fake typing CLIs, no neon-hacker cliché. Credibility comes from restraint. Depth is built from four stacked obsidian surfaces, each a step brighter, with a hairline specular top-edge highlight that reads as machined metal catching light. Typography is a three-voice system: a tight geometric sans for authority (Geist), a humanist sans for readability (Inter Tight), and a monospace for anything the machine says (JetBrains Mono). Motion is spring-eased and purposeful, and every animation collapses under prefers-reduced-motion; a fixed fractal-noise grain dithers dark gradients to defeat OLED banding.",
+    "keyCharacteristics": [
+      "Obsidian ladder: depth by luminance layering, not drop shadows.",
+      "One disciplined signal color (cyan) on <=10% of any screen.",
+      "Three-font system: authority sans, reading sans, machine mono.",
+      "Machined-glass detail: hairline specular edges, hairline borders.",
+      "Fonts self-hosted; no third-party CDN, ever (GDPR / privacy brand)."
+    ],
+    "rules": [
+      {
+        "name": "The One Signal Rule",
+        "body": "Cyan Core appears on <=10% of any given screen and only as a signal — focus ring, live status, micro-badge. Structural surfaces stay on the obsidian ladder. If cyan is filling a large area, it is wrong.",
+        "section": "colors"
+      },
+      {
+        "name": "The Depth-By-Light Rule",
+        "body": "Elevation is expressed by moving up the surface ladder (brighter = closer), not by casting shadows. A raised element gets a brighter surface and a specular top edge, not a drop shadow.",
+        "section": "colors"
+      },
+      {
+        "name": "The Machine Voice Rule",
+        "body": "Anything the system states as fact — a status, a count, a badge, a technical value, a nav label — is set in JetBrains Mono with tabular numerals. Prose is never mono; data is never prose.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Free-Shadow Rule",
+        "body": "A shadow must earn its place by seating a raised surface or signalling focus. Decorative shadows are banned; use a brighter surface step instead.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do build elevation by stepping up the obsidian ladder (void->surface-3) plus a 1px inset specular top edge.",
+      "Do keep Cyan Core (#00e5ff) to <=10% of any screen — focus, live status, mono-badges only.",
+      "Do set every technical value, label, badge, and nav item in JetBrains Mono with tabular-nums.",
+      "Do self-host all fonts (woff2, @font-face, display:swap); the privacy brand forbids any third-party font CDN.",
+      "Do gate every animation behind prefers-reduced-motion and keep the fractal grain overlay to prevent OLED banding."
+    ],
+    "donts": [
+      "Don't ship fake-terminal / typing-CLI / green-Matrix hacker cliches — the thesis rejects them.",
+      "Don't use cyan as a large fill or background; it is a signal, not a surface.",
+      "Don't reach for drop shadows as the primary depth cue — brighten the surface instead.",
+      "Don't set prose in monospace or data in prose; keep the three voices separate.",
+      "Don't reintroduce Google Fonts or any third-party CDN."
+    ]
+  }
+}

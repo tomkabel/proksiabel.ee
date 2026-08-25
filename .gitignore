@@ -99,3 +99,5 @@ pub/assets/index-DwF39Qx7.js
 src/components/Layout.tsx
 
 # External tool scripts (ImageMagick)
+# Added by code-review-graph
+.code-review-graph/
