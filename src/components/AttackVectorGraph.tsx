@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from '../i18n';
 
 // Decoded artifacts the AiTM proxy captures for each attack vector. These are
@@ -22,12 +22,18 @@ export default function AttackVectorGraph() {
   const g = t.hero.graph;
   const [selected, setSelected] = useState(0);
 
-  const reduced = useMemo(
-    () =>
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    [],
-  );
+  // Track prefers-reduced-motion live so toggling the OS setting stops or
+  // resumes the packet animation without a reload.
+  const [reduced, setReduced] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const onChange = () => setReduced(mq.matches);
+    onChange();
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
 
   const vectors = [
     { key: 0, label: g.session },
@@ -48,7 +54,7 @@ export default function AttackVectorGraph() {
           className='font-mono text-[10px] uppercase tracking-wider'
           style={{ color: 'var(--color-signal-critical)' }}
         >
-          ● live
+          ● {g.live}
         </span>
       </div>
 

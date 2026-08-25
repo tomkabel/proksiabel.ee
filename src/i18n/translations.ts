@@ -68,6 +68,7 @@ export const translations = {
         caption: 'Select a node to trace the attack',
         intercepted: 'Intercepted',
         tokenLabel: 'session token',
+        live: 'live',
       },
       terminal: {
         title: 'attack-surface scan',
@@ -128,6 +129,7 @@ export const translations = {
         ],
         heroDescription: 'Raw research into how modern systems fail.',
       },
+      metricsLabel: 'Key metrics',
       telemetry: [
         { value: '0%', label: 'Automated noise' },
         { value: '100%', label: 'Manual analysis' },
@@ -239,7 +241,7 @@ export const translations = {
         'Architecture reviews and defensive engineering. We help you build security into your code from day one.',
       product3Title: 'Custom Tooling',
       product3Desc:
-        'Gol security research and bespoke tool development for unique security challenges.',
+        'Go security research and bespoke tool development for unique security challenges.',
     },
     contact: {
       title: 'Get In Touch',
@@ -745,6 +747,7 @@ export const translations = {
         caption: 'Vali sõlm, et jälgida rünnakut',
         intercepted: 'Kinni püütud',
         tokenLabel: 'sessioonitoken',
+        live: 'reaalajas',
       },
       terminal: {
         title: 'rünnepinna skaneerimine',
@@ -806,6 +809,7 @@ export const translations = {
         ],
         heroDescription: 'Toores uurimistöö sellest, kuidas tänapäeva süsteemid kokku kukuvad.',
       },
+      metricsLabel: 'Põhinäitajad',
       telemetry: [
         { value: '0%', label: 'Automatiseeritud müra' },
         { value: '100%', label: 'Manuaalne analüüs' },

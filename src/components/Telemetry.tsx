@@ -10,7 +10,7 @@ export default function Telemetry() {
   const items = t.services.telemetry;
 
   return (
-    <section aria-label='Key metrics' className='relative'>
+    <section aria-label={t.services.metricsLabel} className='relative'>
       <div className='container-custom'>
         <div className='obsidian-card grid grid-cols-2 divide-x divide-y divide-[var(--border-subtle)] sm:grid-cols-4 sm:divide-y-0'>
           {items.map((item) => (
