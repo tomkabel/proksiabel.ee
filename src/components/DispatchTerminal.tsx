@@ -59,11 +59,13 @@ export default function DispatchTerminal() {
         ? `Nimi: ${name || 'Pole märgitud'}${nl}E-post: ${email}${nl}${nl}Sõnum:${nl}${messageCrlf}`
         : `Name: ${name || 'Not specified'}${nl}Email: ${email}${nl}${nl}Message:${nl}${messageCrlf}`;
 
+    // Hand off to the user's mail client. Nothing is sent from here (no
+    // backend), so we surface a "draft ready" notice — not a delivery
+    // confirmation — and keep the field values in case the client never opens.
     window.location.href = `mailto:${contactInfo.email}?subject=${encodeURIComponent(
       subject,
     )}&body=${encodeURIComponent(body)}`;
     setMessageSent(true);
-    formRef.current?.reset();
   };
 
   return (

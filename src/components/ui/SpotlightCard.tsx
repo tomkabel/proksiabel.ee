@@ -29,10 +29,22 @@ export function SpotlightCard({
 }: SpotlightCardProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
+  const [reduced, setReduced] = useState(false);
+
+  // Track prefers-reduced-motion live so toggling the OS setting takes effect
+  // without a reload. The card falls back to a static surface when reduce.
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const onChange = () => setReduced(mq.matches);
+    onChange();
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || !interactive) return;
+    if (!el || !interactive || reduced) return;
 
     const onMove = (e: PointerEvent) => {
       const rect = el.getBoundingClientRect();
@@ -50,7 +62,7 @@ export function SpotlightCard({
       el.removeEventListener('pointerenter', onEnter);
       el.removeEventListener('pointerleave', onLeave);
     };
-  }, [interactive]);
+  }, [interactive, reduced]);
 
   return (
     <div ref={ref} className={`obsidian-card group p-8 ${className}`}>

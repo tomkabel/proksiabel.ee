@@ -236,8 +236,6 @@ sequenceDiagram
 </details>
 
 <!-- finishing_touch_checkbox_end -->
-> [!WARNING]
-> Billing warning: we have not been able to collect payment for this subscription for more than 72 hours. Please update the payment method or pay any pending invoices in Billing to avoid service interruption.
 <!-- tips_start -->
 
 ---
@@ -6478,9 +6476,9 @@ for name in ('pub/public-key.asc', 'public/public-key.asc'):
         if tag in (6, 14):  # primary public key / subkey
             version = body[0]
             if version == 4:
-                fpr = hashlib.sha1(b'™' + len(body).to_bytes(2, 'big') + body).hexdigest().upper()
+                fpr = hashlib.sha1(b'ï¿½' + len(body).to_bytes(2, 'big') + body).hexdigest().upper()
             elif version == 5:
-                fpr = hashlib.sha256(b'š' + len(body).to_bytes(4, 'big') + body).hexdigest().upper()
+                fpr = hashlib.sha256(b'ï¿½' + len(body).to_bytes(4, 'big') + body).hexdigest().upper()
             else:
                 fpr = f'unsupported-v{version}'
             found.append((tag, version, fpr))
@@ -6579,7 +6577,7 @@ print('first packet:', 'tag', tag, 'length', length, 'body prefix', body[:8].hex
 version = body[0]
 if tag != 6 or version != 4:
     raise RuntimeError(f'unexpected primary key packet: tag={tag}, version={version}')
-fingerprint = hashlib.sha1(b'™' + len(body).to_bytes(2, 'big') + body).hexdigest().upper()
+fingerprint = hashlib.sha1(b'ï¿½' + len(body).to_bytes(2, 'big') + body).hexdigest().upper()
 print('primary fingerprint:', fingerprint)
 print('primary key id:', fingerprint[-16:])
 for value in (
@@ -6645,7 +6643,7 @@ body = raw[p:p+length]
 print('first packet:', 'tag', tag, 'length', length, 'body prefix', body[:8].hex())
 if tag != 6 or body[0] != 4:
     raise RuntimeError(f'unexpected primary key packet: tag={tag}, version={body[0]}')
-fingerprint = hashlib.sha1(b'™' + len(body).to_bytes(2, 'big') + body).hexdigest().upper()
+fingerprint = hashlib.sha1(b'ï¿½' + len(body).to_bytes(2, 'big') + body).hexdigest().upper()
 print('primary fingerprint:', fingerprint)
 print('primary key id:', fingerprint[-16:])
 for value in (

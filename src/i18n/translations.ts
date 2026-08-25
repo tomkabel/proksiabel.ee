@@ -268,7 +268,7 @@ export const translations = {
         messagePlaceholder: 'What are we looking at?',
         send: 'Send Message',
         sending: 'Sending...',
-        success: 'Got it. We will get back to you shortly.',
+        success: 'Your email draft is ready — send it and we will be in touch.',
         error: 'Something broke. Please try again or just email us directly.',
         errors: {
           email: 'Please enter a valid email address',
@@ -946,7 +946,7 @@ export const translations = {
         messagePlaceholder: 'Mida me uurima peaksime?',
         send: 'Saada teele',
         sending: 'Saadame...',
-        success: 'Käes. Võtame sinuga peagi ühendust.',
+        success: 'Su e-kirja mustand on valmis — saada see teele ja me võtame ühendust.',
         error: 'Midagi läks katki. Proovi uuesti või kirjuta meile otse meilile.',
         errors: {
           email: 'Palun sisesta kehtiv e-posti aadress',
