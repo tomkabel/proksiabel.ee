@@ -1,0 +1,94 @@
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created, ready for development
+#   - in-progress: Developer actively working on implementation
+#   - review: Implementation complete, ready for review
+#   - done: Story completed
+
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+
+# Action Item Status:
+#   - open: Committed during a retrospective, not yet addressed
+#   - in-progress: Actively being worked on
+#   - done: Completed
+
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when its first story starts (via build's sprint sync)
+# - Stories can be worked in parallel if team capacity allows
+# - Developer typically creates the next story after the previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+# - Retrospective appends its action items to action_items; the status view surfaces open ones
+generated: 09-04-2026 22:30
+last_updated: 09-04-2026 22:30
+project: proksiabel.ee
+project_key: NOKEY
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts
+development_status:
+  epic-1: backlog
+  1-1-publish-the-brand-manifesto: backlog
+  1-2-specify-the-voice-with-examples-and-anti-examples: backlog
+  1-3-mark-the-old-thesis-superseded-and-state-which-regime-binds: backlog
+  epic-1-retrospective: optional
+
+  epic-2: backlog
+  2-1-stand-up-the-legal-read-gate-artifact: backlog
+  2-2-enumerate-the-claim-bearing-surface: backlog
+  2-3-verify-or-cut-every-heritage-claim: backlog
+  epic-2-retrospective: optional
+
+  epic-3: backlog
+  3-1-establish-the-aggressive-palette-in-the-token-source: backlog
+  3-2-make-monospace-the-brand-voice-self-hosted: backlog
+  3-3-add-aggressive-motion-with-a-static-equivalent-fallback: backlog
+  3-4-generate-the-design-md-token-block-and-fail-the-build-on-dri: backlog
+  3-5-remove-raw-hex-from-components: backlog
+  epic-3-retrospective: optional
+
+  epic-4: backlog
+  4-1-make-et-en-parity-a-compile-error: backlog
+  4-2-rewrite-the-section-copy-in-the-operator-voice-en-and-et: backlog
+  4-3-apply-the-operator-vocabulary-consistently: backlog
+  4-4-recast-the-calls-to-action-in-operator-framing: backlog
+  epic-4-retrospective: optional
+
+  epic-5: backlog
+  5-1-rebuild-the-hero-around-the-lineage-claim: backlog
+  5-2-turn-the-attack-vector-graphic-into-a-conceptual-aitm-diagra: backlog
+  5-3-recast-the-capabilities-grid-as-the-arsenal: backlog
+  epic-5-retrospective: optional
+
+  epic-6: backlog
+  6-1-model-the-heritage-timeline-as-structured-content: backlog
+  6-2-render-the-heritage-timeline-purely-from-the-model: backlog
+  6-3-feed-the-heritage-model-into-structured-data: backlog
+  epic-6-retrospective: optional
+
+  epic-7: backlog
+  7-1-re-tone-the-dossier-without-weakening-the-receipts: backlog
+  7-2-upgrade-the-terminal-into-the-signature-operator-console: backlog
+  7-3-recast-contact-as-target-intake: backlog
+  epic-7-retrospective: optional
+
+  epic-8: backlog
+  8-1-match-guide-page-headers-to-the-new-identity: backlog
+  8-2-update-metadata-open-graph-and-structured-data: backlog
+  8-3-bring-the-wordmark-into-line: backlog
+  epic-8-retrospective: optional
+
+  epic-9: backlog
+  9-1-enforce-the-verify-gate: backlog
+  9-2-run-the-accessibility-and-polish-audit: backlog
+  9-3-visual-qa-across-locales-and-viewports: backlog
+  9-4-confirm-deployment-integrity: backlog
+  epic-9-retrospective: optional
