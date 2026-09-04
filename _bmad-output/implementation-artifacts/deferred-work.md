@@ -21,3 +21,19 @@ source_spec: `spec-1-1-publish-the-brand-manifesto.md`
 severity: low
 reason: The epic establishes a build-failing drift check for DESIGN.md tokens; nothing comparable exists for prose. Would need a story owner; out of scope for a prose-only story.
 status: open
+
+### DW-4: The Voice block is English-normed; Epic 4's Estonian copy rewrites will need to apply the same standard to ET prose with no stated guidance on carryover.
+origin: spec-deferred d84ad8faef47
+location: DESIGN.md:113 (Voice block)
+source_spec: `spec-1-2-specify-the-voice-with-examples-and-anti-examples.md`
+severity: low
+reason: DESIGN.md's Voice block hedge-word list ("just", "actually", "honestly", "frankly") and "sentence" framing are English-specific. src/i18n/translations.ts carries a full parallel `et:` block Epic 4 must rewrite in this voice. Out of this story's scope: the intent and epic-1-context.md scope Story 1.2 to DESIGN.md only.
+status: open
+
+### DW-5: DESIGN.md's Overview (line 98) still states "Credibility comes from restraint." as live, while the Voice section's anti-example 7 calls that same sentence the superseded thesis — an internal
+origin: spec-deferred b4704ecc191d
+location: DESIGN.md:98 (Overview) vs. DESIGN.md:140 (Voice anti-example 7)
+source_spec: `spec-1-2-specify-the-voice-with-examples-and-anti-examples.md`
+severity: low
+reason: `DESIGN.md:98` retains "Credibility comes from restraint." unflagged, and `DESIGN.md:140` (Voice anti-example 7) quotes it as "the superseded thesis stated outright." A reader of Overview alone sees no signal that the line is pending removal. This story's own intent explicitly excludes fixing it: "No manifesto edits, no DESIGN.md frontmatter/thesis changes, no 'Superseded' heading — those are Stories 1.1 (done) and 1.3."
+status: open

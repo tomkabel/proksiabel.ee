@@ -108,6 +108,40 @@ Motion is spring-eased and purposeful — cursor-tracking spotlights, status pul
 - Machined-glass detail: hairline specular edges, hairline borders.
 - Fonts self-hosted; no third-party CDN, ever (GDPR / privacy brand).
 
+## Voice
+
+**Register:** Blunt, operator first-person ("we", "I", "the box", "your stack"). Short declaratives. Edge without profanity or slurs.
+
+**Pass/fail test.** A candidate line — one sentence, or a short setup-and-payoff pair — passes only if it satisfies all four, judged as the whole line; any single failure fails it:
+1. **Blunt** — states a claim or action directly. No rhetorical question (a genuine question that is answered in the same breath is not rhetorical and is fine), no hedge word ("just", "actually", "honestly", "frankly").
+2. **Operator first-person** — the acting subject is "we"/"I" (the operator), or the sentence addresses the target directly, whether by name ("the box", "your stack") or plain "you", or an imperative addressed to the reader ("Stop guessing."). Never a third-person abstraction ("an attacker", "the client", "the team").
+3. **Short declarative** — one clear statement per sentence. No compound marketing sentence stacking two claims, and no adjective run ("practical", "actually", "real") padding a plain statement. A single "and" or "so" joining one continuous claim (cause and effect, action and result) is fine; joining two distinct claims is not.
+4. **Edge without profanity/slurs** — confrontational, not vulgar. No swearing, no slurs, no personal insult of a named individual.
+
+**Ten passing examples:**
+1. "We are the adversary you contract."
+2. "We break in, on paper, with permission, then tell you what to fix."
+3. "Scanners ship PDFs. We ship the break — and then the fix."
+4. "We built the thing your MFA vendor is scared of."
+5. "We don't hand you a scanner report. We hand you a way in."
+6. "Your stack has a hole. We already found it."
+7. "Automated tools miss the logic flaw. We don't."
+8. "We wrote the technique your defense is about to fail against."
+9. "Your defense is theory until it's attacked. We attack it first."
+10. "We break your stack on paper so nobody else breaks it for real."
+
+**Ten anti-examples, drawn from the superseded restrained brand's live copy:**
+1. "Think your web apps are secure? Let's find out." — rhetorical question; fails Blunt.
+2. "Real offense builds real defense." — abstract aphorism, no acting subject; fails Operator first-person.
+3. "I don't just hand you a PDF of automated scanner results." — hedges with "just"; fails Blunt.
+4. "Book Consultation" — corporate CTA, no confrontation; fails Edge.
+5. "Baking security into your code from day one." — soft cliché metaphor; fails Blunt.
+6. "Practical engineering solutions that actually hold up under fire." — adjective-padded compound, and contains the hedge word "actually"; fails Short declarative and Blunt.
+7. "Credibility comes from restraint." — the superseded thesis stated outright; fails Operator first-person.
+8. "Estonian Security Consultancy" — bland institutional descriptor; fails Edge.
+9. "An attacker doesn't read your requirements doc. They look for the single logic flaw." — third-person "an attacker" / "they"; fails Operator first-person.
+10. "My background is deeply rooted in offensive security." — passive throat-clearing opener; fails Blunt.
+
 ## Colors
 
 A near-black obsidian field carrying one electric current. Structure is monochrome; color is reserved for meaning.
