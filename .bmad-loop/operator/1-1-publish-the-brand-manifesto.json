@@ -1,0 +1,11 @@
+{
+  "actions": [
+    "Confirm on the record whether the pre-company adversary-in-the-middle work described in docs/redesign/manifesto.md is accurate and may be published; if you will not stand behind it, say so and the sentence is cut, not softened.",
+    "Decide whether publishing that grey-zone admission is acceptable given legal, public-sector procurement-eligibility and insurance exposure, and record the decision in docs/redesign/manifesto.md under \"## Open verification\".",
+    "Supply a publishable artifact or reference for the client-side bot-detection bypasses claimed in PRODUCT.md \"## Positioning\", or instruct that the claim be cut there as it already was from the manifesto."
+  ],
+  "parked_at": "2026-09-04",
+  "run_id": "20260904-221859-6535",
+  "spec_file": "_bmad-output/implementation-artifacts/spec-1-1-publish-the-brand-manifesto.md",
+  "story_key": "1-1-publish-the-brand-manifesto"
+}
