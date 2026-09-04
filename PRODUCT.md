@@ -19,7 +19,9 @@ ProksiAbel OÜ sells offensive security services: web application penetration te
 
 ## Positioning
 
-The mechanism a competitor cannot truthfully copy: Tom's offense-first credibility — he has spent 6+ years breaking web apps, writes custom tooling in Go, and has authored real bypasses of major client-side bot-detection systems. The pitch is "we know exactly how to break in, so we can tell you how to defend," aimed squarely at the failure mode of automated-scanner PDF reports ("automated slop").
+The mechanism a competitor cannot truthfully copy is inherited technical DNA: the adversary-in-the-middle technique that Evilginx (Kuba Gretzky, 2017 — not our work, not Estonian work) made routine, carried forward through Tom's own pre-company AiTM iterations in the grey zone, into today's contracted boutique. Grey-zone history is past tense; every present-day engagement is authorized and scoped. On top of that lineage: 6+ years breaking web apps, custom tooling in Go, and bypasses of major client-side bot-detection systems. The pitch is unchanged in mechanism — "we know exactly how to break in, so we can tell you how to defend" — aimed squarely at the failure mode of automated-scanner PDF reports ("automated slop").
+
+Full thesis, with a per-claim source table and the list of claims still awaiting verification: `docs/redesign/manifesto.md`. The two must not drift.
 
 ## Operating Context
 
