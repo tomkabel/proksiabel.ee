@@ -21,6 +21,15 @@ The old DESIGN.md explicitly forbids the aggressive aesthetic. This backlog
 the "Don'ts" in DESIGN.md as constraints here; treat them as the previous
 regime.
 
+### Design tooling: `/impeccable` is the default frontend driver
+Every design/build/critique story below is executed **through the `/impeccable`
+skill** (frontend design intelligence: visual hierarchy, theming, tokens, color,
+typography, motion, micro-interactions, responsive, a11y, UX copy, error/empty
+states, i18n, live browser iteration, ambitious visual effects). When a story
+says "run `/impeccable` for X", that is the working mode, not a suggestion. Use
+its live-browser iteration loop for the loud effects (Epics 1, 3, 5) and its
+audit mode for the quality gate (Epic 10).
+
 ### Truthfulness guardrail (non-negotiable, applies to every epic)
 Aggressive tone, honest facts. Enforce the existing rules from
 [[redswat-hackathon-credential]]: RedSWAT is AMEDIA's product (Tom was a team
@@ -50,11 +59,14 @@ advertisement of present criminal service. See Epic 9.
 
 ## Epic 1 — Visual identity overhaul
 *Goal: make the screen feel hostile-competent, not corporate-clean.*
+*Driver: `/impeccable` — run it to design the palette/type/motion system and to*
+*live-iterate the aggressive look in-browser before committing tokens.*
 
 - **1.1 Color.** Break "The One Signal Rule." Introduce an aggressive palette:
   keep obsidian base, but promote `signal-critical` (#ff3b5c) from a rare error
   color to a co-primary; add a hazard/amber and a toxic accent. Cyan demoted.
-  Update tokens in `DESIGN.md` + `src/index.css` custom properties. **AC:**
+  Update tokens in `DESIGN.md` + `src/index.css` custom properties. Use
+  `/impeccable` for the color system + AA-contrast validation. **AC:**
   contrast still ≥ WCAG AA on text; new palette documented with usage budget.
 - **1.2 Type.** Push weight and tightness harder; make monospace *dominant*
   (invert the "data is never prose" rule — the machine voice becomes the brand
@@ -63,8 +75,10 @@ advertisement of present criminal service. See Epic 9.
   no third-party font request in network tab.
 - **1.3 Motion & atmosphere.** Replace the "purposeful, restrained" spring
   motion with aggressive motion: glitch/scanline on hero, redline pulses,
-  faster easings. Keep every animation behind `prefers-reduced-motion`. **AC:**
-  reduced-motion renders a static, still-aggressive layout.
+  faster easings. Keep every animation behind `prefers-reduced-motion`. Drive
+  the motion + micro-interaction design with `/impeccable` (motion, ambitious
+  visual effects, reduced-motion fallbacks). **AC:** reduced-motion renders a
+  static, still-aggressive layout.
 - **1.4 Terminal is now allowed.** The old thesis banned fake CLIs; the rebrand
   *embraces* an operator terminal motif (real-looking, not Matrix-rain cliché).
   Repurpose/upgrade `DispatchTerminal` into the signature component. **AC:** no
@@ -84,6 +98,8 @@ advertisement of present criminal service. See Epic 9.
 
 ## Epic 3 — Hero rebuild (`src/components/Hero.tsx`, `AttackVectorGraph.tsx`)
 *Goal: first 3 seconds establish notoriety.*
+*Driver: `/impeccable` live-browser loop — this is the highest-stakes surface;*
+*iterate the hero effect, hierarchy, and above-the-fold rhythm visually.*
 
 - **3.1** New hero headline stating the lineage claim bluntly + a live "status"
   strip. **AC:** matches voice from 0.2; passes Epic 9.
@@ -96,6 +112,7 @@ advertisement of present criminal service. See Epic 9.
 
 ## Epic 4 — Arsenal / capabilities (`src/components/Services.tsx`)
 *Goal: reframe services as an arsenal, not a menu.*
+*Driver: `/impeccable` for the bento layout, visual hierarchy, and card states.*
 
 - **4.1** Recast the bento grid as "The Arsenal" — AiTM/phishing-resilience
   testing, MFA-bypass red teaming, passkey/FIDO2 assessment (ties to existing
@@ -106,6 +123,7 @@ advertisement of present criminal service. See Epic 9.
 
 ## Epic 5 — Heritage / notoriety section (new component)
 *Goal: tell the Evilginx → ProksiAbel → boutique story on-page.*
+*Driver: `/impeccable` for the timeline layout + scroll-driven storytelling motion.*
 
 - **5.1** New `Heritage.tsx` (or extend `Dossier.tsx`): timeline from the
   Estonian Evilginx origin → ProksiAbel's commercial AiTM iterations (past
@@ -128,8 +146,9 @@ advertisement of present criminal service. See Epic 9.
 
 - **7.1** Recast the contact/PGP terminal as "TARGET INTAKE" with an operator
   console feel; keep PGP (`src/config/pgp.ts`) and real contact path
-  (`src/data/contact.tsx`) intact. **AC:** form works, PGP key unchanged, no
-  dark-pattern.
+  (`src/data/contact.tsx`) intact. Use `/impeccable` for form design, field
+  states, validation/error + success states, and UX copy. **AC:** form works,
+  PGP key unchanged, no dark-pattern.
 
 ## Epic 8 — Legal/guide pages, SEO, meta, structured data
 *Goal: propagate the rebrand to the edges and search.*
@@ -160,21 +179,58 @@ advertisement of present criminal service. See Epic 9.
 - **10.1** Per-phase verify gate (unchanged tooling):
   `pnpm exec tsc -b && pnpm exec biome check && pnpm exec vite build`, plus
   prerender count green. **AC:** all green before merge.
-- **10.2** Accessibility pass: contrast, reduced-motion, keyboard, focus order on
-  the new aggressive palette/motion. **AC:** WCAG AA maintained.
-- **10.3** Browser visual QA (Playwright) EN + ET, mobile + desktop. **AC:**
-  screenshots archived; no layout breaks.
+- **10.2** Accessibility + polish audit via `/impeccable` audit mode: contrast,
+  reduced-motion, keyboard, focus order, responsive behavior, anti-patterns on
+  the new aggressive palette/motion. **AC:** WCAG AA maintained; audit findings
+  logged and resolved.
+- **10.3** Browser visual QA (Playwright, `/impeccable` live-browser) EN + ET,
+  mobile + desktop. **AC:** screenshots archived; no layout breaks.
 - **10.4** Deploy: CNAME/Pages pipeline already fixed — confirm `pub/`
   regenerated and custom domain intact after build.
+
+## Epic 11 — Design-token pipeline (single source of truth)
+*Goal: one authored token set drives CSS, Tailwind, and `DESIGN.md` — no more*
+*hand-syncing hex across files when the aggressive palette evolves.*
+*Driver: `/impeccable` (reusable design systems / tokens) authors the token set.*
+
+- **11.1** Author tokens once in a structured source (`src/design/tokens.json`
+  or `tokens.ts`): color, type scale, spacing, radius, motion, elevation —
+  seeded from the Epic 1 palette. **AC:** every value used on the homepage has a
+  named token; no raw hex left in components.
+- **11.2** Generate consumers from the source: CSS custom properties in
+  `src/index.css` (or a generated `tokens.css`) and the Tailwind theme in the
+  build config. Wire a `pnpm` script (`build:tokens`) into the pipeline; run it
+  in `postbuild`/pre-`vite build`. **AC:** editing one token propagates to CSS +
+  Tailwind + docs on rebuild; verify gate stays green.
+- **11.3** Regenerate the `DESIGN.md` frontmatter token block from the same
+  source (or assert parity in CI) so docs never drift. **AC:** `DESIGN.md`
+  tokens match `tokens.*`; a check fails the build on drift.
+- **11.4** Keep it self-hosted/GDPR-safe — token pipeline pulls no external
+  assets. See [[fonts-self-hosted-no-cdn]]. **AC:** no new network dependency.
+
+## Epic 12 — Heritage timeline content model (structured content)
+*Goal: the Evilginx → ProksiAbel → boutique story (Epic 5) is data, not JSX —*
+*editable, sourced, and reused by structured data + the legal read.*
+
+- **12.1** Model the timeline as structured content: `src/data/heritage.ts`
+  (or `content/heritage/*.md` front-matter) with `{ year, title, body_en,
+  body_et, sources[], grey_zone: bool }` per entry. **AC:** `Heritage.tsx`
+  renders purely from the model; adding an entry needs no component edit.
+- **12.2** Every entry carries its citation(s); the Epic 9 legal read runs
+  against the data file, not scattered JSX. Entries with `grey_zone: true` must
+  be past-tense and source-backed or they fail the gate. **AC:** no uncited
+  third-party claim; legal read signs off on the data file.
+- **12.3** Feed the same model into `index.html` / `SEOMeta` JSON-LD where a
+  timeline/`Organization` history is expressible, honoring the truthfulness
+  rules ([[redswat-hackathon-credential]]). **AC:** structured data derives from
+  the model, no divergent hardcoded copy.
+- **12.4** ET/EN parity built into the model; Estonian validated with the
+  estonian-mcp tools. **AC:** both locales present per entry; ET checked, not
+  guessed.
 
 ---
 
 ## Sequencing (dependency order)
-`Epic 0 → 1 → 2` in parallel with `9` running continuously →
-`3, 4, 5, 6, 7` (parallelizable) → `8` → `10`.
-
-## Skipped deliberately
-- No new component library / design-token pipeline — extend `DESIGN.md` + CSS
-  custom props already in place. Add when a second surface needs the tokens.
-- No CMS for the heritage timeline — hardcode in i18n like the rest. Add when
-  copy changes weekly, not before.
+`Epic 0 → 1 → 11` (tokens depend on the Epic 1 palette) → `2` in parallel with
+`9` running continuously → `3, 4, 5, 6, 7` (parallelizable; Epic 5 depends on
+`12`) → `8` → `10`.
