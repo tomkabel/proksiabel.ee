@@ -1,6 +1,6 @@
 ---
-name: ProksiAbel
-description: Precision offensive-security presence — obsidian depth, one disciplined signal.
+name: ProksiAbel — The Adversary
+description: Notoriety over restraint — inherited AiTM lineage, authorized and contracted aggression.
 colors:
   void: "#05070b"
   surface-1: "#0a0f1d"
@@ -93,6 +93,19 @@ components:
 
 ## Overview
 
+**Creative North Star: "The Adversary"**
+
+ProksiAbel is built on inherited adversary-in-the-middle technique — the Evilginx lineage — turned into an authorized, contracted service. The brand does not sell restraint; it sells notoriety earned by breaking in first, on paper, with permission, and then handing over the fix. See `docs/redesign/manifesto.md` for the full thesis and its sourcing.
+
+This section states the thesis only; it carries no new visual specifics. Palette, motion, and the operator terminal are owned by later epics — see `## Superseded — not binding` below for exactly which prohibition each one releases and which epic/story owns the replacement.
+
+## Superseded — not binding
+
+The following was ProksiAbel's founding design thesis. It no longer reflects the brand's
+direction (see `## Overview` above and `docs/redesign/manifesto.md`), but is preserved here
+verbatim rather than deleted — later material still quotes its final Overview sentence directly
+(Voice anti-example 7, below).
+
 **Creative North Star: "The Obsidian Instrument"**
 
 ProksiAbel looks the way a precision offensive tool feels in the hand: dark, dense, and machined. The surface is near-black volcanic glass that layers by luminance instead of shadow, and across that darkness runs exactly one live current — a single cyan signal that marks where the system is paying attention. The reference points are Trail of Bits, Linear, Chainguard, and Vercel: technical authority carried by tactile craftsmanship and surgical clarity, never by decoration. This world deliberately rejects the "script-kiddie terminal mockup" — no fake typing CLIs, no neon-hacker cliché, no green-on-black Matrix rain. Credibility comes from restraint.
@@ -107,6 +120,21 @@ Motion is spring-eased and purposeful — cursor-tracking spotlights, status pul
 - Three-font system: authority sans, reading sans, machine mono.
 - Machined-glass detail: hairline specular edges, hairline borders.
 - Fonts self-hosted; no third-party CDN, ever (GDPR / privacy brand).
+
+### Prohibitions resolved
+
+The old thesis banned three things by name. None of the three is a live prohibition anymore:
+
+- **Terminals** — Released. The old "no fake-terminal / typing-CLI / green-Matrix hacker
+  cliché" ban no longer binds. The operator terminal is the terminal work in Epic 7 (story 7.2)
+  to define.
+- **Color count** — Released. The Cyan Core ≤10% / "one disciplined signal" rule (the old
+  "One Signal Rule," still stated as live below in `## Colors` until Epic 3 Story 3.1 replaces
+  it) no longer binds. The replacement palette is that story's work to define.
+- **Motion intensity** — Released. The old thesis's "spring-eased and purposeful" motion
+  restraint no longer binds. The replacement motion language is Epic 3, Story 3.3's work to
+  define. This releases motion *intensity* only — the `prefers-reduced-motion` accessibility
+  gate below (`## Do's and Don'ts`) is unaffected and remains binding.
 
 ## Voice
 
@@ -168,7 +196,7 @@ A near-black obsidian field carrying one electric current. Structure is monochro
 - **Signal Warning** (#ffb020): Caution and pending states.
 
 ### Named Rules
-**The One Signal Rule.** Cyan Core appears on ≤10% of any given screen and only as a signal — focus ring, live status, micro-badge. Structural surfaces stay on the obsidian ladder. If cyan is filling a large area, it is wrong.
+**The One Signal Rule — superseded, not binding (see `## Superseded — not binding`).** Cyan Core appears on ≤10% of any given screen and only as a signal — focus ring, live status, micro-badge. Structural surfaces stay on the obsidian ladder. If cyan is filling a large area, it is wrong. This description matches the current tokens; the ≤10% cap itself is released, and Epic 3 Story 3.1 defines its replacement.
 
 **The Depth-By-Light Rule.** Elevation is expressed by moving up the surface ladder (brighter = closer), not by casting shadows. A raised element gets a brighter surface and a specular top edge, not a drop shadow.
 
@@ -245,14 +273,11 @@ An obsidian-card that tracks the cursor: pointer position is written to CSS cust
 
 ### Do:
 - **Do** build elevation by stepping up the obsidian ladder (`void`→`surface-3`) plus a 1px inset specular top edge.
-- **Do** keep Cyan Core (#00e5ff) to ≤10% of any screen — focus, live status, mono-badges only.
 - **Do** set every technical value, label, badge, and nav item in JetBrains Mono with `tabular-nums`.
 - **Do** self-host all fonts (`woff2`, `@font-face`, `display:swap`); the privacy brand forbids any third-party font CDN.
 - **Do** gate every animation behind `prefers-reduced-motion` and keep the fractal grain overlay to prevent OLED banding.
 
 ### Don't:
-- **Don't** ship fake-terminal / typing-CLI / green-Matrix hacker clichés — the thesis rejects them.
-- **Don't** use cyan as a large fill or background; it is a signal, not a surface.
 - **Don't** reach for drop shadows as the primary depth cue — brighten the surface instead.
 - **Don't** set prose in monospace or data in prose; keep the three voices separate.
 - **Don't** reintroduce Google Fonts or any third-party CDN.
