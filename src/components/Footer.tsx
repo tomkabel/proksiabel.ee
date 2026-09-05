@@ -2,6 +2,10 @@ import { Mail, MapPin, Phone } from 'lucide-react';
 import { contactInfo } from '../data/contact';
 import { useTranslation } from '../i18n';
 
+/**
+ * Site-wide footer component displaying company information, contact details,
+ * navigation links to services, resources, and legal pages.
+ */
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const { t } = useTranslation();

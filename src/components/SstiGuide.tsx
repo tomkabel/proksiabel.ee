@@ -24,6 +24,10 @@ const techArticleSchema = {
   },
 };
 
+/**
+ * Technical guide component explaining server-side template injection (SSTI)
+ * vulnerabilities, detection methods, exploitation examples, and prevention patterns.
+ */
 export default function SstiGuide() {
   return (
     <>

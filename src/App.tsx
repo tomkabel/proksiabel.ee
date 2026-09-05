@@ -146,6 +146,10 @@ function SkipLink() {
   );
 }
 
+/**
+ * Root application component that sets up routing, internationalization,
+ * and the overall page structure with background effects and navigation.
+ */
 function App() {
   return (
     <LanguageProvider>
