@@ -24,6 +24,7 @@ export default function Footer() {
         { label: 'IDOR Explained', href: '/guides/idor-explained' },
         { label: 'XXE Explained', href: '/guides/xxe-explained' },
         { label: 'Kubernetes Hardening', href: '/guides/kubernetes-security-hardening' },
+        { label: 'Race Conditions Explained', href: '/guides/race-conditions-explained' },
       ],
     },
     {
