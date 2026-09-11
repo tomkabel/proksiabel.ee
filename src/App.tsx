@@ -18,6 +18,7 @@ const Disclosure = React.lazy(() => import('./components/Disclosure'));
 const Fido2PasskeysGuide = React.lazy(() => import('./components/Fido2PasskeysGuide'));
 const SsrfGuide = React.lazy(() => import('./components/SsrfGuide'));
 const IdorGuide = React.lazy(() => import('./components/IdorGuide'));
+const XxeGuide = React.lazy(() => import('./components/XxeGuide'));
 const NotFound = React.lazy(() => import('./components/NotFound'));
 
 /**
@@ -251,6 +252,19 @@ function App() {
                     breadcrumbUrl='/guides/idor-explained'
                   >
                     <IdorGuide />
+                  </LegalLayout>
+                }
+              />
+              <Route
+                path='/guides/xxe-explained'
+                element={
+                  <LegalLayout
+                    defaultTitle='XXE Explained: Attack Examples & Prevention'
+                    defaultDescription='XML external entity (XXE) injection (CWE-611) explained: the XML 1.0 features that make it possible, in-band and blind attack classes, real CVEs, a reproducible docker-compose lab, detection rules, and per-language fix patterns.'
+                    breadcrumbTitle='XXE Explained'
+                    breadcrumbUrl='/guides/xxe-explained'
+                  >
+                    <XxeGuide />
                   </LegalLayout>
                 }
               />
