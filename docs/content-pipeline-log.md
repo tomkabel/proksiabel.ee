@@ -39,7 +39,9 @@ Deviations/notes: branch topology — repo's active dev line is `feat/ui-polish-
 
 Gates: `npx tsc -b` pass · `npm run lint` pass (oxlint 0/0, biome 61 files clean) · `npm run build` pass (8/8 pages prerendered) · built-page check pass (title "IDOR Explained: Attack Examples & Prevention — ProksiAbel OÜ", canonical, TechArticle JSON-LD) · live checks pass (route 200 via trailing slash, homepage 200, cache purged via CF API zone 4a3c68c9fe236c83c98628b224f4d94b).
 
-## 2026-09-11 | PR #38 | /guides/xxe-explained | XXE / XML external entity deep-dive with local lab (CWE-611, CWE-776) | Strategy 2 | XXE / XML external entity / XXE attack example / XXE prevention / blind XXE / billion laughs | gates passed, awaiting review
+## 2026-09-07 | PR #35 | /guides/kubernetes-security-hardening | Kubernetes Security Best Practices: Hardening Checklist | Strategy 3 | kubernetes security best practices / kubernetes hardening / kubernetes security checklist | gates passed, merged
+
+## 2026-09-11 | PR #38 | /guides/xxe-explained | XXE / XML external entity deep-dive with local lab (CWE-611, CWE-776) | Strategy 2 | XXE / XML external entity / XXE attack example / XXE prevention / blind XXE / billion laughs | gates passed, merged
 
 **Files:** `src/components/XxeGuide.tsx` (new — TechArticle JSON-LD, 5 HTML tables, XML 1.0 §4.2.2/§4.4.2–§4.4.5 anatomy, in-band + blind attack classes, CVE-2025-66516 / CVE-2025-68493 / CVE-2017-12629, docker-compose Flask+lxml lab with vulnerable and hardened endpoints, Semgrep + Suricata detection rules, Java/.NET/Python/PHP/Go/Node fix patterns, Estonian summary, sources), `src/App.tsx` (lazy route), `src/components/Footer.tsx` (guide link), `public/sitemap.xml` (monthly/0.8, lastmod 2026-09-11), `public/llms.txt`, `pub/` build artifacts.
 

@@ -19,6 +19,7 @@ const Fido2PasskeysGuide = React.lazy(() => import('./components/Fido2PasskeysGu
 const SsrfGuide = React.lazy(() => import('./components/SsrfGuide'));
 const IdorGuide = React.lazy(() => import('./components/IdorGuide'));
 const XxeGuide = React.lazy(() => import('./components/XxeGuide'));
+const KubernetesHardeningGuide = React.lazy(() => import('./components/KubernetesHardeningGuide'));
 const NotFound = React.lazy(() => import('./components/NotFound'));
 
 /**
@@ -265,6 +266,19 @@ function App() {
                     breadcrumbUrl='/guides/xxe-explained'
                   >
                     <XxeGuide />
+                  </LegalLayout>
+                }
+              />
+              <Route
+                path='/guides/kubernetes-security-hardening'
+                element={
+                  <LegalLayout
+                    defaultTitle='Kubernetes Security Best Practices: A Hardening Checklist'
+                    defaultDescription='Kubernetes security best practices in a hardening checklist: RBAC least privilege, Pod Security Standards (restricted), seccomp and non-root workloads, default-deny NetworkPolicies, control-plane and kubelet hardening, image supply-chain gates, and kube-bench verification with YAML and commands.'
+                    breadcrumbTitle='Kubernetes Hardening'
+                    breadcrumbUrl='/guides/kubernetes-security-hardening'
+                  >
+                    <KubernetesHardeningGuide />
                   </LegalLayout>
                 }
               />

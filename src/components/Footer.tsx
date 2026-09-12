@@ -23,6 +23,7 @@ export default function Footer() {
         { label: 'SSRF Explained', href: '/guides/ssrf-explained' },
         { label: 'IDOR Explained', href: '/guides/idor-explained' },
         { label: 'XXE Explained', href: '/guides/xxe-explained' },
+        { label: 'Kubernetes Hardening', href: '/guides/kubernetes-security-hardening' },
       ],
     },
     {
