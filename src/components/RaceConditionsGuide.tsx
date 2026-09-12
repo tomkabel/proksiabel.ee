@@ -1,0 +1,854 @@
+import { Helmet } from '@dr.pogodin/react-helmet';
+
+const guideUrl = 'https://proksiabel.ee/guides/race-conditions-explained';
+
+const techArticleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: 'Race Conditions Explained: Attack Examples & Prevention',
+  description:
+    'Race condition vulnerabilities (CWE-362, CWE-367 TOCTOU) explained: how parallel requests overrun single-use limits and rate limits, with a reproducible docker-compose lab, a detection methodology, and atomic fix patterns.',
+  datePublished: '2026-09-09',
+  dateModified: '2026-09-09',
+  inLanguage: 'en',
+  mainEntityOfPage: guideUrl,
+  author: {
+    '@type': 'Organization',
+    name: 'ProksiAbel OÜ',
+    url: 'https://proksiabel.ee/',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'ProksiAbel OÜ',
+    url: 'https://proksiabel.ee/',
+  },
+};
+
+export default function RaceConditionsGuide() {
+  return (
+    <>
+      <Helmet>
+        <script type='application/ld+json'>{JSON.stringify(techArticleSchema)}</script>
+      </Helmet>
+
+      <div lang='en' className='min-h-screen bg-slate-900 pt-24 pb-12'>
+        <div className='max-w-4xl mx-auto px-4 sm:px-6 lg:px-8'>
+          <p className='text-sm uppercase tracking-wide text-sky-400 font-semibold mb-4'>
+            Technical Guide
+          </p>
+          <h1 className='text-3xl md:text-4xl font-bold text-white mb-6'>
+            Race Conditions Explained: Attack Examples &amp; Prevention
+          </h1>
+          <p className='text-slate-400 text-lg leading-relaxed mb-10'>
+            A race condition vulnerability lets two or more carefully timed requests collide inside
+            a check-then-use gap, so a single-use coupon redeems 25 times, one invite link creates
+            unlimited accounts, and a rate limit never applies. It is CWE-362 and, in its
+            time-of-check to time-of-use (TOCTOU) form, CWE-367. This guide covers the mechanics, a
+            reproducible local lab, detection, and atomic fixes.
+          </p>
+
+          <div className='max-w-none text-slate-300'>
+            <section className='mb-10'>
+              <h2 className='text-xl text-sky-500 font-semibold mb-4'>What a race condition is</h2>
+              <p className='leading-relaxed mb-4'>
+                Race conditions occur when a website processes requests concurrently without
+                adequate synchronization, letting multiple execution threads interact with the same
+                data at the same time. PortSwigger&apos;s Web Security Academy defines the attack
+                precisely: a race condition attack uses{' '}
+                <em>carefully timed requests to cause intentional collisions</em> and exploit the
+                resulting unintended behavior. The period in which a collision is possible is the{' '}
+                <strong className='text-sky-400'>race window</strong> — often a fraction of a second
+                between two interactions with the database.
+              </p>
+              <p className='leading-relaxed mb-4'>
+                The most common exploitable form is a <em>limit overrun</em>: an operation that is
+                supposed to run exactly once (or N times) runs more often, because every colliding
+                request validates against the same stale state. OWASP&apos;s Top 10 for Business
+                Logic Abuse project calls this class{' '}
+                <a
+                  className='text-sky-400 hover:text-sky-300'
+                  href='https://owasp.org/www-project-top-10-for-business-logic-abuse/docs/the-top-10/action-limit-overrun'
+                  rel='noopener noreferrer'
+                >
+                  BLA1:2025 — Action Limit Overrun
+                </a>
+                : redeeming a coupon twice, issuing a refund twice, granting a free trial twice, or
+                accepting a single invite more than once.
+              </p>
+              <p className='leading-relaxed'>
+                Two MITRE IDs cover what testers mean by &quot;race condition&quot;: CWE-362
+                (class-level: concurrent execution using a shared resource with improper
+                synchronization), and CWE-367, the time-of-check to time-of-use (TOCTOU) subtype — a
+                resource is validated at check time and assumed unchanged at use time. CWE-362 made
+                MITRE&apos;s 2023 CWE Top 25 list. In web applications the same primitive also
+                appears in non-limit forms: hidden multi-step sequences (session states that exist
+                only between two steps of one request) and partial construction of objects.
+              </p>
+            </section>
+
+            <section className='mb-10'>
+              <h2 className='text-xl text-sky-500 font-semibold mb-4'>
+                Anatomy: the check-then-use window
+              </h2>
+              <p className='leading-relaxed mb-4'>
+                Consider a one-time discount code. The intended logic is three steps:
+              </p>
+              <ol className='list-decimal list-inside space-y-2 mb-4'>
+                <li>Check that this code has not been used yet.</li>
+                <li>Apply the discount to the order.</li>
+                <li>Record in the database that the code is now used.</li>
+              </ol>
+              <p className='leading-relaxed mb-4'>
+                Between step 1 and step 3 the code is in a temporary{' '}
+                <strong className='text-sky-400'>sub-state</strong>: already validated, not yet
+                marked used. Any second request that runs its own step 1 inside that window also
+                sees &quot;unused&quot; and proceeds. Two concurrent requests both pass the check,
+                then both write:
+              </p>
+              <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
+                {`Thread A                         Thread B
+--------                         --------
+SELECT redeemed_by FROM coupons  SELECT redeemed_by FROM coupons
+WHERE code='X';                  WHERE code='X';
+  -> NULL (unused)                 -> NULL (unused)   # both pass the check
+        ... multi-step work (payments, I/O, locks) ...
+UPDATE coupons SET redeemed_by    UPDATE coupons SET redeemed_by
+= 'alice' WHERE code='X';         = 'bob' WHERE code='X';
+  -> success                       -> success          # both "redeem" it`}
+              </pre>
+              <p className='leading-relaxed mb-4'>
+                Both requests succeed, and the last write silently clobbers the first. The
+                application returns &quot;redeemed&quot; to both callers — the discount was granted
+                twice (or twenty-five times) for one code.
+              </p>
+              <p className='leading-relaxed mb-4'>
+                The window is usually tiny, which is why race conditions were historically
+                under-reported: requests sent &quot;at the same time&quot; over the network do not
+                reliably arrive at the same time. Network jitter staggers them, so the first request
+                finishes step 3 before the second reaches step 1. PortSwigger research (Black Hat
+                USA 2023) changed that with the{' '}
+                <strong className='text-sky-400'>single-packet attack</strong>: 20–30 HTTP/2
+                requests are completed inside one TCP packet, eliminating network jitter and making
+                remote race windows as easy to hit as local ones.
+              </p>
+              <p className='leading-relaxed'>
+                The same collision pattern shows up beyond limits. PortSwigger&apos;s academy
+                documents <em>hidden multi-step sequences</em> — for example a login handler that
+                creates a session and only then sets an &quot;enforce MFA&quot; flag: a second
+                request raced into that gap reaches authenticated endpoints before MFA is enforced.
+                Any single request that transitions the application through a short-lived sub-state
+                is a candidate.
+              </p>
+            </section>
+
+            <section className='mb-10'>
+              <h2 className='text-xl text-sky-500 font-semibold mb-4'>
+                Real-world race condition exploits
+              </h2>
+              <div className='overflow-x-auto mb-4'>
+                <table className='w-full text-sm text-left border-collapse'>
+                  <thead>
+                    <tr className='border-b border-slate-700'>
+                      <th className='py-3 pr-4 text-slate-100 font-semibold'>Incident</th>
+                      <th className='py-3 pr-4 text-slate-100 font-semibold'>
+                        Race condition role
+                      </th>
+                      <th className='py-3 text-slate-100 font-semibold'>Outcome</th>
+                    </tr>
+                  </thead>
+                  <tbody className='text-slate-300'>
+                    <tr className='border-b border-slate-800'>
+                      <td className='py-3 pr-4 align-top'>
+                        CVE-2024-2913 — anything-llm invite acceptance
+                      </td>
+                      <td className='py-3 pr-4 align-top'>
+                        The invite-acceptance API does not lock invite tokens atomically. Concurrent
+                        requests against one invite link each pass the &quot;unused&quot; check.
+                      </td>
+                      <td className='py-3 align-top'>
+                        Multiple user accounts created from a single-user invite link, bypassing the
+                        intended restriction. CWE-367, CVSS 6.5 (medium), published 2024-05-07.
+                      </td>
+                    </tr>
+                    <tr className='border-b border-slate-800'>
+                      <td className='py-3 pr-4 align-top'>
+                        CVE-2024-53476 — SimplCommerce checkout
+                      </td>
+                      <td className='py-3 pr-4 align-top'>
+                        Simultaneous purchase requests from multiple accounts for the same product
+                        bypass inventory tracking: stock is read, then decremented, with no atomic
+                        guard between the two.
+                      </td>
+                      <td className='py-3 align-top'>
+                        Overselling when stock is limited. CWE-362, CVSS 5.9 (medium), published
+                        2024-12-27.
+                      </td>
+                    </tr>
+                    <tr className='border-b border-slate-800'>
+                      <td className='py-3 pr-4 align-top'>
+                        Single-use coupons, gift cards, refunds, trials (class)
+                      </td>
+                      <td className='py-3 pr-4 align-top'>
+                        The canonical Action Limit Overrun pattern documented by OWASP BLA1:2025 and
+                        PortSwigger: check balance/usage, apply, then record usage — in separate
+                        steps.
+                      </td>
+                      <td className='py-3 align-top'>
+                        Free goods or repeated payouts from one code or balance; rating and CAPTCHA
+                        reuse; anti-brute-force rate limits bypassed.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p className='leading-relaxed'>
+                Bug-bounty programs treat these as high-impact business-logic findings even when no
+                CVE exists, because the loss is direct: one coupon code, gift card, or invite is a
+                finite asset, and the race duplicates it.
+              </p>
+            </section>
+
+            <section className='mb-10'>
+              <h2 className='text-xl text-sky-500 font-semibold mb-4'>Reproducible local lab</h2>
+              <p className='leading-relaxed mb-4'>
+                Everything below runs in local containers on your machine — no live targets. The lab
+                is a Flask app backed by SQLite with two endpoints: a vulnerable single-use coupon
+                redemption and a fixed one. SQLite is a deliberate choice: it serializes the writes
+                but not the checks, which is exactly how the bug works at scale.
+              </p>
+
+              <h3 className='text-lg text-sky-400 font-medium mb-3'>docker-compose.yml</h3>
+              <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
+                {`services:
+  race-lab:
+    build: .
+    ports:
+      - "127.0.0.1:8080:8080"`}
+              </pre>
+
+              <h3 className='text-lg text-sky-400 font-medium mb-3'>Dockerfile</h3>
+              <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
+                {`FROM python:3.12-slim
+WORKDIR /app
+RUN pip install --no-cache-dir flask
+COPY app.py .
+EXPOSE 8080
+CMD ["python", "app.py"]`}
+              </pre>
+
+              <h3 className='text-lg text-sky-400 font-medium mb-3'>
+                app.py — vulnerable and fixed redemption endpoints
+              </h3>
+              <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
+                {`import sqlite3
+import time
+from datetime import datetime, timezone
+
+from flask import Flask, jsonify, request
+
+app = Flask(__name__)
+DB = "lab.db"
+
+
+def db():
+    conn = sqlite3.connect(DB, timeout=10)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+
+def init_db():
+    conn = db()
+    conn.executescript(
+        """
+        CREATE TABLE IF NOT EXISTS coupons (
+            code TEXT PRIMARY KEY,
+            value_cents INTEGER NOT NULL,
+            redeemed_by TEXT,
+            redeemed_at TEXT
+        );
+        """
+    )
+    conn.execute(
+        "INSERT OR IGNORE INTO coupons (code, value_cents) VALUES ('LAB-COUPON-0001', 2500)"
+    )
+    conn.commit()
+    conn.close()
+
+
+def request_params():
+    if request.is_json:
+        return request.json
+    return request.form
+
+
+init_db()
+
+
+@app.post("/redeem")
+def redeem():
+    """Vulnerable: check-then-use with a real delay between check and write."""
+    data = request_params()
+    code = data.get("code")
+    user = data.get("user")
+
+    conn = db()
+    row = conn.execute(
+        "SELECT * FROM coupons WHERE code = ?", (code,)
+    ).fetchone()
+    if row is None or row["redeemed_by"] is not None:
+        conn.close()
+        return jsonify({"ok": False, "reason": "unknown or already redeemed"}), 400
+
+    # Widens the race window. In a real app this gap is filled by slow
+    # multi-step logic: payment calls, email lookups, other I/O.
+    time.sleep(0.15)
+
+    conn.execute(
+        "UPDATE coupons SET redeemed_by = ?, redeemed_at = ? WHERE code = ?",
+        (user, datetime.now(timezone.utc).isoformat(), code),
+    )
+    conn.commit()
+    conn.close()
+    return jsonify({"ok": True, "value_cents": row["value_cents"]})
+
+
+@app.post("/redeem-fixed")
+def redeem_fixed():
+    """Fixed: guard and mutation are one atomic conditional UPDATE."""
+    data = request_params()
+    code = data.get("code")
+    user = data.get("user")
+
+    conn = db()
+    cur = conn.execute(
+        "UPDATE coupons SET redeemed_by = ?, redeemed_at = ? "
+        "WHERE code = ? AND redeemed_by IS NULL",
+        (user, datetime.now(timezone.utc).isoformat(), code),
+    )
+    conn.commit()
+    ok = cur.rowcount == 1
+    conn.close()
+    if not ok:
+        return jsonify({"ok": False, "reason": "unknown or already redeemed"}), 400
+    return jsonify({"ok": True, "value_cents": 2500})
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080, threaded=True)`}
+              </pre>
+
+              <h3 className='text-lg text-sky-400 font-medium mb-3'>Run it</h3>
+              <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
+                {`docker compose up --build -d`}
+              </pre>
+              <p className='leading-relaxed mb-4'>
+                The coupon row lives in the container&apos;s filesystem. To reset state between
+                attempts: <code className='text-slate-100'>docker compose down</code> then{' '}
+                <code className='text-slate-100'>docker compose up --build -d</code> again.
+              </p>
+
+              <h3 className='text-lg text-sky-400 font-medium mb-3'>
+                Sequential control: the check works when requests do not collide
+              </h3>
+              <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
+                {`$ curl -s -X POST -H 'Content-Type: application/json' \\
+    -d '{"code":"LAB-COUPON-0001","user":"alice@example.com"}' \\
+    http://localhost:8080/redeem
+{"ok":true,"value_cents":2500}
+
+$ curl -s -X POST -H 'Content-Type: application/json' \\
+    -d '{"code":"LAB-COUPON-0001","user":"mallory@example.com"}' \\
+    http://localhost:8080/redeem
+{"ok":false,"reason":"unknown or already redeemed"}`}
+              </pre>
+              <p className='leading-relaxed mb-4'>
+                One request at a time, the logic is correct: first use succeeds, the second is
+                rejected. This is why the bug survives casual testing.
+              </p>
+
+              <h3 className='text-lg text-sky-400 font-medium mb-3'>
+                Exploit: 25 parallel requests, one coupon code
+              </h3>
+              <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
+                {`$ seq 1 25 | xargs -P25 -I{} curl -s -X POST -H 'Content-Type: application/json' \\
+    -d '{"code":"LAB-COUPON-0001","user":"mallory-{}@example.com"}' \\
+    http://localhost:8080/redeem | grep -c '"ok":true'
+25`}
+              </pre>
+              <p className='leading-relaxed mb-4'>
+                All 25 requests returned success for one single-use coupon. On a real store that is
+                25 free orders. Every thread read{' '}
+                <code className='text-slate-100'>redeemed_by IS NULL</code> before any thread wrote
+                — the sleep merely widens a window that real multi-step logic (payment provider
+                calls, order creation, email) provides naturally.
+              </p>
+
+              <h3 className='text-lg text-sky-400 font-medium mb-3'>
+                Fixed: the same burst against /redeem-fixed
+              </h3>
+              <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
+                {`$ docker compose down && docker compose up --build -d   # reset state
+
+$ seq 1 25 | xargs -P25 -I{} curl -s -X POST -H 'Content-Type: application/json' \\
+    -d '{"code":"LAB-COUPON-0001","user":"mallory-{}@example.com"}' \\
+    http://localhost:8080/redeem-fixed | grep -c '"ok":true'
+1`}
+              </pre>
+              <p className='leading-relaxed mb-4'>
+                Exactly one request wins. The guard (
+                <code className='text-slate-100'>AND redeemed_by IS NULL</code>) and the mutation
+                live in one atomic statement, so SQLite serializes them: the first writer flips the
+                row, and the other 24 match zero rows and are rejected.
+              </p>
+
+              <h3 className='text-lg text-sky-400 font-medium mb-3'>
+                What does not work (and why that teaches you more)
+              </h3>
+              <ul className='list-disc list-inside space-y-2 mb-4'>
+                <li>
+                  <strong className='text-sky-400'>A threading.Lock around the handler</strong>{' '}
+                  fixes the single-process case and does nothing in production, where the app runs
+                  many processes (and often many hosts) behind a load balancer. The lock is
+                  per-process; the database is the shared truth.
+                </li>
+                <li>
+                  <strong className='text-sky-400'>A second SELECT before writing</strong>{' '}
+                  (double-checking) changes nothing: both checks still read pre-update state. The
+                  guard only becomes meaningful when it is part of the write.
+                </li>
+                <li>
+                  <strong className='text-sky-400'>Rate limiting the endpoint</strong> reduces
+                  throughput but does not close the window — the collision happens inside one
+                  processing burst, which is exactly what a rate limiter allows.
+                </li>
+                <li>
+                  <strong className='text-sky-400'>Rollback journal vs WAL mode</strong> changes
+                  SQLite&apos;s locking details but not the result: in both modes the unguarded
+                  check-then-write pattern races. The fix is the atomic statement, not the journal
+                  mode.
+                </li>
+              </ul>
+            </section>
+
+            <section className='mb-10'>
+              <h2 className='text-xl text-sky-500 font-semibold mb-4'>
+                How to detect race condition vulnerabilities
+              </h2>
+              <p className='leading-relaxed mb-4'>
+                Black-box detection follows PortSwigger&apos;s predict-probe-prove methodology from
+                the &quot;Smashing the state machine&quot; whitepaper:
+              </p>
+              <ol className='list-decimal list-inside space-y-2 mb-4'>
+                <li>
+                  <strong className='text-sky-400'>Predict</strong> — enumerate endpoints that read
+                  and then mutate the same state: single-use codes (coupons, invites, gift cards,
+                  CAPTCHA), limit-gated actions (votes, likes, signups, wallet top-ups,
+                  password/email change, transfer), and multi-step auth or recovery flows.
+                </li>
+                <li>
+                  <strong className='text-sky-400'>Probe</strong> — send a burst of 20–30 identical
+                  requests and look for an anomalous number of successes. In the lab above the
+                  signal is stark: 25 successes where the business rule allows 1.
+                </li>
+                <li>
+                  <strong className='text-sky-400'>Prove</strong> — replay the winning request once,
+                  sequentially. If it now fails, you have confirmed a race window rather than a
+                  genuinely repeatable flaw.
+                </li>
+              </ol>
+
+              <h3 className='text-lg text-sky-400 font-medium mb-3'>
+                Delivering the burst: HTTP/1.1 vs HTTP/2
+              </h3>
+              <p className='leading-relaxed mb-4'>
+                Over HTTP/1.1, open many parallel TCP connections and synchronize their final bytes
+                (last-byte sync). Over HTTP/2, use the single-packet attack: queue the requests on
+                one connection, withhold the final fragment of each, then release them so the OS
+                coalesces them into a single TCP packet — 20–30 requests arrive and are processed
+                effectively simultaneously. Burp Suite Repeater&apos;s send-group tab does both
+                automatically. For scripting, Turbo Intruder&apos;s
+                <code className='text-slate-100'> race-single-packet-attack.py</code> template is
+                the reference implementation:
+              </p>
+              <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
+                {`def queueRequests(target, wordlists):
+    engine = RequestEngine(
+        endpoint=target.endpoint,
+        concurrentConnections=1,
+        engine=Engine.BURP2        # requires HTTP/2
+    )
+    # queue 20 requests in gate '1'
+    for i in range(20):
+        engine.queue(target.req, gate='1')
+    # send all requests in gate '1' in parallel
+    engine.openGate('1')`}
+              </pre>
+              <p className='leading-relaxed mb-4'>
+                The equivalent without tooling — a parallel curl burst — is what the lab exploit
+                above uses. It works locally and over HTTP/1.1; for remote HTTP/2 targets, invest in
+                the single-packet tooling, because naive parallel requests will usually miss the
+                window.
+              </p>
+
+              <h3 className='text-lg text-sky-400 font-medium mb-3'>Code review signals</h3>
+              <ul className='list-disc list-inside space-y-2 mb-4'>
+                <li>
+                  Read state, then write it later, with an await, network call, sleep, or another
+                  statement in between — without a transaction or lock.
+                </li>
+                <li>
+                  Usage flags (used, redeemed, claimed, verified, consumed) flipped after the action
+                  they gate, instead of atomically with it.
+                </li>
+                <li>
+                  Balance/limit math done in application code instead of a guarded single statement
+                  in the datastore.
+                </li>
+                <li>
+                  Hand-rolled counters where a uniqueness constraint or an idempotency key would
+                  express the rule.
+                </li>
+                <li>
+                  Session or token state written in several steps (session created, MFA flag set
+                  later, role assigned then downgraded).
+                </li>
+              </ul>
+              <p className='leading-relaxed'>
+                Static analysis has poor coverage here: there is no taint edge to track, only a
+                timing relationship between a read and a write. Treat race-condition detection as a
+                manual review + DAST problem, not a SAST rule.
+              </p>
+            </section>
+
+            <section className='mb-10'>
+              <h2 className='text-xl text-sky-500 font-semibold mb-4'>
+                How to fix race conditions
+              </h2>
+              <p className='leading-relaxed mb-4'>
+                PortSwigger&apos;s guidance distills to one principle: eliminate sub-states from
+                sensitive endpoints — make the state change atomic using the datastore&apos;s
+                concurrency features, and use datastore integrity features (uniqueness constraints)
+                as defense in depth. Choose a pattern by what the operation does:
+              </p>
+              <div className='overflow-x-auto mb-4'>
+                <table className='w-full text-sm text-left border-collapse'>
+                  <thead>
+                    <tr className='border-b border-slate-700'>
+                      <th className='py-3 pr-4 text-slate-100 font-semibold'>Pattern</th>
+                      <th className='py-3 pr-4 text-slate-100 font-semibold'>Mechanism</th>
+                      <th className='py-3 pr-4 text-slate-100 font-semibold'>Use when</th>
+                      <th className='py-3 text-slate-100 font-semibold'>Caveat</th>
+                    </tr>
+                  </thead>
+                  <tbody className='text-slate-300'>
+                    <tr className='border-b border-slate-800'>
+                      <td className='py-3 pr-4 align-top'>Atomic conditional write</td>
+                      <td className='py-3 pr-4 align-top'>
+                        Guard and mutation in one statement:{' '}
+                        <code className='text-slate-100'>UPDATE ... WHERE ... AND guard</code> —
+                        success equals an affected-row count of one.
+                      </td>
+                      <td className='py-3 pr-4 align-top'>
+                        Default for claims, redeems, decrements, one-time flags.
+                      </td>
+                      <td className='py-3 align-top'>
+                        The check must be expressible in the WHERE clause.
+                      </td>
+                    </tr>
+                    <tr className='border-b border-slate-800'>
+                      <td className='py-3 pr-4 align-top'>
+                        Uniqueness constraint / idempotency key
+                      </td>
+                      <td className='py-3 pr-4 align-top'>
+                        UNIQUE column on the key that must not repeat; second insert violates the
+                        constraint.
+                      </td>
+                      <td className='py-3 pr-4 align-top'>
+                        Coupon redemptions, invite acceptances, payment intents, any client-retried
+                        operation.
+                      </td>
+                      <td className='py-3 align-top'>
+                        Handle the constraint violation as the normal &quot;already done&quot; path,
+                        not a 500.
+                      </td>
+                    </tr>
+                    <tr className='border-b border-slate-800'>
+                      <td className='py-3 pr-4 align-top'>Row lock in a transaction</td>
+                      <td className='py-3 pr-4 align-top'>
+                        <code className='text-slate-100'>SELECT ... FOR UPDATE</code> (or{' '}
+                        <code className='text-slate-100'>BEGIN IMMEDIATE</code> in SQLite), then
+                        re-check, then write, all in one transaction.
+                      </td>
+                      <td className='py-3 pr-4 align-top'>
+                        Multi-step operations no single statement can express (order + inventory +
+                        ledger).
+                      </td>
+                      <td className='py-3 align-top'>
+                        Lock ordering and deadlocks; keep transactions short.
+                      </td>
+                    </tr>
+                    <tr className='border-b border-slate-800'>
+                      <td className='py-3 pr-4 align-top'>Atomic session/auth state</td>
+                      <td className='py-3 pr-4 align-top'>
+                        Write session state (auth, MFA, role) as one consistent batch; never leave a
+                        valid-but-half-configured session reachable.
+                      </td>
+                      <td className='py-3 pr-4 align-top'>
+                        Login, MFA enforcement, role assignment, email/credential changes.
+                      </td>
+                      <td className='py-3 align-top'>
+                        ORMs can hide transaction boundaries — know where they commit.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className='py-3 pr-4 align-top'>Per-key serialization</td>
+                      <td className='py-3 pr-4 align-top'>
+                        Route operations on one key through a single queue or distributed lock.
+                      </td>
+                      <td className='py-3 pr-4 align-top'>
+                        Last resort when the datastore cannot express the rule.
+                      </td>
+                      <td className='py-3 align-top'>
+                        Adds a failure domain and latency; a distributed lock is only as good as its
+                        lease and fencing.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3 className='text-lg text-sky-400 font-medium mb-3'>
+                Python (SQLite) — atomic conditional update
+              </h3>
+              <p className='leading-relaxed mb-4'>
+                This is the exact fix in the lab. The guard is part of the write, so the datastore
+                serializes check and mutation together:
+              </p>
+              <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
+                {`cur = conn.execute(
+    "UPDATE coupons SET redeemed_by = ?, redeemed_at = ? "
+    "WHERE code = ? AND redeemed_by IS NULL",
+    (user, now, code),
+)
+conn.commit()
+if cur.rowcount != 1:
+    return "already redeemed", 409`}
+              </pre>
+
+              <h3 className='text-lg text-sky-400 font-medium mb-3'>
+                Node.js (Postgres) — same pattern
+              </h3>
+              <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
+                {`const result = await pool.query(
+  \`UPDATE coupons
+     SET redeemed_by = $1, redeemed_at = now()
+   WHERE code = $2 AND redeemed_by IS NULL\`,
+  [user, code]
+);
+if (result.rowCount !== 1) return res.status(409).end();`}
+              </pre>
+
+              <h3 className='text-lg text-sky-400 font-medium mb-3'>
+                Postgres — row lock for multi-step transactions
+              </h3>
+              <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
+                {`BEGIN;
+
+-- Lock the coupon row: concurrent transactions block here until commit.
+SELECT value_cents FROM coupons
+WHERE code = $1 AND redeemed_by IS NULL
+FOR UPDATE;
+
+-- Re-check inside the transaction, then do the multi-step work
+-- (apply discount, create order, write ledger) and commit.
+UPDATE coupons SET redeemed_by = $2 WHERE code = $1 AND redeemed_by IS NULL;
+
+COMMIT;`}
+              </pre>
+
+              <h3 className='text-lg text-sky-400 font-medium mb-3'>
+                Idempotency keys — make replay safe instead of forbidden
+              </h3>
+              <p className='leading-relaxed mb-4'>
+                For payment-adjacent operations the client should be able to retry safely. A unique
+                idempotency-key column turns a duplicate submission into a no-op that returns the
+                stored result:
+              </p>
+              <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
+                {`CREATE TABLE redemptions (
+    id              INTEGER PRIMARY KEY,
+    code            TEXT NOT NULL,
+    redeemed_by     TEXT NOT NULL,
+    idempotency_key TEXT NOT NULL UNIQUE,   -- client sends this header
+    created_at      TEXT NOT NULL
+);`}
+              </pre>
+              <p className='leading-relaxed mb-4'>
+                Insert with{' '}
+                <code className='text-slate-100'>ON CONFLICT (idempotency_key) DO NOTHING</code> and
+                branch on the affected-row count: 0 means a retry — return the original result, do
+                nothing twice.
+              </p>
+            </section>
+
+            <section className='mb-10'>
+              <h2 className='text-xl text-sky-500 font-semibold mb-4'>
+                Race condition prevention checklist
+              </h2>
+              <ul className='list-disc list-inside space-y-2 mb-6'>
+                <li>
+                  Audit every endpoint whose state is read-then-written: usage flags, limits,
+                  balances, single-use codes, invites, votes, session flags.
+                </li>
+                <li>
+                  Make the guard part of the write — one atomic statement, not check-then-act in
+                  application code.
+                </li>
+                <li>
+                  Add a uniqueness constraint or idempotency key wherever &quot;at most once&quot;
+                  is the rule, and treat the constraint violation as a normal response.
+                </li>
+                <li>
+                  Use row locks inside transactions for multi-step flows; re-check invariants after
+                  acquiring the lock.
+                </li>
+                <li>
+                  Set session, MFA, and role state atomically — no reachable &quot;authenticated but
+                  MFA not enforced&quot; sub-state.
+                </li>
+                <li>
+                  Do not rely on rate limits, per-process locks, or &quot;we only run one
+                  instance&quot; to protect shared state.
+                </li>
+                <li>
+                  Test with parallel bursts (20–30 requests) against a fresh state, then replay the
+                  winner once to prove the window.
+                </li>
+                <li>
+                  For HTTP/2 targets use single-packet tooling (Burp send-group or Turbo Intruder) —
+                  naive parallel requests miss most remote windows.
+                </li>
+              </ul>
+            </section>
+
+            <section className='mb-10 border-t border-slate-800 pt-8'>
+              <h2 className='text-xl text-sky-500 font-semibold mb-4'>Kokkuvõte eesti keeles</h2>
+              <p className='leading-relaxed mb-4'>
+                Võidujooksutõrge (ingl k <em>race condition</em>) tekib siis, kui rakendus töötleb
+                päringuid paralleelselt ilma piisava sünkroniseerimiseta ja mitu päringut jõuavad
+                sama andmehulga juures läbida &quot;kontrolli, siis kasuta&quot; lõhe (TOCTOU,
+                CWE-367) enne, kui ükski neist oleku kirja paneb. Nii saab ühekordse kupongi
+                lunastada 25 korda, ühe kutselingiga luua lõputult kontosid või mööda hiilida
+                piirangutest. Rünne seisneb paljude samaaegsete päringute saatmises kitsasse ajasse;
+                HTTP/2 puhul võimaldab seda <em>single-packet attack</em>. Parandus: valve ja
+                muudatus tuleb panna ühte aatomsesse andmebaasipäringusse (nt{' '}
+                <code className='text-slate-100'>UPDATE ... WHERE ... AND redeemed_by IS NULL</code>
+                ), kasutada unikaalsuspiirangut või idempotentsusvõtit ning hoida sessiooni oleku
+                üleminekud terviklikena. Täielik laborikäik ja koodinäited on ülal inglise keeles.
+              </p>
+            </section>
+
+            <section>
+              <h2 className='text-xl text-sky-500 font-semibold mb-4'>Sources</h2>
+              <ul className='list-disc list-inside space-y-1 text-sm'>
+                <li>
+                  <a
+                    className='text-sky-400 hover:text-sky-300'
+                    href='https://portswigger.net/web-security/race-conditions'
+                    rel='noopener noreferrer'
+                  >
+                    PortSwigger Web Security Academy — Race conditions
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className='text-sky-400 hover:text-sky-300'
+                    href='https://portswigger.net/research/smashing-the-state-machine'
+                    rel='noopener noreferrer'
+                  >
+                    PortSwigger Research — Smashing the state machine: the true potential of web
+                    race conditions (James Kettle, 2023)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className='text-sky-400 hover:text-sky-300'
+                    href='https://portswigger.net/research/the-single-packet-attack-making-remote-race-conditions-local'
+                    rel='noopener noreferrer'
+                  >
+                    PortSwigger Research — The single-packet attack: making remote race-conditions
+                    &apos;local&apos;
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className='text-sky-400 hover:text-sky-300'
+                    href='https://owasp.org/www-project-top-10-for-business-logic-abuse/docs/the-top-10/action-limit-overrun'
+                    rel='noopener noreferrer'
+                  >
+                    OWASP Top 10 for Business Logic Abuse — BLA1:2025 Action Limit Overrun
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className='text-sky-400 hover:text-sky-300'
+                    href='https://cwe.mitre.org/data/definitions/362.html'
+                    rel='noopener noreferrer'
+                  >
+                    CWE-362 — Concurrent Execution using Shared Resource with Improper
+                    Synchronization
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className='text-sky-400 hover:text-sky-300'
+                    href='https://cwe.mitre.org/data/definitions/367.html'
+                    rel='noopener noreferrer'
+                  >
+                    CWE-367 — Time-of-check Time-of-use (TOCTOU) Race Condition
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className='text-sky-400 hover:text-sky-300'
+                    href='https://cwe.mitre.org/top25/archive/2023/2023_top25_list.html'
+                    rel='noopener noreferrer'
+                  >
+                    MITRE 2023 CWE Top 25 Most Dangerous Software Weaknesses
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className='text-sky-400 hover:text-sky-300'
+                    href='https://nvd.nist.gov/vuln/detail/CVE-2024-2913'
+                    rel='noopener noreferrer'
+                  >
+                    NVD — CVE-2024-2913 (anything-llm invite acceptance race condition)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className='text-sky-400 hover:text-sky-300'
+                    href='https://nvd.nist.gov/vuln/detail/CVE-2024-53476'
+                    rel='noopener noreferrer'
+                  >
+                    NVD — CVE-2024-53476 (SimplCommerce inventory race condition)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className='text-sky-400 hover:text-sky-300'
+                    href='https://github.com/PortSwigger/turbo-intruder'
+                    rel='noopener noreferrer'
+                  >
+                    PortSwigger/turbo-intruder (race-single-packet-attack.py template)
+                  </a>
+                </li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

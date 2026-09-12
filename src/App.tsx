@@ -21,6 +21,7 @@ const IdorGuide = React.lazy(() => import('./components/IdorGuide'));
 const XxeGuide = React.lazy(() => import('./components/XxeGuide'));
 const KubernetesHardeningGuide = React.lazy(() => import('./components/KubernetesHardeningGuide'));
 const SstiGuide = React.lazy(() => import('./components/SstiGuide'));
+const RaceConditionsGuide = React.lazy(() => import('./components/RaceConditionsGuide'));
 const NotFound = React.lazy(() => import('./components/NotFound'));
 
 /**
@@ -297,6 +298,19 @@ function App() {
                     breadcrumbUrl='/guides/ssti-explained'
                   >
                     <SstiGuide />
+                  </LegalLayout>
+                }
+              />
+              <Route
+                path='/guides/race-conditions-explained'
+                element={
+                  <LegalLayout
+                    defaultTitle='Race Conditions Explained: Attack Examples & Prevention'
+                    defaultDescription='Race condition vulnerabilities (CWE-362, CWE-367 TOCTOU) explained: how parallel requests overrun single-use limits and rate limits, with a reproducible docker-compose lab, detection methodology, and atomic fix patterns.'
+                    breadcrumbTitle='Race Conditions Explained'
+                    breadcrumbUrl='/guides/race-conditions-explained'
+                  >
+                    <RaceConditionsGuide />
                   </LegalLayout>
                 }
               />

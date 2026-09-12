@@ -29,6 +29,7 @@ export default function Footer() {
         { label: 'XXE Explained', href: '/guides/xxe-explained' },
         { label: 'Kubernetes Hardening', href: '/guides/kubernetes-security-hardening' },
         { label: 'SSTI Explained', href: '/guides/ssti-explained' },
+        { label: 'Race Conditions Explained', href: '/guides/race-conditions-explained' },
       ],
     },
     {
