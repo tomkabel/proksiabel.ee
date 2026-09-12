@@ -39,6 +39,8 @@ Deviations/notes: branch topology — repo's active dev line is `feat/ui-polish-
 
 Gates: `npx tsc -b` pass · `npm run lint` pass (oxlint 0/0, biome 61 files clean) · `npm run build` pass (8/8 pages prerendered) · built-page check pass (title "IDOR Explained: Attack Examples & Prevention — ProksiAbel OÜ", canonical, TechArticle JSON-LD) · live checks pass (route 200 via trailing slash, homepage 200, cache purged via CF API zone 4a3c68c9fe236c83c98628b224f4d94b).
 
+## 2026-09-05 | PR #34 | /guides/ssti-explained | Server-side template injection (SSTI) deep-dive with local lab | Strategy 2 | "server-side template injection / SSTI / SSTI payload / SSTI detection" | gates passed, merged
+
 ## 2026-09-07 | PR #35 | /guides/kubernetes-security-hardening | Kubernetes Security Best Practices: Hardening Checklist | Strategy 3 | kubernetes security best practices / kubernetes hardening / kubernetes security checklist | gates passed, merged
 
 ## 2026-09-11 | PR #38 | /guides/xxe-explained | XXE / XML external entity deep-dive with local lab (CWE-611, CWE-776) | Strategy 2 | XXE / XML external entity / XXE attack example / XXE prevention / blind XXE / billion laughs | gates passed, merged

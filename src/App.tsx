@@ -20,6 +20,7 @@ const SsrfGuide = React.lazy(() => import('./components/SsrfGuide'));
 const IdorGuide = React.lazy(() => import('./components/IdorGuide'));
 const XxeGuide = React.lazy(() => import('./components/XxeGuide'));
 const KubernetesHardeningGuide = React.lazy(() => import('./components/KubernetesHardeningGuide'));
+const SstiGuide = React.lazy(() => import('./components/SstiGuide'));
 const NotFound = React.lazy(() => import('./components/NotFound'));
 
 /**
@@ -147,6 +148,10 @@ function SkipLink() {
   );
 }
 
+/**
+ * Root application component that sets up routing, internationalization,
+ * and the overall page structure with background effects and navigation.
+ */
 function App() {
   return (
     <LanguageProvider>
@@ -279,6 +284,19 @@ function App() {
                     breadcrumbUrl='/guides/kubernetes-security-hardening'
                   >
                     <KubernetesHardeningGuide />
+                  </LegalLayout>
+                }
+              />
+              <Route
+                path='/guides/ssti-explained'
+                element={
+                  <LegalLayout
+                    defaultTitle='Server-Side Template Injection (SSTI) Explained: Attack Examples & Prevention'
+                    defaultDescription='Server-side template injection (SSTI) explained: how user input becomes template code, detection payloads, Jinja2 and FreeMarker RCE examples, a reproducible local lab, and prevention patterns.'
+                    breadcrumbTitle='SSTI Explained'
+                    breadcrumbUrl='/guides/ssti-explained'
+                  >
+                    <SstiGuide />
                   </LegalLayout>
                 }
               />
