@@ -1,0 +1,3 @@
+{"ts": 1788551644518354766, "event": "spec-status-transition-observed", "spec": "/home/notroot/Documents/proksiabel.ee/_bmad-output/implementation-artifacts/spec-1-2-specify-the-voice-with-examples-and-anti-examples.md", "status": "in-review"}
+{"ts": 1788552111419212049, "event": "straggler-reap", "pids": [585849, 587432, 587440, 587357, 587375, 586775, 586700, 587311, 586245, 586244, 586338, 586242, 587081]}
+{"ts": 1788552111920910715, "event": "kill-outcome", "reaped": true, "forced": [], "unreaped": []}

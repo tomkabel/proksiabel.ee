@@ -1,0 +1,9 @@
+[2026-09-04 22:43:11] story awaiting operator: 1-1-publish-the-brand-manifesto: committed, but 3 action(s) are owed outside the repo:
+  1. Confirm on the record whether the pre-company adversary-in-the-middle work described in docs/redesign/manifesto.md is accurate and may be published; if you will not stand behind it, say so and the sentence is cut, not softened.
+  2. Decide whether publishing that grey-zone admission is acceptable given legal, public-sector procurement-eligibility and insurance exposure, and record the decision in docs/redesign/manifesto.md under "## Open verification".
+  3. Supply a publishable artifact or reference for the client-side bot-detection bypasses claimed in PRODUCT.md "## Positioning", or instruct that the claim be cut there as it already was from the manifesto.
+run `bmad-loop confirm 1-1-publish-the-brand-manifesto` once they are done.
+[2026-09-04 23:01:51] story token budget exceeded: 1-2-specify-the-voice-with-examples-and-anti-examples: 2256154 weighted tokens (15948544 raw incl. cache reads) past the 2000000 `limits.max_tokens_per_story` cap — advisory: the story continues. Stop the run with `bmad-loop stop` if the spend is no longer worth it.
+[2026-09-04 23:20:20] epic 1 stories complete: retrospective suggested: run /bmad-retrospective when convenient
+[2026-09-04 23:20:20] bmad-loop run finished: run 20260904-221859-6535: 2 done, 0 deferred, 0 escalated, 1 awaiting operator, 4,986,640 weighted tokens (37,757,869 raw incl. cache reads)
+PAUSED: epic 1 boundary — `bmad-loop resume 20260904-221859-6535` to continue with epic 2

@@ -31,7 +31,7 @@ export default function RaceConditionsGuide() {
         <script type='application/ld+json'>{JSON.stringify(techArticleSchema)}</script>
       </Helmet>
 
-      <div className='min-h-screen bg-slate-900 pt-24 pb-12'>
+      <div lang='en' className='min-h-screen bg-slate-900 pt-24 pb-12'>
         <div className='max-w-4xl mx-auto px-4 sm:px-6 lg:px-8'>
           <p className='text-sm uppercase tracking-wide text-sky-400 font-semibold mb-4'>
             Technical Guide
@@ -223,7 +223,7 @@ UPDATE coupons SET redeemed_by    UPDATE coupons SET redeemed_by
   race-lab:
     build: .
     ports:
-      - "8080:8080"`}
+      - "127.0.0.1:8080:8080"`}
               </pre>
 
               <h3 className='text-lg text-sky-400 font-medium mb-3'>Dockerfile</h3>
