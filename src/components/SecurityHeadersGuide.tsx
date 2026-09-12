@@ -31,7 +31,7 @@ export default function SecurityHeadersGuide() {
         <script type='application/ld+json'>{JSON.stringify(techArticleSchema)}</script>
       </Helmet>
 
-      <div className='min-h-screen bg-slate-900 pt-24 pb-12'>
+      <div lang='en' className='min-h-screen bg-slate-900 pt-24 pb-12'>
         <div className='max-w-4xl mx-auto px-4 sm:px-6 lg:px-8'>
           <p className='text-sm uppercase tracking-wide text-sky-400 font-semibold mb-4'>
             Technical Guide
@@ -597,8 +597,9 @@ export default function SecurityHeadersGuide() {
               <p className='leading-relaxed mb-4'>
                 Both Cloudflare Pages and Workers Static Assets support a plain-text{' '}
                 <code className='text-slate-100'>_headers</code> file in the assets directory
-                (Cloudflare docs). Rules are a path followed by indented header lines; this is the
-                file we deploy with proksiabel.ee:
+                (Cloudflare docs). Rules are a path followed by indented header lines; here is an
+                example for a site with the same directive set discussed above (proksiabel.ee itself
+                ships on GitHub Pages, which does not support custom response headers — see below):
               </p>
               <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
                 {`# pub/_headers — shipped next to the built assets
@@ -635,7 +636,7 @@ export default function SecurityHeadersGuide() {
 
   # 'always' sends the header on error pages too (4xx/5xx)
   add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
-  add_header Content-Security-Policy "default-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'" always;
+  add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'" always;
   add_header X-Content-Type-Options "nosniff" always;
   add_header Referrer-Policy "strict-origin-when-cross-origin" always;
   add_header X-Frame-Options "DENY" always;
@@ -659,7 +660,7 @@ export default function SecurityHeadersGuide() {
                 {`example.com {
   header {
     Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
-    Content-Security-Policy "default-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+    Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
     X-Content-Type-Options "nosniff"
     Referrer-Policy "strict-origin-when-cross-origin"
     X-Frame-Options "DENY"
@@ -693,13 +694,20 @@ app.use(
     },
     hsts: { maxAge: 63072000, includeSubDomains: true, preload: true },
     referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+    xFrameOptions: { action: 'deny' },
     crossOriginOpenerPolicy: { policy: 'same-origin' },
     crossOriginResourcePolicy: { policy: 'same-site' },
-    permissionsPolicy: {
-      features: { camera: [], microphone: [], geolocation: [], payment: [], usb: [] },
-    },
   })
-);`}
+);
+
+// helmet has no permissionsPolicy option — set it explicitly
+app.use((req, res, next) => {
+  res.setHeader(
+    'Permissions-Policy',
+    'camera=(), microphone=(), geolocation=(), payment=(), usb=()'
+  );
+  next();
+});`}
               </pre>
 
               <h3 className='text-lg text-sky-400 font-medium mb-3'>
@@ -737,16 +745,23 @@ cross-origin-resource-policy: same-site`}
               </p>
               <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
                 {`#!/usr/bin/env bash
-# verify-headers.sh <url> — exits 1 if any required header is missing
+# verify-headers.sh <url> — exits 1 if any required (P0) header is missing
 set -euo pipefail
 url="\${1:?usage: $0 <url>}"
-required=(strict-transport-security content-security-policy x-content-type-options referrer-policy)
+# -L: follow redirects, so a 301/307 doesn't hide the real headers behind them
+# --max-time: don't let a hung request stall CI forever
+headers="$(curl -sIL --max-time 10 "$url")"
+required=(strict-transport-security content-security-policy x-content-type-options referrer-policy x-frame-options)
 for h in "\${required[@]}"; do
-  if ! curl -sI "$url" | grep -qi "^$h:"; then
+  if ! grep -qi "^$h:" <<< "$headers"; then
     echo "MISSING: $h" >&2
     exit 1
   fi
 done
+if ! grep -qiE '^content-type:.*text/html.*charset=' <<< "$headers"; then
+  echo "MISSING or missing charset: Content-Type (expected text/html; charset=...)" >&2
+  exit 1
+fi
 echo "OK: all required security headers present"`}
               </pre>
               <p className='leading-relaxed mb-4'>
