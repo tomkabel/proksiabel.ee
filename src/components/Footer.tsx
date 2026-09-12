@@ -22,6 +22,7 @@ export default function Footer() {
         { label: 'FIDO2 vs Passkeys', href: '/guides/fido2-vs-passkeys' },
         { label: 'SSRF Explained', href: '/guides/ssrf-explained' },
         { label: 'IDOR Explained', href: '/guides/idor-explained' },
+        { label: 'Security Headers Checklist', href: '/guides/security-headers-checklist' },
       ],
     },
     {

@@ -18,6 +18,7 @@ const Disclosure = React.lazy(() => import('./components/Disclosure'));
 const Fido2PasskeysGuide = React.lazy(() => import('./components/Fido2PasskeysGuide'));
 const SsrfGuide = React.lazy(() => import('./components/SsrfGuide'));
 const IdorGuide = React.lazy(() => import('./components/IdorGuide'));
+const SecurityHeadersGuide = React.lazy(() => import('./components/SecurityHeadersGuide'));
 const NotFound = React.lazy(() => import('./components/NotFound'));
 
 /**
@@ -251,6 +252,19 @@ function App() {
                     breadcrumbUrl='/guides/idor-explained'
                   >
                     <IdorGuide />
+                  </LegalLayout>
+                }
+              />
+              <Route
+                path='/guides/security-headers-checklist'
+                element={
+                  <LegalLayout
+                    defaultTitle='Security Headers Checklist: How to Configure and Verify HTTP Security Headers'
+                    defaultDescription='A priority-ordered HTTP security headers checklist: exact values for HSTS, CSP, nosniff, Referrer-Policy, Permissions-Policy, and cross-origin isolation, what each header breaks when enabled, and curl-based verification.'
+                    breadcrumbTitle='Security Headers Checklist'
+                    breadcrumbUrl='/guides/security-headers-checklist'
+                  >
+                    <SecurityHeadersGuide />
                   </LegalLayout>
                 }
               />
