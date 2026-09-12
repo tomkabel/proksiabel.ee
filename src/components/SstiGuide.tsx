@@ -155,10 +155,10 @@ export default function SstiGuide() {
               </p>
               <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
                 {`// Safe: the user's first name is passed in as data.
-$output = $twig->render("Dear {first_name},", array("first_name" => $user.first_name));
+$output = $twig->createTemplate("Dear {{ first_name }},")->render(["first_name" => $user->first_name]);
 
 // Vulnerable: part of the template itself is built from the GET parameter.
-$output = $twig->render("Dear " . $_GET['name']);`}
+$output = $twig->createTemplate("Dear " . $_GET['name'])->render([]);`}
               </pre>
               <p className='leading-relaxed mb-4'>
                 The same bug in Python/Flask — the canonical example used by the OWASP Web Security
@@ -168,7 +168,7 @@ $output = $twig->render("Dear " . $_GET['name']);`}
                 {`@app.route("/page")
 def page():
     name = request.values.get('name')
-    output = Jinja2.from_string('Hello ' + name + '!').render()
+    output = render_template_string('Hello ' + name + '!')
     return output`}
               </pre>
               <p className='leading-relaxed mb-4'>
@@ -354,7 +354,7 @@ def page():
               <pre className='bg-slate-800 border border-slate-700 rounded-lg p-4 overflow-x-auto text-sm text-slate-200 mb-4'>
                 {`FROM python:3.12-slim
 WORKDIR /app
-RUN pip install --no-cache-dir flask
+RUN pip install --no-cache-dir flask==3.1.0 jinja2==3.1.4
 RUN echo "flag{local-ssti-verified}" > /flag
 COPY app.py .
 EXPOSE 8080
@@ -493,10 +493,7 @@ curl -G 'http://localhost:8080/greet' --data-urlencode \\
       - pattern: request.json.get(...)
     pattern-sinks:
       - pattern: render_template_string(...)
-      - pattern: from_string(...)
-    pattern-sanitizers:
-      - pattern: escape(...)
-      - pattern: markupsafe.escape(...)`}
+      - pattern: from_string(...)`}
               </pre>
               <p className='leading-relaxed mb-4'>
                 This is a starting rule, not a finished policy: it flags any request data reaching{' '}
