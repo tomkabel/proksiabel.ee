@@ -30,6 +30,8 @@ export default function Footer() {
         { label: 'Kubernetes Hardening', href: '/guides/kubernetes-security-hardening' },
         { label: 'SSTI Explained', href: '/guides/ssti-explained' },
         { label: 'Race Conditions Explained', href: '/guides/race-conditions-explained' },
+        { label: 'Security Headers Checklist', href: '/guides/security-headers-checklist' },
+        { label: 'SQL Injection Explained', href: '/guides/sqli-explained' },
       ],
     },
     {
