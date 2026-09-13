@@ -1,0 +1,304 @@
+<!DOCTYPE html><html lang="et" data-rh="lang"><head>
+    <meta charset="UTF-8">
+    <!-- Fonts are self-hosted (bundled via @fontsource, imported in src/main.tsx).
+         No fonts.googleapis.com / fonts.gstatic.com — visitor IPs never leave the origin. -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+    <meta property="og:type" content="website">
+    
+    
+    
+    <meta property="og:image" content="https://proksiabel.ee/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    
+    
+    <meta name="twitter:image" content="https://proksiabel.ee/og-image.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "ProksiAbel OÜ",
+      "description": "Cybersecurity consultancy specializing in MITM attack prevention, web application penetration testing, and secure development practices.",
+      "url": "https://proksiabel.ee/",
+      "telephone": "+372 56666981",
+      "email": "info@proksiabel.ee",
+      "founder": {
+        "@type": "Person",
+        "name": "Tom Kristian Abel",
+        "jobTitle": "Offensive Security Specialist"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Pargi tn 2 Sindi",
+        "addressLocality": "Tori vald",
+        "postalCode": "86705",
+        "addressRegion": "Pärnumaa",
+        "addressCountry": "EE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "58.4419",
+        "longitude": "24.4019"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "17:00"
+      },
+      "priceRange": "€€€",
+      "image": "https://proksiabel.ee/og-image.png",
+      "sameAs": [
+        "https://www.linkedin.com/company/proksiabel",
+        "https://github.com/proksiabel"
+      ]
+    }
+    </script>
+    <!-- Person Schema: founder entity for knowledge-graph disambiguation -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Tom Kristian Abel",
+      "jobTitle": "Offensive Security Specialist",
+      "description": "Offensive security specialist and founder of ProksiAbel OÜ, focused on web application penetration testing, MITM attack prevention, and security research.",
+      "worksFor": {
+        "@type": "ProfessionalService",
+        "name": "ProksiAbel OÜ",
+        "url": "https://proksiabel.ee/"
+      },
+      "knowsAbout": [
+        "Web application penetration testing",
+        "Adversary-in-the-Middle (AiTM) attack prevention",
+        "Authentication security",
+        "TLS client fingerprinting",
+        "JavaScript bot detection"
+      ],
+      "award": "Ukrainian-Estonian AI/GovTech Hackathon 2026 — RedSWAT (AMEDIA team), AI-assisted discovery and remediation of vulnerabilities in government code",
+      "sameAs": [
+        "https://github.com/tkabel"
+      ],
+      "subjectOf": {
+        "@type": "NewsArticle",
+        "headline": "GTA UA member companies win awards at the Ukrainian-Estonian AI GovTech Hackathon",
+        "url": "https://www.gtaua.org/en-blogs/gta-ua-member-companies-win-awards-at-the-ukrainian-estonian-ai-govtech-hackathon"
+      }
+    }
+    </script>
+    <title>SQL Injection Explained: Attack Examples &amp; Prevention — ProksiAbel OÜ</title>
+    <script type="module" crossorigin="" src="/assets/index-DminRMx4.js"></script>
+    <link rel="modulepreload" crossorigin="" href="/assets/rolldown-runtime-CbXtAM7H.js">
+    <link rel="modulepreload" crossorigin="" href="/assets/ui-BrRB4Vln.js">
+    <link rel="modulepreload" crossorigin="" href="/assets/vendor-C8BXcVgD.js">
+    <link rel="stylesheet" crossorigin="" href="/assets/index-DvKcLKa_.css">
+  <meta property="og:type" content="website" data-rh="true"><meta property="og:image" content="https://proksiabel.ee/og-image.png" data-rh="true"><meta property="og:image:width" content="1200" data-rh="true"><meta property="og:image:height" content="630" data-rh="true"><meta name="twitter:card" content="summary_large_image" data-rh="true"><meta name="twitter:image" content="https://proksiabel.ee/og-image.png" data-rh="true"><link rel="modulepreload" as="script" crossorigin="" href="/assets/SqliGuide-DnRnG0ty.js"><link rel="canonical" href="https://proksiabel.ee/guides/sqli-explained" data-rh="true"><meta name="description" content="SQL injection (CWE-89) explained: how string concatenation lets attackers rewrite queries, classic and blind attack classes, real CVEs including Metabase CVE-2026-72898 (CVSS 10.0), a reproducible docker-compose lab, detection rules, and parameterized-query fix patterns." data-rh="true"><meta property="og:title" content="SQL Injection Explained: Attack Examples &amp; Prevention — ProksiAbel OÜ" data-rh="true"><meta property="og:description" content="SQL injection (CWE-89) explained: how string concatenation lets attackers rewrite queries, classic and blind attack classes, real CVEs including Metabase CVE-2026-72898 (CVSS 10.0), a reproducible docker-compose lab, detection rules, and parameterized-query fix patterns." data-rh="true"><meta property="og:url" content="https://proksiabel.ee/guides/sqli-explained" data-rh="true"><meta name="twitter:title" content="SQL Injection Explained: Attack Examples &amp; Prevention — ProksiAbel OÜ" data-rh="true"><meta name="twitter:description" content="SQL injection (CWE-89) explained: how string concatenation lets attackers rewrite queries, classic and blind attack classes, real CVEs including Metabase CVE-2026-72898 (CVSS 10.0), a reproducible docker-compose lab, detection rules, and parameterized-query fix patterns." data-rh="true"><script type="application/ld+json" data-rh="true">{"@context":"https://schema.org","@type":"TechArticle","headline":"SQL Injection Explained: Attack Examples & Prevention","description":"SQL injection (CWE-89) explained: how string concatenation lets attackers rewrite queries, classic and blind attack classes, real CVEs including Metabase CVE-2026-72898 (CVSS 10.0), a reproducible docker-compose lab, detection rules, and parameterized-query fix patterns.","datePublished":"2026-09-13","dateModified":"2026-09-13","inLanguage":"en","mainEntityOfPage":"https://proksiabel.ee/guides/sqli-explained","author":{"@type":"Organization","name":"ProksiAbel OÜ","url":"https://proksiabel.ee/"},"publisher":{"@type":"Organization","name":"ProksiAbel OÜ","url":"https://proksiabel.ee/"}}</script></head>
+  <body>
+    <div id="root"><div class="min-h-screen bg-slate-900"><div class="pointer-events-none fixed inset-0 overflow-hidden" aria-hidden="true"><div class="absolute inset-0 bg-mesh bg-grid opacity-50"></div><div class="absolute top-1/4 -left-32 w-96 h-96 bg-sky-500/15 rounded-full blur-[128px] animate-pulse-slow"></div><div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-teal-500/10 rounded-full blur-[128px] animate-pulse-slow"></div></div><a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-sky-500 focus:text-white focus:rounded-md">Liigu sisu juurde</a><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ProksiAbel OÜ","item":"https://proksiabel.ee/"},{"@type":"ListItem","position":2,"name":"SQL Injection Explained","item":"https://proksiabel.ee/guides/sqli-explained"}]}</script><div class="pointer-events-none fixed top-0 left-0 right-0 z-50 flex justify-center px-4"><nav aria-label="Primary" class="glass-pill pointer-events-auto mt-4 w-full max-w-5xl rounded-2xl transition-all duration-500 shadow-lg shadow-black/20"><div class="flex items-center justify-between px-4 sm:px-5 transition-all duration-500 h-16"><a href="/" class="group flex items-center gap-2.5" title="Saadaval audititeks"><span class="relative flex h-2 w-2" aria-hidden="true"><span class="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" style="background-color: var(--color-signal-success);"></span><span class="relative inline-flex h-2 w-2 rounded-full" style="background-color: var(--color-signal-success);"></span></span><span class="font-mono text-sm tracking-tight text-white">ProksiAbel<span class="text-[var(--color-mono-dim)]"> // </span><span class="text-[var(--color-text-muted)] group-hover:text-[var(--color-mono-dim)] transition-colors">SEC_OPS</span></span></a><div class="hidden lg:flex items-center gap-1"><a href="/#services" class="group relative rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-text-body)] transition-colors duration-200 hover:text-white">Teenused<span class="absolute inset-x-3 -bottom-px h-px origin-left scale-x-0 bg-[var(--color-cyan-core)] transition-transform duration-300 group-hover:scale-x-100" aria-hidden="true"></span></a><a href="/#about" class="group relative rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-text-body)] transition-colors duration-200 hover:text-white">Dossier<span class="absolute inset-x-3 -bottom-px h-px origin-left scale-x-0 bg-[var(--color-cyan-core)] transition-transform duration-300 group-hover:scale-x-100" aria-hidden="true"></span></a><a href="/#contact" class="group relative rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-text-body)] transition-colors duration-200 hover:text-white">Kontakt<span class="absolute inset-x-3 -bottom-px h-px origin-left scale-x-0 bg-[var(--color-cyan-core)] transition-transform duration-300 group-hover:scale-x-100" aria-hidden="true"></span></a></div><div class="hidden lg:flex items-center gap-2"><button type="button" class="flex items-center gap-1.5 rounded-lg px-2.5 py-2 font-mono text-xs font-medium uppercase text-[var(--color-text-muted)] transition-all duration-200 hover:bg-[var(--color-surface-3)] hover:text-white" aria-label="Switch to English"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe h-4 w-4" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg><span>et</span></button><a href="/#contact" class="inline-flex items-center gap-1.5 rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-[0_1px_0_0_rgba(255,255,255,0.2)_inset,0_10px_20px_-10px_rgba(2,132,199,0.5)] transition-all duration-200 ease-[var(--ease-spring)] hover:bg-sky-500 active:scale-[0.98]">Broneeri audit<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right h-4 w-4" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></a></div><div class="flex items-center gap-1 lg:hidden"><button type="button" class="rounded-lg p-2 text-[var(--color-text-muted)] transition-all duration-200 hover:bg-[var(--color-surface-3)] hover:text-white" aria-label="Switch to English"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe h-5 w-5" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg></button><button type="button" aria-label="Ava menüü" aria-expanded="false" aria-controls="mobile-menu" class="rounded-lg p-2 text-[var(--color-text-muted)] transition-all duration-200 hover:bg-[var(--color-surface-3)] hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu h-6 w-6" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></div></nav></div><main id="main-content" tabindex="-1"><div class="min-h-screen bg-slate-900 pt-24 pb-12"><div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"><p class="text-sm uppercase tracking-wide text-sky-400 font-semibold mb-4">Technical Guide</p><h1 class="text-3xl md:text-4xl font-bold text-white mb-6">SQL Injection Explained: Attack Examples &amp; Prevention</h1><p class="text-slate-400 text-lg leading-relaxed mb-10">SQL injection lets an attacker turn user input into executable SQL commands. It is CWE-89 — Improper Neutralization of Special Elements used in an SQL Command — and has been the top entry in the CWE Top 25 for years. This guide covers the mechanics, a reproducible local lab, blind and out-of-band attack classes, detection rules, and parameterized-query fix patterns.</p><div class="max-w-none text-slate-300"><section class="mb-10"><h2 class="text-xl text-sky-500 font-semibold mb-4">What SQL injection is and why it keeps mattering</h2><p class="leading-relaxed mb-4">SQL injection occurs when an application builds a SQL query by concatenating or interpolating user-supplied input into the query string. The attacker's input changes the query's syntactic structure — a fragment that was intended as a string literal value instead becomes part of the SQL command. The web server sends the manipulated query to the database, which executes the attacker's logic with the application's database privileges.</p><p class="leading-relaxed mb-4">CWE-89 consistently ranks #1 in the <a class="text-sky-400 hover:text-sky-300" href="https://cwe.mitre.org/top25/" rel="noopener noreferrer">CWE Top 25</a> most dangerous software weaknesses. OWASP maps SQL injection to <a class="text-sky-400 hover:text-sky-300" href="https://owasp.org/Top10/A03_2021-Injection/" rel="noopener noreferrer">A03:2021 Injection</a>. Despite being one of the best-documented vulnerability classes, SQL injection continues to appear in major products — CVE-2026-72898 (Metabase, CVSS 10.0, CISA KEV) is a recent unauthenticated SQLi added to the Known Exploited Vulnerabilities Catalog in August 2026.</p></section><section class="mb-10"><h2 class="text-xl text-sky-500 font-semibold mb-4">Attack anatomy and query-flow model</h2><p class="leading-relaxed mb-4">Every SQL injection follows the same query-flow pattern:</p><ol class="list-decimal list-inside space-y-2 mb-4 text-slate-300"><li>The developer writes a query with placeholder insertion points.</li><li>User input is concatenated directly into the SQL string.</li><li>The attacker includes SQL meta-characters (<code class="text-slate-100">'</code>, <code class="text-slate-100">"</code>, <code class="text-slate-100">--</code>, <code class="text-slate-100">;</code>, <code class="text-slate-100">/*</code>) that alter the parsed query structure.</li><li>The database executes the attacker's modified query under the application's connection privileges.</li></ol><p class="leading-relaxed mb-4">A classic example in Python (Flask):</p><pre class="bg-slate-800 rounded-lg p-4 mb-4 overflow-x-auto text-sm"><code class="text-slate-100"># VULNERABLE
+username = request.args.get("username")
+sql = f"SELECT * FROM users WHERE username = '{username}'"
+cursor.execute(sql)</code></pre><p class="leading-relaxed mb-4">An attacker sending <code class="text-slate-100">username=admin' OR '1'='1</code> produces the query:</p><pre class="bg-slate-800 rounded-lg p-4 mb-4 overflow-x-auto text-sm"><code class="text-slate-100">SELECT * FROM users WHERE username = 'admin' OR '1'='1'</code></pre><p class="leading-relaxed mb-4">The <code class="text-slate-100">OR '1'='1'</code> clause evaluates to true for every row, returning all users instead of the intended single user.</p></section><section class="mb-10"><h2 class="text-xl text-sky-500 font-semibold mb-4">SQL injection attack classes</h2><p class="leading-relaxed mb-4">Not all SQL injection attacks look the same. The database response format determines which technique the attacker uses.</p><div class="overflow-x-auto mb-6"><table class="min-w-full border-collapse border border-slate-700 text-sm"><thead><tr class="bg-slate-800"><th class="border border-slate-700 px-4 py-2 text-sky-400 font-semibold text-left">Class</th><th class="border border-slate-700 px-4 py-2 text-sky-400 font-semibold text-left">Mechanism</th><th class="border border-slate-700 px-4 py-2 text-sky-400 font-semibold text-left">Detection signal</th><th class="border border-slate-700 px-4 py-2 text-sky-400 font-semibold text-left">Example payload</th></tr></thead><tbody><tr><td class="border border-slate-700 px-4 py-2 font-medium text-white">Classic (in-band)</td><td class="border border-slate-700 px-4 py-2">Data returned directly in the HTTP response</td><td class="border border-slate-700 px-4 py-2">Visible column data or error messages in the page</td><td class="border border-slate-700 px-4 py-2 text-slate-200"><code class="text-xs">' UNION SELECT credit_card FROM payments --</code></td></tr><tr><td class="border border-slate-700 px-4 py-2 font-medium text-white">Blind — Boolean (content-based)</td><td class="border border-slate-700 px-4 py-2">Application returns different response (size, status, content) for true vs false conditions</td><td class="border border-slate-700 px-4 py-2">Response differs between <code class="text-xs">1=1</code> and <code class="text-xs">1=2</code></td><td class="border border-slate-700 px-4 py-2 text-slate-200"><code class="text-xs">' OR SUBSTRING(password,1,1)='a' --</code></td></tr><tr><td class="border border-slate-700 px-4 py-2 font-medium text-white">Blind — Time-based</td><td class="border border-slate-700 px-4 py-2">Conditional causes a measurable database delay (e.g. <code class="text-xs">SLEEP()</code>, heavy query)</td><td class="border border-slate-700 px-4 py-2">Response latency varies by condition</td><td class="border border-slate-700 px-4 py-2 text-slate-200"><code class="text-xs">'; IF (1=1) WAITFOR DELAY '0:0:5' --</code></td></tr><tr><td class="border border-slate-700 px-4 py-2 font-medium text-white">Out-of-band (OOB)</td><td class="border border-slate-700 px-4 py-2">Data exfiltrated via a separate channel (DNS, HTTP, SMB) to an attacker-controlled server</td><td class="border border-slate-700 px-4 py-2">Network logs show outbound connection to external host</td><td class="border border-slate-700 px-4 py-2 text-slate-200"><code class="text-xs">DECLARE @o INT; EXEC sp_oacreate MSXML2.ServerXMLHTTP, @o OUT</code></td></tr><tr><td class="border border-slate-700 px-4 py-2 font-medium text-white">Second-order (stored)</td><td class="border border-slate-700 px-4 py-2">Malicious payload is stored in the database and triggers when later retrieved and used unsafely</td><td class="border border-slate-700 px-4 py-2">Input validation passes at write; exploit triggers at read in a different code path</td><td class="border border-slate-700 px-4 py-2 text-slate-200">Register username <code class="text-xs">admin'; DROP TABLE logs; --</code>, then profile page executes it</td></tr></tbody></table></div></section><section class="mb-10"><h2 class="text-xl text-sky-500 font-semibold mb-4">Real-world SQL injection incidents</h2><p class="leading-relaxed mb-4">These recent and notable incidents demonstrate that SQL injection is not a legacy problem:</p><ul class="list-disc list-inside space-y-3 mb-4"><li><strong class="text-sky-400">CVE-2026-72898 — Metabase (CVSS 10.0, CISA KEV):</strong> An unauthenticated attacker injects arbitrary SQL via the <code class="text-slate-100">/reset_password</code> endpoint to gain administrator access. CISA confirmed active exploitation. <a class="text-sky-400 hover:text-sky-300" href="https://nvd.nist.gov/vuln/detail/CVE-2026-72898" rel="noopener noreferrer">NVD entry</a>.</li><li><strong class="text-sky-400">CVE-2026-34612, CVE-2026-34717 (April 2026):</strong> Recent SQLi vulnerabilities in enterprise software tracked in the Gecko Security SQLi CVE database. Multiple CVEs continue to appear each month.</li><li><strong class="text-sky-400">Capital One 2019 (SSRF → SQLi chain):</strong> The attacker used SSRF against the AWS metadata service to obtain IAM credentials, then logged into a bucket that contained SQLi-vulnerable code. 100+ million records exposed. While the entry was SSRF, the downstream compromise used data accessible through injection.</li><li><strong class="text-sky-400">Heartland Payment Systems 2008:</strong> 134 million credit card records stolen via SQL injection in the payment processing pipeline. The attacker used SQLi to install a custom sniffer that captured track data.</li></ul></section><section class="mb-10"><h2 class="text-xl text-sky-500 font-semibold mb-4">Reproducible local lab: Docker Compose</h2><p class="leading-relaxed mb-4">The following lab runs a Flask application with SQLite, exposing both a vulnerable endpoint and a fixed endpoint. The Docker Compose setup requires Docker and a few seconds to build.</p><h3 class="text-lg text-sky-400 font-semibold mb-2">Project structure</h3><pre class="bg-slate-800 rounded-lg p-4 mb-4 overflow-x-auto text-sm"><code class="text-slate-100">sqli-lab/
+├── docker-compose.yml
+├── requirements.txt
+├── app.py              # Flask app: /search (vuln) and /search-safe (fixed)
+└── init.sql            # Seeds the database with sample data</code></pre><h3 class="text-lg text-sky-400 font-semibold mb-2">docker-compose.yml</h3><pre class="bg-slate-800 rounded-lg p-4 mb-4 overflow-x-auto text-sm"><code class="text-slate-100">version: "3.9"
+services:
+  sqli-lab:
+    build: .
+    ports:
+      - "8001:5000"
+    environment:
+      FLASK_ENV: development</code></pre><h3 class="text-lg text-sky-400 font-semibold mb-2">app.py (vulnerable and fixed endpoints)</h3><pre class="bg-slate-800 rounded-lg p-4 mb-4 overflow-x-auto text-sm"><code class="text-slate-100">from flask import Flask, request, jsonify
+import sqlite3
+
+app = Flask(__name__)
+DATABASE = "/data/app.db"
+
+def get_db():
+    conn = sqlite3.connect(DATABASE)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+# ---------- VULNERABLE ----------
+@app.route("/search")
+def search_vuln():
+    q = request.args.get("q", "")
+    conn = get_db()
+    sql = f"SELECT id, name, email FROM users WHERE name LIKE '%{q}%'"
+    try:
+        rows = conn.execute(sql).fetchall()
+        return jsonify([dict(r) for r in rows])
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        conn.close()
+
+# ---------- FIXED (parameterized) ----------
+@app.route("/search-safe")
+def search_safe():
+    q = request.args.get("q", "")
+    conn = get_db()
+    sql = "SELECT id, name, email FROM users WHERE name LIKE ?"
+    try:
+        rows = conn.execute(sql, (f"%{q}%",)).fetchall()
+        return jsonify([dict(r) for r in rows])
+    except Exception as e:
+        return jsonify({"error": "internal error"}), 500
+    finally:
+        conn.close()
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)</code></pre><h3 class="text-lg text-sky-400 font-semibold mb-2">init.sql</h3><pre class="bg-slate-800 rounded-lg p-4 mb-4 overflow-x-auto text-sm"><code class="text-slate-100">CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    role TEXT DEFAULT 'user'
+);
+
+INSERT INTO users (name, email, role) VALUES
+    ('Alice Admin', 'alice@example.com', 'admin'),
+    ('Bob User', 'bob@example.com', 'user'),
+    ('Charlie User', 'charlie@example.com', 'user'),
+    ('David Dev', 'david@example.com', 'dev');</code></pre><h3 class="text-lg text-sky-400 font-semibold mb-2">requirements.txt</h3><pre class="bg-slate-800 rounded-lg p-4 mb-4 overflow-x-auto text-sm"><code class="text-slate-100">flask==3.1.0</code></pre><h3 class="text-lg text-sky-400 font-semibold mb-2">Dockerfile</h3><pre class="bg-slate-800 rounded-lg p-4 mb-4 overflow-x-auto text-sm"><code class="text-slate-100">FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY app.py init.sql .
+RUN sqlite3 /data/app.db &lt; init.sql
+CMD ["python", "app.py"]</code></pre><h3 class="text-lg text-sky-400 font-semibold mb-2">Running the lab</h3><pre class="bg-slate-800 rounded-lg p-4 mb-4 overflow-x-auto text-sm"><code class="text-slate-100">docker compose up --build -d
+
+# Test the vulnerable endpoint — normal query
+curl "http://localhost:8001/search?q=Bob"
+
+# SQLi — return all users
+curl "http://localhost:8001/search?q=' OR 1=1 --"
+
+# SQLi — UNION extraction of database metadata
+curl "http://localhost:8001/search?q=' UNION SELECT 1, name, sql FROM sqlite_master --"
+
+# Blind boolean — detect via response difference
+curl "http://localhost:8001/search?q=' OR 1=1 --"   # all rows
+curl "http://localhost:8001/search?q=' OR 1=2 --"   # no rows
+
+# Fixed endpoint — same payloads return empty/no results (parameterized)
+curl "http://localhost:8001/search-safe?q=' OR 1=1 --"</code></pre><p class="leading-relaxed mb-4">The fixed endpoint uses a parameterized query (<code class="text-slate-100">LIKE ?</code>) where the user input is passed as data, not concatenated into the SQL string. The <code class="text-slate-100">' OR 1=1 --</code> payload becomes the literal search string <code class="text-slate-100">' OR 1=1 --</code> — no rows match, and no injection occurs.</p></section><section class="mb-10"><h2 class="text-xl text-sky-500 font-semibold mb-4">Detection rules: Semgrep</h2><p class="leading-relaxed mb-4">Semgrep can find SQL injection patterns statically by tracing tainted input into dangerous database APIs. The following rule catches string concatenation and f-string patterns in Python.</p><pre class="bg-slate-800 rounded-lg p-4 mb-4 overflow-x-auto text-sm"><code class="text-slate-100">rules:
+  - id: python-sqli-detection
+    patterns:
+      - pattern-either:
+          - pattern: |
+              f"...$QUERY..."
+          - pattern: |
+              "..." + $QUERY + "..."
+          - pattern: |
+              "...".format($QUERY)
+      - metavariable-regex:
+          metavariable: $QUERY
+          regex: .*(request\.|input|args|form).*
+      - pattern-inside: |
+          $CURSOR.execute(...)
+    message: &gt;
+      Potential SQL injection: user input concatenated into a query.
+      Use a parameterized query with ?/placeholder syntax instead.
+    severity: ERROR
+    languages: [python]</code></pre><p class="leading-relaxed mb-4">Semgrep also ships a <a class="text-sky-400 hover:text-sky-300" href="https://semgrep.dev/learn/vulnerabilities/sql-injection" rel="noopener noreferrer">SQL injection-specific learning module</a> with rules for Java, C#, Node.js, and Go.</p></section><section class="mb-10"><h2 class="text-xl text-sky-500 font-semibold mb-4">Detection rules: Suricata (network IDS)</h2><p class="leading-relaxed mb-4">Suricata can detect SQL injection payloads transiting the network in HTTP requests. These rules match common SQL meta-character sequences and SQL keywords in query parameters.</p><pre class="bg-slate-800 rounded-lg p-4 mb-4 overflow-x-auto text-sm"><code class="text-slate-100"># SQL injection — classic tautology payloads
+alert http any any -&gt; any any (
+  msg:"SQL Injection — tautology detection (OR 1=1)";
+  flow:established,to_server;
+  content:"OR";
+  nocase;
+  within:10;
+  pcre:"/(\bOR\b|\bAND\b)\s+[0-9]+(=|!=|&lt;|&gt;)\s*[0-9]+/i";
+  classtype:web-application-attack;
+  sid:1000001;
+  rev:1;
+)
+
+# SQL injection — UNION SELECT
+alert http any any -&gt; any any (
+  msg:"SQL Injection — UNION SELECT";
+  flow:established,to_server;
+  content:"UNION";
+  nocase;
+  within:15;
+  content:"SELECT";
+  nocase;
+  within:10;
+  classtype:web-application-attack;
+  sid:1000002;
+  rev:1;
+)
+
+# SQL injection — stacked query (semicolon injection)
+alert http any any -&gt; any any (
+  msg:"SQL Injection — stacked query attempt";
+  flow:established,to_server;
+  pcre:"/[?&amp;][a-zA-Z_]+=[^&amp;\s]*'\s*;/Ui";
+  classtype:web-application-attack;
+  sid:1000003;
+  rev:1;
+)
+
+# SQL injection — SLEEP/WAITFOR time-based
+alert http any any -&gt; any any (
+  msg:"SQL Injection — time-based (SLEEP/WAITFOR)";
+  flow:established,to_server;
+  pcre:"/(SLEEP|WAITFOR\s+DELAY|pg_sleep|DBMS_LOCK\.SLEEP)/i";
+  classtype:web-application-attack;
+  sid:1000004;
+  rev:1;
+)</code></pre><p class="leading-relaxed mb-4">These rules produce false positives on parameter values that genuinely contain SQL-like text. Tune by excluding trusted paths or using rate-based thresholds.</p></section><section class="mb-10"><h2 class="text-xl text-sky-500 font-semibold mb-4">Fix patterns by language</h2><p class="leading-relaxed mb-4">The universal fix is <strong>parameterized queries (prepared statements)</strong>: the SQL query structure is defined first, and data values are bound as parameters that the database engine keeps separate from the command text. Escaping is strongly discouraged (OWASP Defense Option 4) and should never be the primary defense.</p><h3 class="text-lg text-sky-400 font-semibold mb-2">Java (JDBC PreparedStatement)</h3><pre class="bg-slate-800 rounded-lg p-4 mb-4 overflow-x-auto text-sm"><code class="text-slate-100">// VULNERABLE
+Statement stmt = conn.createStatement();
+String sql = "SELECT * FROM users WHERE name = '" + request.getParameter("name") + "'";
+ResultSet rs = stmt.executeQuery(sql);
+
+// FIXED — parameterized query
+String sql = "SELECT * FROM users WHERE name = ?";
+PreparedStatement pstmt = conn.prepareStatement(sql);
+pstmt.setString(1, request.getParameter("name"));
+ResultSet rs = pstmt.executeQuery();</code></pre><h3 class="text-lg text-sky-400 font-semibold mb-2">C# (.NET SqlCommand)</h3><pre class="bg-slate-800 rounded-lg p-4 mb-4 overflow-x-auto text-sm"><code class="text-slate-100">// VULNERABLE
+string sql = "SELECT * FROM users WHERE name = '" + Request["name"] + "'";
+SqlCommand cmd = new SqlCommand(sql, conn);
+
+// FIXED — parameterized
+string sql = "SELECT * FROM users WHERE name = @name";
+SqlCommand cmd = new SqlCommand(sql, conn);
+cmd.Parameters.AddWithValue("@name", Request["name"]);</code></pre><h3 class="text-lg text-sky-400 font-semibold mb-2">Python (sqlite3 / psycopg2 / mysql-connector)</h3><pre class="bg-slate-800 rounded-lg p-4 mb-4 overflow-x-auto text-sm"><code class="text-slate-100"># VULNERABLE
+sql = f"SELECT * FROM users WHERE name = '{input_name}'"
+cursor.execute(sql)
+
+# FIXED — parameterized with ? placeholders
+sql = "SELECT * FROM users WHERE name = ?"
+cursor.execute(sql, (input_name,))
+
+# PostgreSQL uses %s placeholders
+sql = "SELECT * FROM users WHERE name = %s"
+cursor.execute(sql, (input_name,))</code></pre><h3 class="text-lg text-sky-400 font-semibold mb-2">Node.js (pg / mysql2)</h3><pre class="bg-slate-800 rounded-lg p-4 mb-4 overflow-x-auto text-sm"><code class="text-slate-100">// VULNERABLE
+const sql = "SELECT * FROM users WHERE name = '" + req.query.name + "'";
+db.query(sql, callback);
+
+// FIXED — parameterized with $1 placeholders (pg)
+const sql = "SELECT * FROM users WHERE name = $1";
+db.query(sql, [req.query.name], callback);
+
+// mysql2 uses ? placeholders
+const sql = "SELECT * FROM users WHERE name = ?";
+db.query(sql, [req.query.name], callback);</code></pre><h3 class="text-lg text-sky-400 font-semibold mb-2">Go (database/sql)</h3><pre class="bg-slate-800 rounded-lg p-4 mb-4 overflow-x-auto text-sm"><code class="text-slate-100">// VULNERABLE
+sql := fmt.Sprintf("SELECT * FROM users WHERE name = '%s'", r.URL.Query().Get("name"))
+rows, _ := db.Query(sql)
+
+// FIXED — parameterized with ? placeholders
+sql := "SELECT * FROM users WHERE name = ?"
+rows, err := db.Query(sql, r.URL.Query().Get("name"))</code></pre><h3 class="text-lg text-sky-400 font-semibold mb-2">ORM pitfalls</h3><p class="leading-relaxed mb-4">ORM libraries (SQLAlchemy, Entity Framework, Prisma, GORM) parameterize queries by default — but raw SQL escape-hatch methods bypass that protection:</p><pre class="bg-slate-800 rounded-lg p-4 mb-4 overflow-x-auto text-sm"><code class="text-slate-100"># SQLAlchemy — VULNERABLE (raw SQL with format)
+session.execute(text(f"SELECT * FROM users WHERE name = '{name}'"))
+
+# SQLAlchemy — SAFE (bind parameter)
+session.execute(text("SELECT * FROM users WHERE name = :name"), {"name": name})</code></pre></section><section class="mb-10"><h2 class="text-xl text-sky-500 font-semibold mb-4">Verification checklist</h2><p class="leading-relaxed mb-4">Use this checklist to verify SQL injection coverage in your application codebase and pipeline:</p><div class="overflow-x-auto mb-4"><table class="min-w-full border-collapse border border-slate-700 text-sm"><thead><tr class="bg-slate-800"><th class="border border-slate-700 px-4 py-2 text-sky-400 font-semibold text-left">#</th><th class="border border-slate-700 px-4 py-2 text-sky-400 font-semibold text-left">Check</th><th class="border border-slate-700 px-4 py-2 text-sky-400 font-semibold text-left">Method</th></tr></thead><tbody><tr><td class="border border-slate-700 px-4 py-2">1</td><td class="border border-slate-700 px-4 py-2">All database queries use parameterized statements or ORM-safe APIs</td><td class="border border-slate-700 px-4 py-2">Code review — search for <code class="text-xs">execute()</code> calls with string concatenation operators</td></tr><tr><td class="border border-slate-700 px-4 py-2">2</td><td class="border border-slate-700 px-4 py-2">Raw SQL escape-hatch usage is audited and minimized</td><td class="border border-slate-700 px-4 py-2">SAST scan with taint tracking (Semgrep, CodeQL)</td></tr><tr><td class="border border-slate-700 px-4 py-2">3</td><td class="border border-slate-700 px-4 py-2">Stored procedures avoid dynamic SQL (EXEC/EXECUTE with concatenation)</td><td class="border border-slate-700 px-4 py-2">Database code review</td></tr><tr><td class="border border-slate-700 px-4 py-2">4</td><td class="border border-slate-700 px-4 py-2">Application connects with least-privilege database user (no DROP/ALTER/INSERT on production read paths)</td><td class="border border-slate-700 px-4 py-2">Database permission audit</td></tr><tr><td class="border border-slate-700 px-4 py-2">5</td><td class="border border-slate-700 px-4 py-2">Database error messages are never returned to the user</td><td class="border border-slate-700 px-4 py-2">Manual test — send <code class="text-xs">'</code> and inspect response</td></tr><tr><td class="border border-slate-700 px-4 py-2">6</td><td class="border border-slate-700 px-4 py-2">WAF or IDS rules cover SQL injection patterns</td><td class="border border-slate-700 px-4 py-2">Validate Suricata/modsec rules against test payloads</td></tr><tr><td class="border border-slate-700 px-4 py-2">7</td><td class="border border-slate-700 px-4 py-2">CI/CD has a SAST gate blocking SQLi patterns</td><td class="border border-slate-700 px-4 py-2">Verify CI pipeline fails on Semgrep/CodeQL SQLi findings</td></tr></tbody></table></div></section><section class="mb-10"><h2 class="text-xl text-sky-500 font-semibold mb-4">Key takeaways</h2><ul class="list-disc list-inside space-y-2 mb-4"><li>SQL injection is CWE-89 — the #1 weakness in the CWE Top 25 for multiple years running.</li><li>Every database query with user-controlled input must use parameterized queries (prepared statements). String concatenation or interpolation of user input is never safe.</li><li>Blind (boolean/time-based) and out-of-band SQLi let attackers exfiltrate data even when no query results are visible in the HTTP response.</li><li>ORMs are not a silver bullet — their raw SQL escape-hatch methods reintroduce injection if used unsafely.</li><li>Least-privilege database accounts limit what an attacker can do after injection: separate read-only accounts for queries, separate accounts for DDL.</li><li>SAST (Semgrep, CodeQL) plus network-layer IDS (Suricata/modsec) provides layered detection, but neither replaces parameterized queries at the application level.</li></ul></section><section class="mb-10 border-t border-slate-700 pt-8"><h2 class="text-xl text-sky-500 font-semibold mb-4">Kokkuvõte eesti keeles</h2><p class="leading-relaxed mb-4">SQL-injektsioon (CWE-89) on nõrkus, kus kasutaja sisend liidetakse otse SQL-päringusse, võimaldades ründajal muuta päringu loogikat. See on olnud CWE Top 25 nimekirjas esikohal juba aastaid. Levinuimad ründevormid on klassikaline (in-band), pime SQLi (boolean ja ajapõhine), out-of-band ja teist järku (second-order) SQLi.</p><p class="leading-relaxed mb-4">Kaitseks tuleb kasutada parametriseeritud päringuid (prepared statements) — SQL-päringu struktuur defineeritakse enne ja kasutaja sisend seotakse parameetrina, mis hoitakse käsustusest eraldi. ORM-teekide toor-SQL võimalused (raw SQL) tuleb auditeerida. Andmebaasiõigused peaksid olema minimaalsed: lugemispäringuteks eraldi kasutaja, skeemimuudatusteks teine.</p><p class="leading-relaxed mb-4">Semgrep ja CodeQL avastavad SQLi staatilisest analüüsist, Suricata tuvastab seda võrguliikluses. Kumbki ei asenda parametriseeritud päringuid — need on esmane kaitsekiht. Olulised reaalsed näited: Metabase CVE-2026-72898 (CVSS 10.0, CISA KEV), Heartland Payment Systems (134 miljonit kaardikirjet).</p></section><section class="mb-10 border-t border-slate-700 pt-8"><h2 class="text-xl text-sky-500 font-semibold mb-4">Sources</h2><ul class="list-disc list-inside space-y-2"><li><a class="text-sky-400 hover:text-sky-300" href="https://cwe.mitre.org/data/definitions/89.html" rel="noopener noreferrer">CWE-89 — Improper Neutralization of Special Elements used in an SQL Command</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html" rel="noopener noreferrer">OWASP SQL Injection Prevention Cheat Sheet</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://owasp.org/Top10/A03_2021-Injection/" rel="noopener noreferrer">OWASP Top 10:2021 — A03 Injection</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://docs.semgrep.dev/learn/vulnerabilities/sql-injection" rel="noopener noreferrer">Semgrep — SQL Injection learning module</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://nvd.nist.gov/vuln/detail/CVE-2026-72898" rel="noopener noreferrer">NVD — CVE-2026-72898 (Metabase SQLi, CVSS 10.0)</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog" rel="noopener noreferrer">CISA Known Exploited Vulnerabilities Catalog</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://portswigger.net/web-security/sql-injection" rel="noopener noreferrer">PortSwigger Web Security Academy — SQL injection</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://owasp.org/www-community/attacks/SQL_Injection" rel="noopener noreferrer">OWASP — SQL Injection attack description</a></li><li><a class="text-sky-400 hover:text-sky-300" href="https://owasp.org/www-community/attacks/Blind_SQL_Injection" rel="noopener noreferrer">OWASP — Blind SQL Injection</a></li><li><a class="text-sky-400 hover:text-sky-300" href="http://bobby-tables.com/" rel="noopener noreferrer">Bobby Tables — parameterized query examples in every language</a></li></ul></section></div></div></div></main><footer class="relative overflow-hidden" style="background-color: var(--color-void);"><div class="h-px" aria-hidden="true" style="background: linear-gradient(to right, transparent, var(--border-active-glow), transparent);"></div><div class="container-custom py-14"><div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4"><div><a href="/" class="font-mono text-sm tracking-tight text-white">ProksiAbel<span class="text-[var(--color-mono-dim)]"> // </span><span class="text-[var(--color-text-muted)]">SEC_OPS</span></a><p class="mt-4 text-sm leading-relaxed text-[var(--color-text-muted)]">Professionaalsed küberturbe konsultatsiooniteenused Eestist. Spetsialiseerunud MITM-rünnakute ennetamisele ja ettevõtte turvalahendustele.</p><div class="mt-5 space-y-2"><a href="mailto:info@proksiabel.ee" class="flex items-center gap-2 text-sm text-[var(--color-text-body)] transition-colors hover:text-[var(--color-mono-dim)]"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail h-4 w-4" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg>info@proksiabel.ee</a><a href="tel:+37256666981" class="flex items-center gap-2 text-sm text-[var(--color-text-body)] transition-colors hover:text-[var(--color-mono-dim)]"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone h-4 w-4" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg>+372 56666981</a><div class="flex items-start gap-2 text-sm text-[var(--color-text-muted)]"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin mt-0.5 h-4 w-4 flex-shrink-0" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg><span>Pargi tn 2 Sindi, Tori vald<br>Pärnumaa 86705<br>Estonia</span></div></div></div><div><h3 class="mb-4 font-mono text-xs uppercase tracking-wider text-[var(--color-text-muted)]">Teenused</h3><ul class="space-y-2.5"><li><a href="/#services" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">Teenused</a></li><li><a href="/#about" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">Kogemus</a></li><li><a href="/#contact" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">Kontakt</a></li></ul></div><div><h3 class="mb-4 font-mono text-xs uppercase tracking-wider text-[var(--color-text-muted)]">Ressursid</h3><ul class="space-y-2.5"><li><a href="/#contact" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">PGP Võti</a></li><li><a href="/guides/fido2-vs-passkeys" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">FIDO2 vs Passkeys</a></li><li><a href="/guides/ssrf-explained" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">SSRF Explained</a></li><li><a href="/guides/idor-explained" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">IDOR Explained</a></li><li><a href="/guides/xxe-explained" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">XXE Explained</a></li><li><a href="/guides/kubernetes-security-hardening" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">Kubernetes Hardening</a></li><li><a href="/guides/ssti-explained" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">SSTI Explained</a></li><li><a href="/guides/race-conditions-explained" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">Race Conditions Explained</a></li><li><a href="/guides/security-headers-checklist" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">Security Headers Checklist</a></li><li><a href="/guides/sqli-explained" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">SQL Injection Explained</a></li></ul></div><div><h3 class="mb-4 font-mono text-xs uppercase tracking-wider text-[var(--color-text-muted)]">Juriidika</h3><ul class="space-y-2.5"><li><a href="/privacy" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">Privaatsuspoliitika</a></li><li><a href="/terms" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">Kasutustingimused</a></li><li><a href="/cookies" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">Küpsiste poliitika</a></li><li><a href="/disclosure" class="text-sm text-[var(--color-text-body)] transition-colors hover:text-white">Uuringute Poliitika</a></li></ul></div></div><div class="mt-12 flex flex-col gap-3 border-t border-[var(--border-subtle)] pt-6 md:flex-row md:items-center md:justify-between"><p class="font-mono text-xs text-[var(--color-text-muted)]">© 2026 ProksiAbel OÜ · Reg. 17017826 · Pargi tn 2 Sindi, Tori vald Pärnumaa 86705</p><p class="font-mono text-[11px] uppercase tracking-wider text-[var(--color-text-muted)]">Krüpteeritud ja allkirjastatud</p></div></div></footer></div></div>
+  
+
+</body></html>

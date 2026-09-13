@@ -22,6 +22,7 @@ const XxeGuide = React.lazy(() => import('./components/XxeGuide'));
 const KubernetesHardeningGuide = React.lazy(() => import('./components/KubernetesHardeningGuide'));
 const SstiGuide = React.lazy(() => import('./components/SstiGuide'));
 const RaceConditionsGuide = React.lazy(() => import('./components/RaceConditionsGuide'));
+const SqliGuide = React.lazy(() => import('./components/SqliGuide'));
 const NotFound = React.lazy(() => import('./components/NotFound'));
 
 /**
@@ -311,6 +312,19 @@ function App() {
                     breadcrumbUrl='/guides/race-conditions-explained'
                   >
                     <RaceConditionsGuide />
+                  </LegalLayout>
+                }
+              />
+              <Route
+                path='/guides/sqli-explained'
+                element={
+                  <LegalLayout
+                    defaultTitle='SQL Injection Explained: Attack Examples & Prevention'
+                    defaultDescription='SQL injection (CWE-89) explained: how string concatenation lets attackers rewrite queries, classic and blind attack classes, real CVEs including Metabase CVE-2026-72898 (CVSS 10.0), a reproducible docker-compose lab, detection rules, and parameterized-query fix patterns.'
+                    breadcrumbTitle='SQL Injection Explained'
+                    breadcrumbUrl='/guides/sqli-explained'
+                  >
+                    <SqliGuide />
                   </LegalLayout>
                 }
               />
