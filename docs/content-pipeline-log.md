@@ -51,6 +51,6 @@ Gates: `npx tsc -b` pass · `npm run lint` pass (oxlint 0/0, biome 61 files clea
 
 **Deviations/notes:** Topic pick — the run's ordered preference puts Strategy 2 first and its CWE supply is unbounded, so the largest unclaimed cluster (Insecure Deserialization / CWE-502) was taken; Strategy 1's protocol comparison and Strategies 4/5/7/8 remain uncovered. Branch cut from `origin/main` (5c61284) with `pub/` rebuilt on it, so no race-conditions artifacts leaked in from still-open PRs. `translations.ts` untouched (shipped-guide precedent: `et` default would render a non-keyword meta title). Strategy 6 (CVE coverage) skipped this run: no active major CVE in the last 7 days suited to a solo post-mortem, and it is outranked by Strategy 2.
 
-## 2026-09-15 | PR #<next> | /guides/deserialization-explained | Insecure deserialization deep-dive with local lab (CWE-502) | Strategy 2 | insecure deserialization / CWE-502 / Java deserialization / PHP unserialize / Python pickle deserialization | gates passed, awaiting review
+## 2026-09-15 | PR #49 | /guides/deserialization-explained | Insecure deserialization deep-dive with local lab (CWE-502) | Strategy 2 | insecure deserialization / CWE-502 / Java deserialization / PHP unserialize / Python pickle deserialization | gates passed, awaiting review
 
 ## 2026-09-09 | PR #37 | /guides/race-conditions-explained | Race condition / TOCTOU deep-dive with local lab (CWE-362 / CWE-367) | Strategy 2 | race condition vulnerability / race condition attack / TOCTOU / limit overrun | gates passed, merged
