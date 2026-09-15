@@ -30,6 +30,7 @@ export default function Footer() {
         { label: 'Kubernetes Hardening', href: '/guides/kubernetes-security-hardening' },
         { label: 'SSTI Explained', href: '/guides/ssti-explained' },
         { label: 'Race Conditions Explained', href: '/guides/race-conditions-explained' },
+        { label: 'Insecure Deserialization Explained', href: '/guides/deserialization-explained' },
       ],
     },
     {

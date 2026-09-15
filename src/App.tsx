@@ -22,6 +22,7 @@ const XxeGuide = React.lazy(() => import('./components/XxeGuide'));
 const KubernetesHardeningGuide = React.lazy(() => import('./components/KubernetesHardeningGuide'));
 const SstiGuide = React.lazy(() => import('./components/SstiGuide'));
 const RaceConditionsGuide = React.lazy(() => import('./components/RaceConditionsGuide'));
+const DeserializationGuide = React.lazy(() => import('./components/DeserializationGuide'));
 const NotFound = React.lazy(() => import('./components/NotFound'));
 
 /**
@@ -311,6 +312,19 @@ function App() {
                     breadcrumbUrl='/guides/race-conditions-explained'
                   >
                     <RaceConditionsGuide />
+                  </LegalLayout>
+                }
+              />
+              <Route
+                path='/guides/deserialization-explained'
+                element={
+                  <LegalLayout
+                    defaultTitle='Insecure Deserialization Explained: Attack Examples & Prevention'
+                    defaultDescription='Insecure deserialization (CWE-502) explained: how gadget chains turn object reconstruction into RCE in Java, Python, PHP, and Node.js. Real CVEs, a reproducible docker-compose lab, detection rules, and per-language fix patterns.'
+                    breadcrumbTitle='Insecure Deserialization Explained'
+                    breadcrumbUrl='/guides/deserialization-explained'
+                  >
+                    <DeserializationGuide />
                   </LegalLayout>
                 }
               />
